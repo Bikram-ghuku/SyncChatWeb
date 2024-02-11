@@ -27,21 +27,13 @@ export default function Home() {
 	}, [])
 	return (
 		<main className="">
-			<div className='h-[6vh] w-[100vw] bg-[#1AA7EC]'></div>
-			<div id="bottomMain" className='h-[90vh] w-[100vw]'>
-				<div id="bottomLeft" className='h-[100%] w-[30vw] overflow-x-hidden overflow-y-auto border-solid border-r-2 border-[#C8C8C8] pr-1'>
-					{chats.map((chat, index) => {
-						return (
-							<div key={index} className='flex flex-row items-center justify-start h-[10vh] w-[100%] border-solid border-b-2 border-[#D8D8D8] mt-2 cursor-pointer' onClick={() => console.log(chat.id)}>
-								<div className='h-[10vh] w-[20vw] font-szie-10 pt-5'>{chat.members.length === 2 ? <FaUserLarge size={50}/> : <FaUsers size={50}/>}</div>
-							</div>
-						)
-					})}
+			<div className='h-[100vh] bg-[#202022] flex'>
+				<div className='w-[5vw] h-[100vh] flex-auto pr-1'></div>
+				<div className='w-[80vw] h-[98vh] bg-[#f9fafc] flex-auto mr-2 rounded-3xl mt-2 mb-2'></div>
+				<div className='w-[20vw] h-[100vh] flex-auto flex flex-col'>
+					<div className='w-[18vw] h-[49vh] bg-[#f9fafc] rounded-3xl mb-1 mt-2'></div>
+					<div className='w-[18vw] h-[48vh] bg-[#f9fafc] rounded-3xl mt-1'></div>
 				</div>
-				<div id="bottomRight"></div>
-			</div>
-			<div className='h-[4vh] w-[100vw] text-center border-t-2 border-solid border-[#C8C8C8]'>
-				Copyright Bikram Ghuku 2023. All rights reserved.
 			</div>
 		</main>
 	)
