@@ -1,10 +1,18 @@
 'use client'
 
+import ChatLayout from '@/components/ChatLayout'
 import Header from '@/components/Header'
-import Image from 'next/image'
+import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
 
-export default function Home() {
+type Props = {
+	params: {
+		chatId: string
+	}
+}
+
+export default function ChatPage({ params: { chatId } }: Props) {
+	console.log(chatId)
 	interface Chat {
 		id: string
 		members: string[]
@@ -24,8 +32,9 @@ export default function Home() {
 			})
 	}, [])
 	return (
-		<main className="dark:bg-[#2f3142]">
+		<main className="dark:bg-[#2f3142] flex flex-col h-screen">
 			<Header />
+			<ChatLayout />
 		</main>
 	)
 }
