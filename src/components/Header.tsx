@@ -17,7 +17,7 @@ function Header() {
 					<ChatsButton />
 					<GetChats />
 					<DarkToggler />
-					<UserButton />
+					<UserButton url='https://github.com/shadcn.png'/>
 				</div>
 			</nav>
 		</header>
