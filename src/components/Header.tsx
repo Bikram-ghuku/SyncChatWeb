@@ -3,7 +3,7 @@ import React from 'react'
 import DarkToggler from './DarkToggler'
 import UserButton from './UserButton'
 import ChatsButton from './ChatsButton'
-import GetChats from './GetChats'
+import GetChats from '@/components/GetChats'
 import Image from 'next/image'
 
 function Header() {
