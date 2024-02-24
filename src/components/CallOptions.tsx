@@ -13,7 +13,7 @@ function CallOptions() {
 			<Button variant="ghost" size="icon">
 				<Video size="1.25rem" />
 			</Button>
-			<Button>
+			<Button variant="ghost" size="icon">
 				<MoreVertical size="1.25rem" />
 			</Button>
 		</div>
