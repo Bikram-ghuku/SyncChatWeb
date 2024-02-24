@@ -11,12 +11,12 @@ import {
 } from '@/components/ui/dropdown-menu'
 import UserAvatar from './UserAvatar'
 
-function UserButton({url} : {url: string}) {
+function UserButton({ url }: { url: string }) {
 	return (
 		<div>
 			<DropdownMenu>
 				<DropdownMenuTrigger>
-					<UserAvatar url={url}/>
+					<UserAvatar url={url} />
 				</DropdownMenuTrigger>
 				<DropdownMenuContent>
 					<DropdownMenuLabel>My Account</DropdownMenuLabel>
