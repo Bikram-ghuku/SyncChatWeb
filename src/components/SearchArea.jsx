@@ -7,8 +7,8 @@ import { Search } from 'lucide-react'
 
 function SearchArea() {
 	return (
-		<div className="flex flex-row w-full max-w-sm items-center space-x-10 pr-10">
-			<Input type="email" placeholder="Email" />
+		<div className="flex flex-row w-full max-w-sm items-center space-x-10 pr-5">
+			<Input type="email" placeholder="Search for contact" />
 		</div>
 	)
 }
