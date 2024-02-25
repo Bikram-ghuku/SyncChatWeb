@@ -10,6 +10,18 @@ import {
 	DialogTrigger,
 } from '@/components/ui/dialog'
 
+import {
+	Select,
+	SelectContent,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
+} from '@/components/ui/select'
+
+
+import { Input } from '@/components/ui/input'
+import { Button } from './ui/button'
+
 function TranslateDialog({ child }: { child: React.ReactNode }) {
 	return (
 		<div>
@@ -19,8 +31,18 @@ function TranslateDialog({ child }: { child: React.ReactNode }) {
 					<DialogHeader>
 						<DialogTitle>Select Language to translate to</DialogTitle>
 						<DialogDescription>
-							This action cannot be undone. This will permanently delete your
-							account and remove your data from our servers.
+							<Select>
+								<SelectTrigger className="w-[180px]">
+									<SelectValue placeholder="Select Your language" />
+								</SelectTrigger>
+								<SelectContent>
+									<SelectItem value="en">English</SelectItem>
+									<SelectItem value="gb">German</SelectItem>
+									<SelectItem value="fr">French</SelectItem>
+									<SelectItem value="hi">Hindi</SelectItem>
+								</SelectContent>
+							</Select>
+							<Button variant='default'>Translate</Button>
 						</DialogDescription>
 					</DialogHeader>
 				</DialogContent>
@@ -40,8 +62,8 @@ function EncryptDialog({ child }: { child: React.ReactNode }) {
 							Enter the encryption key to encrypt your message
 						</DialogTitle>
 						<DialogDescription>
-							This action cannot be undone. This will permanently delete your
-							account and remove your data from our servers.
+							<Input type="text" placeholder="Enter your encryption Key" />
+							<Button variant='default'>Encrypt</Button>
 						</DialogDescription>
 					</DialogHeader>
 				</DialogContent>
@@ -61,8 +83,8 @@ function DecryptDialog({ child }: { child: React.ReactNode }) {
 							Enter the decryption key to decrypt the messages
 						</DialogTitle>
 						<DialogDescription>
-							This action cannot be undone. This will permanently delete your
-							account and remove your data from our servers.
+							<Input type="text" placeholder="Enter your Decryption Key" />
+							<Button variant='default'>Decrypt</Button>
 						</DialogDescription>
 					</DialogHeader>
 				</DialogContent>
