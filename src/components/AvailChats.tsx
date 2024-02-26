@@ -8,8 +8,8 @@ function AvailChats() {
 
 	return (
 		<div className="overflow-y-scroll h-[98%] w-full">
-			{userData?.map((Udata: user) => (
-				<AvailChatElement name={Udata.name} url={Udata.url} lastMsg={Udata.lastMsg} lastTime={Udata.lastTime} />
+			{userData?.map((Udata: user, index) => (
+				<AvailChatElement name={Udata.name} url={Udata.url} lastMsg={Udata.lastMsg} lastTime={Udata.lastTime} id={index} />
 			))}
 		</div>
 	)
