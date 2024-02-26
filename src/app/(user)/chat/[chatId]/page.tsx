@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react'
 
 type Props = {
 	params: {
-		chatId: string
+		chatId: number
 	}
 }
 
@@ -33,7 +33,7 @@ export default function ChatPage({ params: { chatId } }: Props) {
 	return (
 		<main className="dark:bg-[#2f3142] flex flex-col h-screen bg-[#A0A0A0]">
 			<Header />
-			<ChatLayout />
+			<ChatLayout chatId={chatId} />
 		</main>
 	)
 }

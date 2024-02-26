@@ -6,8 +6,9 @@ import InputArea from '@/components/InputArea'
 import UserAvatar from '@/components/UserAvatar'
 import CallOptions from '@/components/CallOptions'
 import AvailChats from '@/components/AvailChats'
+import userData from '@/components/dataFinal.json'
 
-function ChatLayout() {
+function ChatLayout({ chatId } : {chatId: number}) {
 	return (
 		<div className="flex flex-1">
 			<div className="flex flex-col w-1/4 dark:bg-gray-900 bg-[#ffffff] border-r-2 border-[#5E5E5E33] dark:border-[#303030]">
@@ -25,7 +26,10 @@ function ChatLayout() {
 			<div className="flex w-3/4 flex-col">
 				<div className="flex dark:bg-gray-900 w-full bg-[#ffffff] h-16 border-b-2 border-[#5E5E5E33] dark:border-[#303030]">
 					<div className="flex justify-start pl-10 items-center h-full">
-						<UserAvatar url="" />
+						<UserAvatar url={userData[chatId]['url']} />
+					</div>
+					<div className='w-full h-full pl-4 flex items-center font-black'>
+						{userData[chatId]['name']}
 					</div>
 					<div className="flex justify-end pl-10 items-center h-full w-full pr-20">
 						<CallOptions />
