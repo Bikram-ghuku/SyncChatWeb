@@ -5,6 +5,7 @@ import SearchArea from '@/components/SearchArea'
 import InputArea from '@/components/InputArea'
 import UserAvatar from '@/components/UserAvatar'
 import CallOptions from '@/components/CallOptions'
+import AvailChats from '@/components/AvailChats'
 
 function ChatLayout() {
 	return (
@@ -14,7 +15,9 @@ function ChatLayout() {
 					{/* Seatch and app name*/}
 					<SearchArea />
 				</div>
-				<div className="flex h-4/5 w-full">{/* Contacts and names*/}</div>
+				<div className="flex h-4/5 w-full">
+					<AvailChats />
+				</div>
 			</div>
 			<div className="flex w-3/4 flex-col">
 				<div className="flex dark:bg-gray-900 w-full bg-[#ffffff] h-16 border-b-2 border-[#5E5E5E33] dark:border-[#303030]">
