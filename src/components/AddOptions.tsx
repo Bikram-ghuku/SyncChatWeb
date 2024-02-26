@@ -18,7 +18,6 @@ import {
 	SelectValue,
 } from '@/components/ui/select'
 
-
 import { Input } from '@/components/ui/input'
 import { Button } from './ui/button'
 
@@ -42,7 +41,7 @@ function TranslateDialog({ child }: { child: React.ReactNode }) {
 									<SelectItem value="hi">Hindi</SelectItem>
 								</SelectContent>
 							</Select>
-							<Button variant='default'>Translate</Button>
+							<Button variant="default">Translate</Button>
 						</DialogDescription>
 					</DialogHeader>
 				</DialogContent>
@@ -63,7 +62,7 @@ function EncryptDialog({ child }: { child: React.ReactNode }) {
 						</DialogTitle>
 						<DialogDescription>
 							<Input type="text" placeholder="Enter your encryption Key" />
-							<Button variant='default'>Encrypt</Button>
+							<Button variant="default">Encrypt</Button>
 						</DialogDescription>
 					</DialogHeader>
 				</DialogContent>
@@ -84,7 +83,7 @@ function DecryptDialog({ child }: { child: React.ReactNode }) {
 						</DialogTitle>
 						<DialogDescription>
 							<Input type="text" placeholder="Enter your Decryption Key" />
-							<Button variant='default'>Decrypt</Button>
+							<Button variant="default">Decrypt</Button>
 						</DialogDescription>
 					</DialogHeader>
 				</DialogContent>
