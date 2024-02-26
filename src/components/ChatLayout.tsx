@@ -15,8 +15,11 @@ function ChatLayout() {
 					{/* Seatch and app name*/}
 					<SearchArea />
 				</div>
-				<div className="flex h-[96%] w-full h-max-[96%] mt-10">
+				<div className="flex h-[80vh] w-full h-max-[96%] mt-10 flex-col">
 					<AvailChats />
+					<div className="w-full flex justify-center mt-6">
+						&#169; 2024 under Bikram Ghuku
+					</div>
 				</div>
 			</div>
 			<div className="flex w-3/4 flex-col">
