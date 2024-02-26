@@ -2,7 +2,7 @@
 import React from 'react'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 
-type user = { name: string; url: string }
+type user = { name: string; url: string, lastMsg: string, lastTime: string }
 
 function AvailChatElement(userName: user) {
 	return (
@@ -13,9 +13,9 @@ function AvailChatElement(userName: user) {
 			</Avatar>
 			<div className="mt-8 ml-4 w-1/2">
 				<div className="font-black">{userName.name}</div>
-				<div className="pt-2 font-extralight">Hey how's it going?</div>
+				<div className="pt-2 font-extralight">{userName.lastMsg}</div>
 			</div>
-			<div className="mt-8 flex justify-end w-1/4 mr-4">10:46</div>
+			<div className="mt-8 flex justify-end w-1/4 mr-4">{userName.lastTime}</div>
 		</div>
 	)
 }
