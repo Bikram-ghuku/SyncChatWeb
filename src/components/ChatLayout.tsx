@@ -11,7 +11,7 @@ import userData from '@/components/dataFinal.json'
 function ChatLayout({ chatId }: { chatId: number }) {
 	return (
 		<div className="flex flex-1">
-			<div className="flex flex-col w-1/4 dark:bg-gray-900 bg-[#ffffff] border-r-2 border-[#5E5E5E33] dark:border-[#303030]">
+			<div className="lg:flex flex-col lg:w-1/4 dark:bg-gray-900 bg-[#ffffff] border-r-2 border-[#5E5E5E33] dark:border-[#303030] hidden">
 				<div className="flex h-[4%] w-full flex-col pt-5 pl-5 pr-2">
 					{/* Seatch and app name*/}
 					<SearchArea />
@@ -23,15 +23,15 @@ function ChatLayout({ chatId }: { chatId: number }) {
 					</div>
 				</div>
 			</div>
-			<div className="flex w-3/4 flex-col">
+			<div className="flex lg:w-3/4 flex-col w-full">
 				<div className="flex dark:bg-gray-900 w-full bg-[#ffffff] h-16 border-b-2 border-[#5E5E5E33] dark:border-[#303030]">
 					<div className="flex justify-start pl-10 items-center h-full">
 						<UserAvatar url={userData[chatId]['url']} />
 					</div>
-					<div className="w-full h-full pl-4 flex items-center font-extrabold">
+					<div className="w-full h-full pl-4 flex items-center lg:font-extrabold font-semibold">
 						{userData[chatId]['name']}
 					</div>
-					<div className="flex justify-end pl-10 items-center h-full w-full pr-20">
+					<div className="flex justify-end pl-10 items-center h-full w-full lg:pr-20">
 						<CallOptions />
 					</div>
 				</div>
