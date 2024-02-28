@@ -3,7 +3,7 @@ import React from 'react'
 import userData from '@/components/dataFinal.json'
 import AvailChatElement from '@/components/AvailChatElement'
 
-function AvailChats({ active }: { active: number }) {
+function AvailChats({ active }: { active?: number }) {
 	type user = { name: string; url: string; lastMsg: string; lastTime: string }
 
 	return (
