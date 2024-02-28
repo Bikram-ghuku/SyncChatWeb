@@ -8,7 +8,7 @@ import CallOptions from '@/components/CallOptions'
 import AvailChats from '@/components/AvailChats'
 import userData from '@/components/dataFinal.json'
 
-function ChatLayout({ chatId } : {chatId: number}) {
+function ChatLayout({ chatId }: { chatId: number }) {
 	return (
 		<div className="flex flex-1">
 			<div className="flex flex-col w-1/4 dark:bg-gray-900 bg-[#ffffff] border-r-2 border-[#5E5E5E33] dark:border-[#303030]">
@@ -17,7 +17,7 @@ function ChatLayout({ chatId } : {chatId: number}) {
 					<SearchArea />
 				</div>
 				<div className="flex h-[80vh] w-full h-max-[96%] mt-10 flex-col">
-					<AvailChats active={chatId}/>
+					<AvailChats active={chatId} />
 					<div className="w-full flex justify-center mt-6">
 						&#169; 2024 under Bikram Ghuku
 					</div>
@@ -28,7 +28,7 @@ function ChatLayout({ chatId } : {chatId: number}) {
 					<div className="flex justify-start pl-10 items-center h-full">
 						<UserAvatar url={userData[chatId]['url']} />
 					</div>
-					<div className='w-full h-full pl-4 flex items-center font-extrabold'>
+					<div className="w-full h-full pl-4 flex items-center font-extrabold">
 						{userData[chatId]['name']}
 					</div>
 					<div className="flex justify-end pl-10 items-center h-full w-full pr-20">
