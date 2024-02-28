@@ -3,12 +3,12 @@ import React from 'react'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import Link from 'next/link';
 
-type user = { name: string; url: string, lastMsg: string, lastTime: string, id:number }
+type user = { name: string; url: string, lastMsg: string, lastTime: string, id:number, active : boolean }
 
 function AvailChatElement(userName: user) {
 	return (
 		<Link href={"../chat/"+userName.id}>
-		<div className="h-[7rem] flex mt-5 hover:bg-[#00a3ff4f]">
+		<div className={"h-[7rem] flex mt-5 hover:bg-[#00a3ff4f] " + (userName.active ? "bg-[#00a3ff4f]" : "")}>
 			<Avatar className="h-[5rem] w-[5rem] mt-5">
 				<AvatarFallback>C</AvatarFallback>
 				<AvatarImage src={userName.url} />
