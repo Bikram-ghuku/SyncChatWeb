@@ -17,7 +17,7 @@ function AvailChatElement(userName: user) {
 		<Link href={'../chat/' + userName.id}>
 			<div
 				className={
-					'h-[7rem] flex mt-5 hover:bg-[#00a3ff4f] ' +
+					'h-[7rem] flex hover:bg-[#00a3ff4f] ' +
 					(userName.active ? 'bg-[#00a3ff4f]' : '')
 				}
 			>
