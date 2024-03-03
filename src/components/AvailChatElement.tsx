@@ -6,8 +6,8 @@ import Link from 'next/link'
 type user = {
 	name: string
 	url: string
-	lastMsg: string
-	lastTime: string
+	lastMsg?: string
+	lastTime?: string
 	id: number
 	active: boolean
 }
