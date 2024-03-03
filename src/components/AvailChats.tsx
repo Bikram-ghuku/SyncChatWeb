@@ -8,7 +8,7 @@ function AvailChats({ active }: { active?: number }) {
 	type user = { name: string; url: string; lastMsg?: string; lastTime?: string }
 
 	return (
-		<div className="overflow-y-scroll h-[98%] w-full">
+		<div className="overflow-y-scroll h-[98%] w-full [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
 			{userData.length === 0 && (
 				<div className="pl-3 text-center pr-4">
 					<div>

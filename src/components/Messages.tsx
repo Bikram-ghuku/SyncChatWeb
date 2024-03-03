@@ -23,7 +23,7 @@ function Messages({ chatId }: { chatId: userData }) {
 		},
 	]
 	return (
-		<div className="w-full h-full">
+		<div className="w-full overflow-x-hidden overflow-y-scroll h-[72vh] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
 			{message?.map((value, index) => (
 				<div className="max-h-10 mb-10">
                     
