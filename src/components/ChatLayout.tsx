@@ -7,6 +7,7 @@ import UserAvatar from '@/components/UserAvatar'
 import CallOptions from '@/components/CallOptions'
 import AvailChats from '@/components/AvailChats'
 import userData from '@/components/dataFinal.json'
+import Messages from '@/components/Messages'
 
 function ChatLayout({ chatId }: { chatId: number }) {
 	return (
@@ -35,7 +36,9 @@ function ChatLayout({ chatId }: { chatId: number }) {
 						<CallOptions />
 					</div>
 				</div>
-				<div className="flex h-full w-full"></div>
+				<div className="flex h-full w-full">
+					<Messages chatId={String(chatId)} />
+				</div>
 				<div className="flex dark:bg-gray-900 w-full bg-[#ffffff] h-16 border-t-2 border-[#5E5E5E33] dark:border-[#303030]">
 					<InputArea />
 				</div>

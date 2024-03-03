@@ -10,8 +10,11 @@ function AvailChats({ active }: { active?: number }) {
 	return (
 		<div className="overflow-y-scroll h-[98%] w-full">
 			{userData.length === 0 && (
-				<div className='pl-3 text-center pr-4'>
-					<div>Start by adding a new person to chat with by clicking the add chat option in the header</div>
+				<div className="pl-3 text-center pr-4">
+					<div>
+						Start by adding a new person to chat with by clicking the add chat
+						option in the header
+					</div>
 				</div>
 			)}
 			{userData?.map((Udata: user, index) => (
