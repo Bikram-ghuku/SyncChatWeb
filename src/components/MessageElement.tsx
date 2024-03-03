@@ -12,7 +12,7 @@ function MessageElement({ messageInfo }: { messageInfo: message }) {
                         <div>User</div>
                         <div>{messageInfo.timeStamp}</div>
                     </div>
-                    <div className="bg-[#00a3ff] rounded-bl-lg rounded-tl-lg rounded-br-lg w-fit text-end p-2">
+                    <div className="bg-[#00a3ff] rounded-bl-lg rounded-tl-lg rounded-br-lg w-fit text-end p-2 text-white">
                         {messageInfo.message}
                     </div>
                 </div>
@@ -35,7 +35,7 @@ function MessageElement({ messageInfo }: { messageInfo: message }) {
                             {messageInfo.timeStamp}
                         </div>
                     </div>
-                    <div className="bg-[#292929] rounded-bl-lg rounded-tr-lg rounded-br-lg w-fit text-end flex-1 p-2">
+                    <div className="dark:bg-[#292929] rounded-bl-lg rounded-tr-lg rounded-br-lg w-fit text-end flex-1 p-2 bg-white">
                         {messageInfo.message}
                     </div>
                 </div>
