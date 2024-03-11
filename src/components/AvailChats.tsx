@@ -1,11 +1,24 @@
 'use client'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import userData from '@/components/dataFinal.json'
 import AvailChatElement from '@/components/AvailChatElement'
 import { MessageSquarePlus } from 'lucide-react'
 
 function AvailChats({ active }: { active?: number }) {
 	type user = { name: string; url: string; lastMsg?: string; lastTime?: string }
+	const [userData, setUserData] = useState<user[]>([]);
+
+	useEffect(() => {
+		fetch(process.env.NEXT_PUBLIC_API_URL+'/channels/channels', {
+			method: 'GET',
+			headers:{
+				'Authorization' : `Bearer ${localStorage.getItem("jwt")}`
+			}
+		}).then(data => data.json()).then((data) => {
+			if(data.length !== 0) setUserData(data)
+			console.log(data)
+		})
+	}, [])
 
 	return (
 		<div className="overflow-y-scroll h-[98%] w-full [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
