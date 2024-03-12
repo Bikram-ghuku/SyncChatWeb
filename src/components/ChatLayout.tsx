@@ -40,7 +40,7 @@ function ChatLayout({ chatId }: { chatId: number }) {
 					<Messages chatId={userData[chatId]} />
 				</div>
 				<div className="flex dark:bg-gray-900 w-full bg-[#ffffff] h-16 border-t-2 border-[#5E5E5E33] dark:border-[#303030]">
-					<InputArea />
+					<InputArea chatId={chatId.toString()}/>
 				</div>
 			</div>
 		</div>
