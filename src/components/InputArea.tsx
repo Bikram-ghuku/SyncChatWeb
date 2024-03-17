@@ -5,24 +5,35 @@ import { Button } from '@/components/ui/button'
 import { Smile, Mic, Paperclip, SendHorizonal } from 'lucide-react'
 import { socketContext } from '@/provider/socketProvider'
 
-function InputArea({chatId}:{chatId: string}) {
-	const [text, setText] = useState<null | string>(null);
-	const socket = useContext(socketContext);
-	const textAreaRef = useRef<null | HTMLInputElement>(null);
+function InputArea({ chatId }: { chatId: string }) {
+	const [text, setText] = useState<null | string>(null)
+	const socket = useContext(socketContext)
+	const textAreaRef = useRef<null | HTMLInputElement>(null)
 
 	const sendMsg = () => {
-		console.log("Sending data...")
-		const currTime = new Date().toLocaleString();
-		const data = {jwt: localStorage.getItem("jwt"), msg: text, chatId: chatId, timeStamp: currTime}
+		console.log('Sending data...')
+		const currTime = new Date().toLocaleString()
+		const data = {
+			jwt: localStorage.getItem('jwt'),
+			msg: text,
+			chatId: chatId,
+			timeStamp: currTime,
+		}
 		socket.emit('message', data)
-		textAreaRef.current ? textAreaRef.current.value = "" : null
+		textAreaRef.current ? (textAreaRef.current.value = '') : null
 	}
 	return (
 		<div className="flex h-full items-center md:pl-10 w-full">
 			<Button variant="ghost" size="icon" className="mr-2">
 				<Smile />
 			</Button>
-			<Input type="text" placeholder="Type Message..." className="" onChange={(e) => setText(e.target.value)} ref={textAreaRef}/>
+			<Input
+				type="text"
+				placeholder="Type Message..."
+				className=""
+				onChange={e => setText(e.target.value)}
+				ref={textAreaRef}
+			/>
 			<Button variant="ghost" size="icon" className="md:ml-5 md:mr-2 ml-1">
 				<Mic />
 			</Button>

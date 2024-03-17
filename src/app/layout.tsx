@@ -20,14 +20,14 @@ export default function RootLayout({
 		<html lang="en">
 			<body className={inter.className}>
 				<SocketProvider>
-				<ThemeProvider
-					attribute="class"
-					defaultTheme="system"
-					enableSystem
-					disableTransitionOnChange
-				>
-					{children}
-				</ThemeProvider>
+					<ThemeProvider
+						attribute="class"
+						defaultTheme="system"
+						enableSystem
+						disableTransitionOnChange
+					>
+						{children}
+					</ThemeProvider>
 				</SocketProvider>
 			</body>
 		</html>

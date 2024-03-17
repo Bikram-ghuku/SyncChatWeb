@@ -1,21 +1,34 @@
 'use client'
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import MessageElement from '@/components/MessageElement'
-import { socketContext } from '@/provider/socketProvider';
+import { socketContext } from '@/provider/socketProvider'
 
 type userData = { name: string; url: string }
-type msgData = {id: string, message: string, self: boolean, timeStamp: string, user: string, url: string}
+type msgData = {
+	id: string
+	message: string
+	self: boolean
+	timeStamp: string
+	user: string
+	url: string
+}
 function Messages({ chatId }: { chatId: userData }) {
-    const socket = useContext(socketContext);
+	const socket = useContext(socketContext)
 	const messaChaRef = useRef<null | HTMLDivElement>(null)
-    var initMsg: msgData[] = []
-    const [message, setMessage] = useState<msgData[]>(initMsg)
-	
+	var initMsg: msgData[] = []
+	const [message, setMessage] = useState<msgData[]>(initMsg)
 
-    socket.on('message', (data) => {
-        var newMsg: msgData = {id: "03", message: data.msg, self: data.jwt == localStorage.getItem("jwt"), url: chatId.url, user: chatId.name, timeStamp: data.timeStamp};
-        setMessage([...message, newMsg])
-    })
+	socket.on('message', data => {
+		var newMsg: msgData = {
+			id: '03',
+			message: data.msg,
+			self: data.jwt == localStorage.getItem('jwt'),
+			url: chatId.url,
+			user: chatId.name,
+			timeStamp: data.timeStamp,
+		}
+		setMessage([...message, newMsg])
+	})
 	useEffect(() => {
 		messaChaRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' })
 	}, [])

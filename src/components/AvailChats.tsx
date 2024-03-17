@@ -6,18 +6,20 @@ import { MessageSquarePlus } from 'lucide-react'
 
 function AvailChats({ active }: { active?: number }) {
 	type user = { name: string; url: string; lastMsg?: string; lastTime?: string }
-	const [userData, setUserData] = useState<user[]>([]);
+	const [userData, setUserData] = useState<user[]>([])
 
 	useEffect(() => {
-		fetch(process.env.NEXT_PUBLIC_API_URL+'/channels/channels', {
+		fetch(process.env.NEXT_PUBLIC_API_URL + '/channels/channels', {
 			method: 'GET',
-			headers:{
-				'Authorization' : `Bearer ${localStorage.getItem("jwt")}`
-			}
-		}).then(data => data.json()).then((data) => {
-			if(data.length !== 0) setUserData(data)
-			console.log(data)
+			headers: {
+				Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+			},
 		})
+			.then(data => data.json())
+			.then(data => {
+				if (data.length !== 0) setUserData(data)
+				console.log(data)
+			})
 	}, [])
 
 	return (
