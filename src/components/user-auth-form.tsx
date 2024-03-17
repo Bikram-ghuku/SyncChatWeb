@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { useSearchParams } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { cn } from '@/lib/utils'
 import { buttonVariants } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -16,6 +16,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
     const [email, setEmail] = useState<string>("");
     const [pswd, setPswd] = useState<string>("");
 	const searchParams = useSearchParams()
+    const router = useRouter();
 	const handleSubmit = () => {
         setIsLoading(true);
         fetch(process.env.NEXT_PUBLIC_API_URL+"/users/login", {
@@ -30,7 +31,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
                     setIsLoading(false)
                     localStorage.setItem('jwt', data.token)
                     localStorage.setItem('userdata', JSON.stringify(data))
-
+                    router.push('/chat')
                 })
             }else{
                 setIsLoading(false)
