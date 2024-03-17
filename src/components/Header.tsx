@@ -5,6 +5,9 @@ import UserButton from './UserButton'
 import ChatsButton from './ChatsButton'
 import GetChats from '@/components/GetChats'
 import Image from 'next/image'
+import { Button } from './ui/button'
+import { redirect } from 'next/navigation'
+import Link from 'next/link'
 
 function Header() {
 	return (
@@ -17,7 +20,7 @@ function Header() {
 					<ChatsButton />
 					<GetChats />
 					<DarkToggler />
-					<UserButton url="https://github.com/shadcn.png" />
+					{localStorage.getItem('jwt') || ''  ? <UserButton url="https://github.com/shadcn.png" /> : <Link href='/login'><Button variant='ghost'>Login</Button></Link>}
 				</div>
 			</nav>
 		</header>
