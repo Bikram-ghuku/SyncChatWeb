@@ -1,5 +1,5 @@
 'use client'
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import React, { useContext, useRef, useState } from 'react'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Smile, Mic, Paperclip, SendHorizonal } from 'lucide-react'
@@ -16,7 +16,8 @@ function InputArea({chatId}:{chatId: string}) {
 
 	const sendMsg = () => {
 		console.log("Sending data...")
-		const data = {jwt: localStorage.getItem("jwt"), msg: text, chatId: chatId}
+		const currTime = new Date().toLocaleString();
+		const data = {jwt: localStorage.getItem("jwt"), msg: text, chatId: chatId, timeStamp: currTime}
 		socket.emit('message', data)
 		textAreaRef.current ? textAreaRef.current.value = "" : null
 	}
