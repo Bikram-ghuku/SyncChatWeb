@@ -13,7 +13,7 @@ function Messages({ chatId }: { chatId: userData }) {
 	
 
     socket.on('message', (data) => {
-        var newMsg: msgData = {id: "03", message: data.msg, self: data.token == localStorage.getItem("jwt"), url: chatId.url, user: chatId.name, timeStamp: data.timeStamp};
+        var newMsg: msgData = {id: "03", message: data.msg, self: data.jwt == localStorage.getItem("jwt"), url: chatId.url, user: chatId.name, timeStamp: data.timeStamp};
         setMessage([...message, newMsg])
     })
 	useEffect(() => {

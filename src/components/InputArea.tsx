@@ -10,10 +10,6 @@ function InputArea({chatId}:{chatId: string}) {
 	const socket = useContext(socketContext);
 	const textAreaRef = useRef<null | HTMLInputElement>(null);
 
-	socket.on('message', (data)=>{
-		console.log(data)
-	})
-
 	const sendMsg = () => {
 		console.log("Sending data...")
 		const currTime = new Date().toLocaleString();
