@@ -7,8 +7,8 @@ import { Command, ChevronLeft } from 'lucide-react'
 import { UserAuthForm } from '@/components/user-auth-form'
 
 export const metadata: Metadata = {
-	title: 'Login',
-	description: 'Login to your account',
+	title: 'Register',
+	description: 'Register your account',
 }
 
 export default function RegisterPage() {
@@ -36,7 +36,7 @@ export default function RegisterPage() {
 						Enter your email to create your account
 					</p>
 				</div>
-				<UserAuthForm className="h-[15vh]" variant="register" />
+				<UserAuthForm className="h-[20vh]" variant="register" />
 				<p className="px-8 text-center text-sm text-muted-foreground">
 					<Link
 						href="/login"

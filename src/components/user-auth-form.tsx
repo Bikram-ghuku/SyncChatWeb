@@ -20,7 +20,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
 	const [name, setName] = useState<string>('')
 	const searchParams = useSearchParams()
 	const router = useRouter()
-	const handleSubmit = () => {
+	const handleSubmit = async () => {
 		setIsLoading(true)
 		fetch(process.env.NEXT_PUBLIC_API_URL + '/users/' + props.variant, {
 			method: 'POST',
@@ -28,18 +28,19 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
 				'Content-Type': 'application/json',
 			},
 			body: JSON.stringify({ email: email, pswd: pswd, name: name }),
-		}).then(data => {
+		}).then(async data => {
 			if (data.ok) {
 				data.json().then(data => {
 					setIsLoading(false)
 					localStorage.setItem('jwt', data.token)
 					localStorage.setItem('userdata', JSON.stringify(data))
-					router.push('/chat')
+					router.push(props.variant == 'login' ? '/chat' : '/login') 
 				})
 			} else {
 				setIsLoading(false)
+				console.log(await data.json())
 				toast({
-					title: 'Incorrect email or password',
+					title: data.statusText,
 					description: 'Try entering email and password correctly',
 				})
 			}
