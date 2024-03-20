@@ -20,7 +20,7 @@ function Header() {
 					<ChatsButton />
 					<GetChats />
 					<DarkToggler />
-					{localStorage.getItem('jwt') || ''  ? <UserButton url="https://github.com/shadcn.png" /> : <Link href='/login'><Button variant='ghost'>Login</Button></Link>}
+					{typeof window !== 'undefined' ? (localStorage.getItem("jwt") || ''  ? <UserButton url="https://github.com/shadcn.png" /> : <Link href='/login'><Button variant='ghost'>Login</Button></Link>):""}
 				</div>
 			</nav>
 		</header>
