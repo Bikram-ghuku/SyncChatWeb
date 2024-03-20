@@ -9,7 +9,7 @@ function AvailChats({ active }: { active?: number }) {
 	const [userData, setUserData] = useState<user[]>([])
 
 	useEffect(() => {
-		if(localStorage.getItem('jwt')){
+		if (localStorage.getItem('jwt')) {
 			fetch(process.env.NEXT_PUBLIC_API_URL + '/channels/channels', {
 				method: 'GET',
 				headers: {
@@ -21,7 +21,7 @@ function AvailChats({ active }: { active?: number }) {
 					if (data.length !== 0) setUserData(data)
 					console.log(data)
 				})
-			}
+		}
 	}, [])
 
 	return (
