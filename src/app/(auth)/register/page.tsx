@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 	description: 'Login to your account',
 }
 
-export default function LoginPage() {
+export default function RegisterPage() {
 	return (
 		<div className="container flex h-screen w-screen flex-col items-center justify-center">
 			<Link
@@ -30,19 +30,19 @@ export default function LoginPage() {
 				<div className="flex flex-col space-y-2 text-center">
 					<Command className="mx-auto h-6 w-6" />
 					<h1 className="text-2xl font-semibold tracking-tight">
-						Welcome back
+						Create account
 					</h1>
 					<p className="text-sm text-muted-foreground">
-						Enter your email to sign in to your account
+						Enter your email to create your account
 					</p>
 				</div>
-				<UserAuthForm className='h-[15vh]' variant="login"/>
+				<UserAuthForm className='h-[15vh]' variant='register'/>
 				<p className="px-8 text-center text-sm text-muted-foreground">
 					<Link
-						href="/register"
+						href="/login"
 						className="hover:text-brand underline underline-offset-4"
 					>
-						Don&apos;t have an account? Sign Up
+						Already have an account? Sign In
 					</Link>
 				</p>
 			</div>
