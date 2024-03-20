@@ -17,7 +17,7 @@ function ChatLayout({ chatId }: { chatId: number }) {
 					{/* Seatch and app name*/}
 					<SearchArea />
 				</div>
-				<div className="flex h-[80vh] w-full h-max-[96%] mt-10 flex-col">
+				<div className="flex h-full w-full h-max-[96%] mt-10 flex-col">
 					<AvailChats active={chatId} />
 					<div className="w-full flex justify-center mt-6">
 						&#169; 2024 under Bikram Ghuku
