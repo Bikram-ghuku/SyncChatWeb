@@ -1,12 +1,12 @@
 'use client'
-
+import { Toaster } from "@/components/ui/toaster"
 import { useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { cn } from '@/lib/utils'
 import { buttonVariants } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { toast } from '@/components/ui/use-toast'
+import { useToast } from '@/components/ui/use-toast'
 import { Loader2 } from 'lucide-react'
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -18,32 +18,41 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
 	const [email, setEmail] = useState<string>('')
 	const [pswd, setPswd] = useState<string>('')
 	const [name, setName] = useState<string>('')
-	const searchParams = useSearchParams()
+	const { toast } = useToast()
 	const router = useRouter()
 	const handleSubmit = async () => {
 		setIsLoading(true)
+
 		fetch(process.env.NEXT_PUBLIC_API_URL + '/users/' + props.variant, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
 			},
 			body: JSON.stringify({ email: email, pswd: pswd, name: name }),
-		}).then(async data => {
-			if (data.ok) {
-				data.json().then(data => {
-					setIsLoading(false)
-					localStorage.setItem('jwt', data.token)
-					localStorage.setItem('userdata', JSON.stringify(data))
-					router.push(props.variant == 'login' ? '/chat' : '/login') 
-				})
-			} else {
+		}).then(data => data.json()
+		).then(data => {
+			if(data.ok){
 				setIsLoading(false)
-				console.log(await data.json())
-				toast({
-					title: data.statusText,
-					description: 'Try entering email and password correctly',
-				})
+				localStorage.setItem('jwt', data.token)
+				localStorage.setItem('userdata', JSON.stringify(data))
+				router.push(props.variant == 'login' ? '/chat' : '/login')
+			}else{
+				setIsLoading(false)
+				if(props.variant === "register"){
+					toast({
+						title: "Registration error",
+						description: "A user with the username and password already exsists"
+					})
+				}else{
+					toast({
+						title: "Login error",
+						description: "Account may not be present or usename and password invalid"
+					})
+				}
+				
 			}
+		}).catch((err) => {
+			console.log(err)
 		})
 	}
 	return (
@@ -90,8 +99,9 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
 						className={cn(buttonVariants())}
 					>
 						{isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-						Sign In with Email
+						{props.variant == 'register' ? "Register with Email" : "Login with email"}
 					</button>
+				<Toaster/>
 				</div>
 			</form>
 		</div>
