@@ -10,6 +10,7 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from '@/components/ui/dialog'
+import { Input } from '@/components/ui/input'
 
 function GetChats() {
 	return (
@@ -22,10 +23,13 @@ function GetChats() {
 				</DialogTrigger>
 				<DialogContent>
 					<DialogHeader>
-						<DialogTitle>Enter the chatId</DialogTitle>
+						<DialogTitle>Enter the email address to message the person</DialogTitle>
+						
 						<DialogDescription>
-							This action cannot be undone. This will permanently delete your
-							account and remove your data from our servers.
+							<br/>
+							<Input />
+							<br/>
+							<Button variant={'default'}>Add User</Button>
 						</DialogDescription>
 					</DialogHeader>
 				</DialogContent>
