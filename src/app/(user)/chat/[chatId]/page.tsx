@@ -12,7 +12,7 @@ type Props = {
 
 export default function ChatPage({ params: { chatId } }: Props) {
 	return (
-		<main className="dark:bg-[#2f3142] flex flex-col h-screen bg-[#f5f5f5]">
+		<main className="dark:bg-gray-800 flex flex-col h-screen bg-[#f5f5f5]">
 			<Header />
 			<ChatLayout chatId={chatId} />
 		</main>
