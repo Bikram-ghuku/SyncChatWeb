@@ -8,6 +8,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { useToast } from '@/components/ui/use-toast'
 import { Loader2 } from 'lucide-react'
+import axios from 'axios'
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {
 	variant: string
@@ -20,40 +21,50 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
 	const [name, setName] = useState<string>('')
 	const { toast } = useToast()
 	const router = useRouter()
+
+	const Handle = () => {
+		axios.post(process.env.NEXT_PUBLIC_API_URL + '/users/' + props.variant, { email: email, pswd: pswd, name: name }).then((data) => {
+			console.log(data)
+			if(data.status == 200){
+				router.push(props.variant === 'register' ? '/login' : '/chat')
+				if(props.variant === 'login'){
+					localStorage.setItem('jwt', data.data.token)
+				}
+			}
+			if(data.status == 409){
+				toast({
+					title: "Email already exsists",
+					description: "A user with the given email already exsists. Please proceed to login or use a different email"
+				})
+			}
+
+			if(data.status == 401){
+				toast({
+					title: "Invalid username or password",
+					description: "Username or password is incorrect please use correct email and password"
+				})
+			}
+
+			if(data.status == 500){
+				toast({
+					title: "Server error",
+					description: "Messaging server error, login prohibited"
+				})
+			}
+
+		}).catch((error) => {
+			if(error.response){
+				console.log(error.response.data);
+				console.log(error.response.status);
+				console.log(error.response.headers);
+			}
+		})
+	}
+
+
 	const handleSubmit = async () => {
 		setIsLoading(true)
-
-		fetch(process.env.NEXT_PUBLIC_API_URL + '/users/' + props.variant, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({ email: email, pswd: pswd, name: name }),
-		}).then(data => data.json()
-		).then(data => {
-			if(data.ok){
-				setIsLoading(false)
-				localStorage.setItem('jwt', data.token)
-				localStorage.setItem('userdata', JSON.stringify(data))
-				router.push(props.variant == 'login' ? '/chat' : '/login')
-			}else{
-				setIsLoading(false)
-				if(props.variant === "register"){
-					toast({
-						title: "Registration error",
-						description: "A user with the username and password already exsists"
-					})
-				}else{
-					toast({
-						title: "Login error",
-						description: "Account may not be present or usename and password invalid"
-					})
-				}
-				
-			}
-		}).catch((err) => {
-			console.log(err)
-		})
+		Handle()	
 	}
 	return (
 		<div className={cn('grid gap-6', className)} {...props}>
