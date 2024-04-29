@@ -2,10 +2,9 @@
 import React, { useContext } from 'react'
 import userData from '@/components/dataFinal.json'
 import AvailChatElement from '@/components/AvailChatElement'
-import { ChannelContext } from '@/provider/channelProvider'
+import { ChannelContext, user } from '@/provider/channelProvider'
 
-function AvailChats({ active }: { active?: number }) {
-	type user = { name: string; url: string; lastMsg?: string; lastTime?: string; userId: string }
+function AvailChats({ active }: { active?: string }) {
 	const Channels = useContext(ChannelContext)
 
 	return (
@@ -25,7 +24,7 @@ function AvailChats({ active }: { active?: number }) {
 					lastMsg={Udata.lastMsg}
 					lastTime={Udata.lastTime}
 					id={Udata.userId}
-					active={index == active}
+					active={Udata.userId == active}
 				/>
 			))}
 		</div>

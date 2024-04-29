@@ -1,6 +1,6 @@
 'use client'
 import { createContext, useState, useEffect } from 'react'
-type user = { name: string; url: string; lastMsg?: string; lastTime?: string; userId: string }
+export type user = { name: string; url: string; lastMsg?: string; lastTime?: string; userId: string }
 
 
 export const ChannelContext = createContext<user[]>([])

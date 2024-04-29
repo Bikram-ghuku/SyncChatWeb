@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react'
 
 type Props = {
 	params: {
-		chatId: number
+		chatId: string
 	}
 }
 
