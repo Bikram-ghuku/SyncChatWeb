@@ -8,7 +8,7 @@ type user = {
 	url: string
 	lastMsg?: string
 	lastTime?: string
-	id: number
+	id: string
 	active: boolean
 }
 

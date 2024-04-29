@@ -31,40 +31,35 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
 			})
 			.then(data => {
 				console.log(data)
-				if (data.status == 200) {
+				if (data.status == 200 || data.status == 201) {
 					router.push(props.variant === 'register' ? '/login' : '/chat')
 					if (props.variant === 'login') {
 						localStorage.setItem('jwt', data.data.token)
 					}
 				}
-				if (data.status == 409) {
-					toast({
-						title: 'Email already exsists',
-						description:
-							'A user with the given email already exsists. Please proceed to login or use a different email',
-					})
-				}
-
-				if (data.status == 401) {
-					toast({
-						title: 'Invalid username or password',
-						description:
-							'Username or password is incorrect please use correct email and password',
-					})
-				}
-
-				if (data.status == 500) {
-					toast({
-						title: 'Server error',
-						description: 'Messaging server error, login prohibited',
-					})
-				}
+				
 			})
 			.catch(error => {
 				if (error.response) {
+					setIsLoading(false)
 					console.log(error.response.data)
 					console.log(error.response.status)
 					console.log(error.response.headers)
+					if (error.response.status == 401) {
+						toast({
+							title: 'Invalid username or password',
+							description:
+								'Username or password is incorrect please use correct email and password',
+						})
+					}
+
+					if (error.response.status == 409) {
+						toast({
+							title: 'Email already exsists',
+							description:
+								'A user with the given email already exsists. Please proceed to login or use a different email',
+						})
+					}
 				}
 			})
 	}

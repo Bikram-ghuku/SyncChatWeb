@@ -49,6 +49,7 @@ function GetChats() {
 								autoCapitalize="none"
 								autoComplete="email"
 								autoCorrect="off"
+								placeholder="name@example.com"
 							/>
 							<br />
 							<Button

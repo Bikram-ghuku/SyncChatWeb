@@ -5,7 +5,7 @@ import AvailChatElement from '@/components/AvailChatElement'
 import { MessageSquarePlus } from 'lucide-react'
 
 function AvailChats({ active }: { active?: number }) {
-	type user = { name: string; url: string; lastMsg?: string; lastTime?: string }
+	type user = { name: string; url: string; lastMsg?: string; lastTime?: string; id: string }
 	const [userData, setUserData] = useState<user[]>([])
 
 	useEffect(() => {
@@ -40,7 +40,7 @@ function AvailChats({ active }: { active?: number }) {
 					url={Udata.url}
 					lastMsg={Udata.lastMsg}
 					lastTime={Udata.lastTime}
-					id={index}
+					id={Udata.id}
 					active={index == active}
 				/>
 			))}
