@@ -1,5 +1,5 @@
 'use client'
-import { Toaster } from "@/components/ui/toaster"
+import { Toaster } from '@/components/ui/toaster'
 import { useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { cn } from '@/lib/utils'
@@ -23,48 +23,55 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
 	const router = useRouter()
 
 	const Handle = () => {
-		axios.post(process.env.NEXT_PUBLIC_API_URL + '/users/' + props.variant, { email: email, pswd: pswd, name: name }).then((data) => {
-			console.log(data)
-			if(data.status == 200){
-				router.push(props.variant === 'register' ? '/login' : '/chat')
-				if(props.variant === 'login'){
-					localStorage.setItem('jwt', data.data.token)
+		axios
+			.post(process.env.NEXT_PUBLIC_API_URL + '/users/' + props.variant, {
+				email: email,
+				pswd: pswd,
+				name: name,
+			})
+			.then(data => {
+				console.log(data)
+				if (data.status == 200) {
+					router.push(props.variant === 'register' ? '/login' : '/chat')
+					if (props.variant === 'login') {
+						localStorage.setItem('jwt', data.data.token)
+					}
 				}
-			}
-			if(data.status == 409){
-				toast({
-					title: "Email already exsists",
-					description: "A user with the given email already exsists. Please proceed to login or use a different email"
-				})
-			}
+				if (data.status == 409) {
+					toast({
+						title: 'Email already exsists',
+						description:
+							'A user with the given email already exsists. Please proceed to login or use a different email',
+					})
+				}
 
-			if(data.status == 401){
-				toast({
-					title: "Invalid username or password",
-					description: "Username or password is incorrect please use correct email and password"
-				})
-			}
+				if (data.status == 401) {
+					toast({
+						title: 'Invalid username or password',
+						description:
+							'Username or password is incorrect please use correct email and password',
+					})
+				}
 
-			if(data.status == 500){
-				toast({
-					title: "Server error",
-					description: "Messaging server error, login prohibited"
-				})
-			}
-
-		}).catch((error) => {
-			if(error.response){
-				console.log(error.response.data);
-				console.log(error.response.status);
-				console.log(error.response.headers);
-			}
-		})
+				if (data.status == 500) {
+					toast({
+						title: 'Server error',
+						description: 'Messaging server error, login prohibited',
+					})
+				}
+			})
+			.catch(error => {
+				if (error.response) {
+					console.log(error.response.data)
+					console.log(error.response.status)
+					console.log(error.response.headers)
+				}
+			})
 	}
-
 
 	const handleSubmit = async () => {
 		setIsLoading(true)
-		Handle()	
+		Handle()
 	}
 	return (
 		<div className={cn('grid gap-6', className)} {...props}>
@@ -110,9 +117,11 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
 						className={cn(buttonVariants())}
 					>
 						{isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-						{props.variant == 'register' ? "Register with Email" : "Login with email"}
+						{props.variant == 'register'
+							? 'Register with Email'
+							: 'Login with email'}
 					</button>
-				<Toaster/>
+					<Toaster />
 				</div>
 			</form>
 		</div>

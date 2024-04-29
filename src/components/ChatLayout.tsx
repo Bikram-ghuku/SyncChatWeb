@@ -12,7 +12,6 @@ import Messages from '@/components/Messages'
 function ChatLayout({ chatId }: { chatId: number }) {
 	return (
 		<div className="flex flex-1">
-			
 			<div className="lg:flex flex-col lg:w-1/4 dark:bg-gray-900 bg-[#ffffff] border-r-2 border-[#5E5E5E33] dark:border-[#303030] w-full rounded-md h-[98%] hidden">
 				<div className="flex h-[4%] w-full flex-col pt-5 pl-5 pr-2">
 					{/* Seatch and app name*/}
