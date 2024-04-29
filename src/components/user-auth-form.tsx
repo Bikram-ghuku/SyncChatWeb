@@ -35,6 +35,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
 					router.push(props.variant === 'register' ? '/login' : '/chat')
 					if (props.variant === 'login') {
 						localStorage.setItem('jwt', data.data.token)
+						localStorage.setItem('name', JSON.stringify(data.data))
 					}
 				}
 				

@@ -12,11 +12,12 @@ type message = {
 function MessageElement({ messageInfo }: { messageInfo: message }) {
 	if (messageInfo.self) {
 		// self messages
+		const selfData = JSON.parse(localStorage.getItem('name')!)
 		return (
 			<div className="flex justify-end">
 				<div className="flex flex-col mr-2">
 					<div className="flex flex-row-reverse gap-3 text-[0.75rem] mb-1">
-						<div>User</div>
+						<div>{selfData.name}</div>
 						<div>{messageInfo.timeStamp}</div>
 					</div>
 					<div className="bg-[#00a3ff] rounded-bl-lg rounded-tl-lg rounded-br-lg w-fit text-end p-2 text-white">
