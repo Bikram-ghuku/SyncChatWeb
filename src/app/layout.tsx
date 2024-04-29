@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import { ThemeProvider } from '@/components/theme-provider'
 import SocketProvider from '@/provider/socketProvider'
+import ChannelProvider from '@/provider/channelProvider'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -19,16 +20,18 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body className={inter.className}>
-				<SocketProvider>
-					<ThemeProvider
-						attribute="class"
-						defaultTheme="system"
-						enableSystem
-						disableTransitionOnChange
-					>
-						{children}
-					</ThemeProvider>
-				</SocketProvider>
+				<ChannelProvider>
+					<SocketProvider>
+						<ThemeProvider
+							attribute="class"
+							defaultTheme="system"
+							enableSystem
+							disableTransitionOnChange
+						>
+							{children}
+						</ThemeProvider>
+					</SocketProvider>
+				</ChannelProvider>
 			</body>
 		</html>
 	)

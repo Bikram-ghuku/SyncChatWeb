@@ -27,7 +27,7 @@ function ChatLayout({ chatId }: { chatId: number }) {
 			<div className="flex lg:w-3/4 flex-col w-full m-1">
 				<div className="flex dark:bg-gray-900 w-full bg-[#ffffff] h-16 border-b-2 border-[#5E5E5E33] dark:border-[#303030]">
 					<div className="flex justify-start pl-10 items-center h-full">
-						<UserAvatar url={userData[0]['url']} />
+						<UserAvatar url={''} />
 					</div>
 					<div className="w-full h-full pl-4 flex items-center lg:font-extrabold font-semibold">
 						{userData[0]['name']}
