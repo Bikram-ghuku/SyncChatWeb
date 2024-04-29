@@ -12,22 +12,24 @@ type msgData = {
 	user: string
 	url: string
 }
-function Messages({ chatId }: { chatId: userData }) {
+function Messages({ chatId, userDetails }: { chatId: string, userDetails: userData }) {
 	const socket = useContext(socketContext)
 	const messaChaRef = useRef<null | HTMLDivElement>(null)
 	var initMsg: msgData[] = []
 	const [message, setMessage] = useState<msgData[]>(initMsg)
 
 	socket.on('message', data => {
-		var newMsg: msgData = {
-			id: '03',
-			message: data.msg,
-			self: data.jwt == localStorage.getItem('jwt'),
-			url: chatId.url,
-			user: chatId.name,
-			timeStamp: data.timeStamp,
+		if(chatId == data.chatId){
+			var newMsg: msgData = {
+				id: data.chatId,
+				message: data.msg,
+				self: data.jwt == localStorage.getItem('jwt'),
+				url: userDetails.url,
+				user: userDetails.name,
+				timeStamp: data.timeStamp,
+			}
+			setMessage([...message, newMsg])
 		}
-		setMessage([...message, newMsg])
 	})
 	useEffect(() => {
 		messaChaRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' })
