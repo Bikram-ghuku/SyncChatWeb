@@ -2,6 +2,7 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import MessageElement from '@/components/MessageElement'
 import { socketContext } from '@/provider/socketProvider'
+import { decryptSymmetric } from '@/encryption/Controller'
 
 type userData = { name: string; url: string }
 type msgData = {
@@ -26,15 +27,17 @@ function Messages({
 
 	socket.on('message', data => {
 		if (chatId == data.chatId) {
-			var newMsg: msgData = {
-				id: data.chatId,
-				message: data.msg,
-				self: data.jwt == localStorage.getItem('jwt'),
-				url: userDetails?.url || '',
-				user: data.name,
-				timeStamp: data.timeStamp,
-			}
-			setMessage([...message, newMsg])
+			decryptSymmetric(data.msg).then((decMsg) => {
+				var newMsg: msgData = {
+					id: data.chatId,
+					message: decMsg,
+					self: data.jwt == localStorage.getItem('jwt'),
+					url: userDetails?.url || '',
+					user: data.name,
+					timeStamp: data.timeStamp,
+				}
+				setMessage([...message, newMsg])
+			})
 		}
 	})
 	useEffect(() => {

@@ -15,6 +15,6 @@ export const decryptSymmetric = async (data:string) => {
         mode: CryptoJS.mode.CBC,
         padding: CryptoJS.pad.Pkcs7
     })
-    return dencData.toString()
+    return CryptoJS.enc.Utf8.stringify(dencData)
     };
 
