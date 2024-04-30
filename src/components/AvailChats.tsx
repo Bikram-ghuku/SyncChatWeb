@@ -6,10 +6,9 @@ import { ChannelContext, user } from '@/provider/channelProvider'
 
 function AvailChats({ active }: { active?: string }) {
 	const Channels = useContext(ChannelContext)
-
 	return (
 		<div className="overflow-y-scroll h-[98%] w-full [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-			{userData.length === 0 && (
+			{Channels.length === 0 && (
 				<div className="pl-3 text-center pr-4">
 					<div>
 						Start by adding a new person to chat with by clicking the add chat
@@ -23,7 +22,7 @@ function AvailChats({ active }: { active?: string }) {
 					url={''}
 					lastMsg={Udata.lastMsg}
 					lastTime={Udata.lastTime}
-					id={Udata.userId}
+					id={Udata.chanId}
 					active={Udata.userId == active}
 				/>
 			))}

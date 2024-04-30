@@ -20,15 +20,17 @@ function Messages({ chatId, userDetails }: { chatId: string, userDetails: userDa
 
 	socket.on('message', data => {
 		if(chatId == data.chatId){
+			console.log(data)
 			var newMsg: msgData = {
 				id: data.chatId,
 				message: data.msg,
 				self: data.jwt == localStorage.getItem('jwt'),
-				url: userDetails.url,
-				user: userDetails.name,
+				url: userDetails?.url || '',
+				user: data.name,
 				timeStamp: data.timeStamp,
 			}
 			setMessage([...message, newMsg])
+			console.log(message)
 		}
 	})
 	useEffect(() => {
