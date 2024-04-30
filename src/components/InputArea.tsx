@@ -4,6 +4,7 @@ import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Smile, Mic, Paperclip, SendHorizonal } from 'lucide-react'
 import { socketContext } from '@/provider/socketProvider'
+import { encryptSymmetric } from '@/encryption/Controller'
 
 function InputArea({ chatId }: { chatId: string }) {
 	const [text, setText] = useState<null | string>(null)
@@ -11,13 +12,13 @@ function InputArea({ chatId }: { chatId: string }) {
 	const textAreaRef = useRef<null | HTMLInputElement>(null)
 	const submitRef = useRef<null | HTMLButtonElement>(null);
 
-	const sendMsg = () => {
+	const sendMsg = async () => {
 		if (!text) return
 		console.log('Sending data...')
 		const currTime = new Date().toLocaleString()
 		const data = {
 			jwt: localStorage.getItem('jwt'),
-			msg: text,
+			msg: await encryptSymmetric(text),
 			chatId: chatId,
 			timeStamp: currTime,
 		}
