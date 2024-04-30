@@ -38,7 +38,6 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
 						localStorage.setItem('name', JSON.stringify(data.data))
 					}
 				}
-				
 			})
 			.catch(error => {
 				if (error.response) {

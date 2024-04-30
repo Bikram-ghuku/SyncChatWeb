@@ -12,14 +12,20 @@ type msgData = {
 	user: string
 	url: string
 }
-function Messages({ chatId, userDetails }: { chatId: string, userDetails: userData }) {
+function Messages({
+	chatId,
+	userDetails,
+}: {
+	chatId: string
+	userDetails: userData
+}) {
 	const socket = useContext(socketContext)
 	const messaChaRef = useRef<null | HTMLDivElement>(null)
 	var initMsg: msgData[] = []
 	const [message, setMessage] = useState<msgData[]>(initMsg)
 
 	socket.on('message', data => {
-		if(chatId == data.chatId){
+		if (chatId == data.chatId) {
 			console.log(data)
 			var newMsg: msgData = {
 				id: data.chatId,

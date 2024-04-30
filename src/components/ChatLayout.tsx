@@ -10,9 +10,8 @@ import Messages from '@/components/Messages'
 import { ChannelContext, user } from '@/provider/channelProvider'
 
 function ChatLayout({ chatId }: { chatId: string }) {
-	
-	const channels:user[] = useContext(ChannelContext);
-	const userData = channels.find((user) => user.chanId == chatId)
+	const channels: user[] = useContext(ChannelContext)
+	const userData = channels.find(user => user.chanId == chatId)
 	return (
 		<div className="flex flex-1">
 			<div className="lg:flex flex-col lg:w-1/4 dark:bg-gray-900 bg-[#ffffff] border-r-2 border-[#5E5E5E33] dark:border-[#303030] w-full rounded-md h-[98%] hidden">
@@ -40,10 +39,10 @@ function ChatLayout({ chatId }: { chatId: string }) {
 					</div>
 				</div>
 				<div className="flex h-full w-full p-5">
-					<Messages chatId={chatId} userDetails={userData!}/>
+					<Messages chatId={chatId} userDetails={userData!} />
 				</div>
 				<div className="flex dark:bg-gray-900 w-full bg-[#ffffff] h-16 border-t-2 border-[#5E5E5E33] dark:border-[#303030]">
-					<InputArea chatId={userData?.chanId || ""} />
+					<InputArea chatId={userData?.chanId || ''} />
 				</div>
 			</div>
 		</div>

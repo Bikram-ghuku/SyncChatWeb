@@ -11,7 +11,7 @@ function InputArea({ chatId }: { chatId: string }) {
 	const textAreaRef = useRef<null | HTMLInputElement>(null)
 
 	const sendMsg = () => {
-		if(!text) return
+		if (!text) return
 		console.log('Sending data...')
 		const currTime = new Date().toLocaleString()
 		const data = {
@@ -22,7 +22,7 @@ function InputArea({ chatId }: { chatId: string }) {
 		}
 		socket.emit('message', data)
 		textAreaRef.current ? (textAreaRef.current.value = '') : null
-		setText('');
+		setText('')
 	}
 	return (
 		<div className="flex h-full items-center md:pl-10 w-full">
