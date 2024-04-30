@@ -8,14 +8,11 @@ import CallOptions from '@/components/CallOptions'
 import AvailChats from '@/components/AvailChats'
 import Messages from '@/components/Messages'
 import { ChannelContext, user } from '@/provider/channelProvider'
-import { useRouter } from 'next/navigation'
 
 function ChatLayout({ chatId }: { chatId: string }) {
 	
 	const channels:user[] = useContext(ChannelContext);
 	const userData = channels.find((user) => user.chanId == chatId)
-	const router = useRouter()
-	!userData && router.push('../chat/')
 	return (
 		<div className="flex flex-1">
 			<div className="lg:flex flex-col lg:w-1/4 dark:bg-gray-900 bg-[#ffffff] border-r-2 border-[#5E5E5E33] dark:border-[#303030] w-full rounded-md h-[98%] hidden">

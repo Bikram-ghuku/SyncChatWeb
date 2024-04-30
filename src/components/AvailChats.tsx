@@ -23,7 +23,7 @@ function AvailChats({ active }: { active?: string }) {
 					lastMsg={Udata.lastMsg}
 					lastTime={Udata.lastTime}
 					id={Udata.chanId}
-					active={Udata.userId == active}
+					active={Udata.chanId == active}
 				/>
 			))}
 		</div>
