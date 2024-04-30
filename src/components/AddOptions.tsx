@@ -29,6 +29,7 @@ function TranslateDialog({ child }: { child: React.ReactNode }) {
 				<DialogContent>
 					<DialogHeader>
 						<DialogTitle>Select Language to translate to</DialogTitle>
+						<br/>
 						<DialogDescription>
 							<Select>
 								<SelectTrigger className="w-[180px]">
@@ -41,6 +42,7 @@ function TranslateDialog({ child }: { child: React.ReactNode }) {
 									<SelectItem value="hi">Hindi</SelectItem>
 								</SelectContent>
 							</Select>
+							<br/>
 							<Button variant="default">Translate</Button>
 						</DialogDescription>
 					</DialogHeader>
@@ -60,8 +62,10 @@ function EncryptDialog({ child }: { child: React.ReactNode }) {
 						<DialogTitle>
 							Enter the encryption key to encrypt your message
 						</DialogTitle>
+						<br/>
 						<DialogDescription>
 							<Input type="text" placeholder="Enter your encryption Key" />
+							<br/>
 							<Button variant="default">Encrypt</Button>
 						</DialogDescription>
 					</DialogHeader>
@@ -81,8 +85,10 @@ function DecryptDialog({ child }: { child: React.ReactNode }) {
 						<DialogTitle>
 							Enter the decryption key to decrypt the messages
 						</DialogTitle>
+						<br/>
 						<DialogDescription>
 							<Input type="text" placeholder="Enter your Decryption Key" />
+							<br/>
 							<Button variant="default">Decrypt</Button>
 						</DialogDescription>
 					</DialogHeader>
