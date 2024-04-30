@@ -17,11 +17,11 @@ function AvailChatElement(userName: user) {
 		<Link href={'../chat/' + userName.id}>
 			<div
 				className={
-					'h-[7rem] flex hover:bg-[#00a3ff4f] ' +
+					'h-[6rem] flex hover:bg-[#00a3ff4f] mt-2 pl-3 rounded-sm ' +
 					(userName.active ? 'bg-[#00a3ff4f]' : '')
 				}
 			>
-				<Avatar className="h-[5rem] w-[5rem] mt-5">
+				<Avatar className="h-[4rem] w-[4rem] mt-5">
 					<AvatarFallback>C</AvatarFallback>
 					<AvatarImage src={userName.url} />
 				</Avatar>

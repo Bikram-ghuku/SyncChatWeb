@@ -7,7 +7,7 @@ import { ChannelContext, user } from '@/provider/channelProvider'
 function AvailChats({ active }: { active?: string }) {
 	const Channels = useContext(ChannelContext)
 	return (
-		<div className="overflow-y-scroll h-[98%] w-full [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+		<div className="overflow-y-scroll h-[98%] w-full [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pl-5 pr-5">
 			{Channels.length === 0 && (
 				<div className="pl-3 text-center pr-4">
 					<div>
@@ -19,7 +19,7 @@ function AvailChats({ active }: { active?: string }) {
 			{Channels?.map((Udata: user, index) => (
 				<AvailChatElement
 					name={Udata.name}
-					url={''}
+					url={Udata.url}
 					lastMsg={Udata.lastMsg}
 					lastTime={Udata.lastTime}
 					id={Udata.chanId}
