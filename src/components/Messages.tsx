@@ -26,7 +26,6 @@ function Messages({
 
 	socket.on('message', data => {
 		if (chatId == data.chatId) {
-			console.log(data)
 			var newMsg: msgData = {
 				id: data.chatId,
 				message: data.msg,
@@ -36,7 +35,6 @@ function Messages({
 				timeStamp: data.timeStamp,
 			}
 			setMessage([...message, newMsg])
-			console.log(message)
 		}
 	})
 	useEffect(() => {
@@ -46,7 +44,7 @@ function Messages({
 	return (
 		<div className="w-full overflow-x-hidden overflow-y-scroll h-[72vh] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
 			{message?.map((value, index) => (
-				<div className="max-h-10 mb-10">
+				<div className="max-h-10 mb-10" key={index}>
 					<MessageElement messageInfo={value} />
 					<div ref={messaChaRef} />
 				</div>
