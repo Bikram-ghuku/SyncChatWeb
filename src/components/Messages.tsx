@@ -35,7 +35,7 @@ function Messages({ chatId, userDetails }: { chatId: string, userDetails: userDa
 	})
 	useEffect(() => {
 		messaChaRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' })
-	}, [])
+	}, [message])
 
 	return (
 		<div className="w-full overflow-x-hidden overflow-y-scroll h-[72vh] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
