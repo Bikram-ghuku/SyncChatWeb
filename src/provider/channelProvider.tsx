@@ -4,7 +4,7 @@ export type user = {
 	name: string
 	url: string
 	lastMsg?: string
-	lastTime?: string
+	lastOnline?: string
 	userId: string
 	chanId: string
 }
