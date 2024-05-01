@@ -5,12 +5,15 @@ import { Button } from '@/components/ui/button'
 import { Smile, Mic, Paperclip, SendHorizonal } from 'lucide-react'
 import { socketContext } from '@/provider/socketProvider'
 import { encryptSymmetric } from '@/encryption/Controller'
+import { useRouter } from 'next/navigation'
+
 
 function InputArea({ chatId }: { chatId: string }) {
 	const [text, setText] = useState<null | string>(null)
 	const socket = useContext(socketContext)
 	const textAreaRef = useRef<null | HTMLInputElement>(null)
 	const submitRef = useRef<null | HTMLButtonElement>(null);
+	const router = useRouter()
 
 	const sendMsg = async () => {
 		if (!text) return
@@ -30,6 +33,9 @@ function InputArea({ chatId }: { chatId: string }) {
 	const checkEnter = (e: any) => {
 		if(e.keyCode === 13){
 			submitRef.current?.click()
+		}
+		if(e.keyCode === 27){
+			router.push('../chat')
 		}
 	}
 	return (
