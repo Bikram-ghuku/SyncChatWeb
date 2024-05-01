@@ -1,11 +1,19 @@
 'use client'
 import React, { useContext } from 'react'
-import userData from '@/components/dataFinal.json'
 import AvailChatElement from '@/components/AvailChatElement'
 import { ChannelContext, user } from '@/provider/channelProvider'
+import { LoadingSpinner } from '@/components/Spinner'
 
 function AvailChats({ active }: { active?: string }) {
-	const Channels = useContext(ChannelContext)
+	const { userDet, isLoad} = useContext(ChannelContext)
+	const Channels = userDet
+	if(isLoad){
+		return(
+			<div className=' w-full items-center flex justify-center h-full'>
+				<LoadingSpinner size={100}/>
+			</div>
+		)
+	}
 	return (
 		<div className="overflow-y-scroll h-[98%] w-full [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pl-5 pr-5">
 			{Channels.length === 0 && (

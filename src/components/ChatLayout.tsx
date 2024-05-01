@@ -10,7 +10,8 @@ import Messages from '@/components/Messages'
 import { ChannelContext, user } from '@/provider/channelProvider'
 
 function ChatLayout({ chatId }: { chatId: string }) {
-	const channels: user[] = useContext(ChannelContext)
+	const {isLoad, userDet} = useContext(ChannelContext)
+	const channels: user[] = userDet
 	const userData = channels.find(user => user.chanId == chatId)
 	return (
 		<div className="flex flex-1">
