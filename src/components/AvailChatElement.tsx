@@ -1,7 +1,8 @@
 'use client'
-import React from 'react'
+import React, { useState } from 'react'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import Link from 'next/link'
+import { decryptSymmetric } from '@/encryption/Controller'
 
 type user = {
 	name: string
@@ -13,6 +14,10 @@ type user = {
 }
 
 function AvailChatElement(userName: user) {
+	const [lastMsgDecp, setLastMsgDecp] = useState<string>()
+	decryptSymmetric(userName.lastMsg || '').then((data) => {
+		setLastMsgDecp(data)
+	})
 	return (
 		<Link href={'../chat/' + userName.id}>
 			<div
@@ -25,9 +30,9 @@ function AvailChatElement(userName: user) {
 					<AvatarFallback>C</AvatarFallback>
 					<AvatarImage src={userName.url} />
 				</Avatar>
-				<div className="mt-8 ml-4 w-1/2">
-					<div className="font-semibold">{userName.name}</div>
-					<div className="pt-2 font-extralight">{userName.lastMsg}</div>
+				<div className="mt-6 ml-4 w-1/2">
+					<div className="font-semibold text-lg">{userName.name}</div>
+					<div className="pt-2 font-light text-sm">{lastMsgDecp}</div>
 				</div>
 				<div className="mt-8 flex justify-end w-1/4 mr-4">
 					{userName.lastTime}
