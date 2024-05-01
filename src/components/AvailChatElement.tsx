@@ -19,7 +19,7 @@ function AvailChatElement(userName: user) {
 		setLastMsgDecp(data)
 	})
 	return (
-		<Link href={'../chat/' + userName.id}>
+		<Link href={'../chat/' + userName.id} id={userName.id}>
 			<div
 				className={
 					'h-[6rem] flex hover:bg-[#00a3ff4f] mt-2 pl-3 rounded-sm ' +
