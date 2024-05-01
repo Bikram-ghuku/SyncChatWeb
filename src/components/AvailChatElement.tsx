@@ -22,8 +22,8 @@ function AvailChatElement(userName: user) {
 		<Link href={'../chat/' + userName.id} id={userName.id}>
 			<div
 				className={
-					'h-[6rem] flex hover:bg-[#00a3ff4f] mt-2 pl-3 rounded-sm ' +
-					(userName.active ? 'bg-[#00a3ff4f]' : '')
+					'h-[6rem] flex mt-2 pl-3 rounded-sm ' +
+					(userName.active ? 'bg-[#00a3ff4f]' : 'hover:bg-[#00a3ff18]')
 				}
 			>
 				<Avatar className="h-[4rem] w-[4rem] mt-5">
@@ -32,10 +32,7 @@ function AvailChatElement(userName: user) {
 				</Avatar>
 				<div className="mt-6 ml-4 w-1/2">
 					<div className="font-semibold text-lg">{userName.name}</div>
-					<div className="pt-2 font-light text-sm">{lastMsgDecp}</div>
-				</div>
-				<div className="mt-8 flex justify-end w-1/4 mr-4">
-					{userName.lastTime}
+					<div className="pt-2 font-light text-sm overflow-hidden">{lastMsgDecp}</div>
 				</div>
 			</div>
 		</Link>
