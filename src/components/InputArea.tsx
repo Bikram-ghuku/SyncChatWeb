@@ -6,10 +6,10 @@ import { Smile, Mic, Paperclip, SendHorizonal } from 'lucide-react'
 import { socketContext } from '@/provider/socketProvider'
 import { encryptSymmetric } from '@/encryption/Controller'
 import { useRouter } from 'next/navigation'
-import EmojiPicker from 'emoji-picker-react'
+import EmojiPicker, { Theme } from 'emoji-picker-react'
 
 function InputArea({ chatId }: { chatId: string }) {
-	const [text, setText] = useState<null | string>(null)
+	const [text, setText] = useState<string>('')
 	const [openEmoji, setOpenEmoji] = useState<boolean>(true);
 	const socket = useContext(socketContext)
 	const textAreaRef = useRef<null | HTMLInputElement>(null)
@@ -17,7 +17,7 @@ function InputArea({ chatId }: { chatId: string }) {
 	const router = useRouter()
 
 	const sendMsg = async () => {
-		if (!text) return
+		if (text == '') return
 		console.log('Sending data...')
 		const currTime = new Date().toLocaleString()
 		const data = {
@@ -26,9 +26,16 @@ function InputArea({ chatId }: { chatId: string }) {
 			chatId: chatId,
 			timeStamp: currTime,
 		}
+		setText('')
 		socket.emit('message', data)
 		textAreaRef.current ? (textAreaRef.current.value = '') : null
-		setText('')
+		
+	}
+
+	const emojiPicked = (e: any) => {
+		if(textAreaRef.current){
+			setText(textAreaRef.current!.value + e.emoji)
+		}
 	}
 
 	const checkEnter = (e: any) => {
@@ -36,6 +43,8 @@ function InputArea({ chatId }: { chatId: string }) {
 			submitRef.current?.click()
 		}
 		if (e.keyCode === 27) {
+			setText('')
+			setOpenEmoji(false)
 			router.push('../chat')
 		}
 	}
@@ -45,7 +54,7 @@ function InputArea({ chatId }: { chatId: string }) {
 				<Smile />
 			</Button>
 			<div className=' absolute bottom-16'>
-				<EmojiPicker open={!openEmoji} lazyLoadEmojis={true} width='20vw' height='40vh'/>
+				<EmojiPicker theme={Theme.AUTO} open={!openEmoji} lazyLoadEmojis={true} width='20vw' height='40vh' onEmojiClick={emojiPicked}/>
 			</div>
 			<Input
 				type="text"
@@ -54,6 +63,7 @@ function InputArea({ chatId }: { chatId: string }) {
 				onChange={e => setText(e.target.value)}
 				ref={textAreaRef}
 				onKeyDown={e => checkEnter(e)}
+				value={text!}
 			/>
 			<Button variant="ghost" size="icon" className="md:ml-5 md:mr-2 ml-1">
 				<Mic />
