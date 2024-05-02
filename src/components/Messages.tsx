@@ -45,7 +45,7 @@ function Messages({
 	}, [message])
 
 	return (
-		<div className="w-full overflow-x-hidden overflow-y-scroll h-[72vh] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+		<div className="flex flex-col w-full overflow-x-hidden overflow-y-scroll lg:h-[75vh] h-[70vh] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
 			{message?.map((value, index) => (
 				<div className="max-h-10 mb-10" key={index}>
 					<MessageElement messageInfo={value} />
