@@ -18,48 +18,51 @@ import { useToast } from './ui/use-toast'
 function GetChats() {
 	const [email, setEmail] = useState<string>('')
 	const [isLoading, setIsLoading] = useState<boolean>(false)
-	const { toast } = useToast();
-	const [open, setIsOpen] = useState<boolean>(false);
+	const { toast } = useToast()
+	const [open, setIsOpen] = useState<boolean>(false)
 	const handleCreateChat = () => {
-		axios.post(
-			process.env.NEXT_PUBLIC_API_URL + '/channels/addChannels',
-			{ email },
-			{
-				headers: {
-					Authorization: `Bearer ${localStorage.getItem('jwt')}`,
-				},
-			}
-		).then((data) => {
-			if(data.status == 200){
-				setIsOpen(false)
-				toast({
-					title: "Successfully created channel",
-					description: "A new channel between the two people has been made"
-				})
-			}
-		}).catch((error) => {
-			if (error.response.status == 409){
-				setIsOpen(false)
-				toast({
-					title: "Error creating channel",
-					description: "A channel bewteen the users exists"
-				})
-			}
-			if(error.response.status == 404){
-				setIsOpen(false)
-				toast({
-					title: "Error creating channel",
-					description: "User with the given email is not found"
-				})
-			}
-			if(error.response.status == 500){
-				setIsOpen(false)
-				toast({
-					title: "Server",
-					description: "Server error"
-				})
-			}
-		})
+		axios
+			.post(
+				process.env.NEXT_PUBLIC_API_URL + '/channels/addChannels',
+				{ email },
+				{
+					headers: {
+						Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+					},
+				}
+			)
+			.then(data => {
+				if (data.status == 200) {
+					setIsOpen(false)
+					toast({
+						title: 'Successfully created channel',
+						description: 'A new channel between the two people has been made',
+					})
+				}
+			})
+			.catch(error => {
+				if (error.response.status == 409) {
+					setIsOpen(false)
+					toast({
+						title: 'Error creating channel',
+						description: 'A channel bewteen the users exists',
+					})
+				}
+				if (error.response.status == 404) {
+					setIsOpen(false)
+					toast({
+						title: 'Error creating channel',
+						description: 'User with the given email is not found',
+					})
+				}
+				if (error.response.status == 500) {
+					setIsOpen(false)
+					toast({
+						title: 'Server',
+						description: 'Server error',
+					})
+				}
+			})
 	}
 	return (
 		<div>

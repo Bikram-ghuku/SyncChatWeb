@@ -9,9 +9,12 @@ export type user = {
 	chanId: string
 }
 
-export const ChannelContext = createContext<{ isLoad: boolean; userDet: user[]; }>({
+export const ChannelContext = createContext<{
+	isLoad: boolean
+	userDet: user[]
+}>({
 	isLoad: true,
-	userDet: []
+	userDet: [],
 })
 
 const ChannelProvider = (props: any) => {
@@ -27,7 +30,7 @@ const ChannelProvider = (props: any) => {
 			})
 				.then(data => data.json())
 				.then(data => {
-					if (data.length !== 0){
+					if (data.length !== 0) {
 						setUserData(data)
 						setIsLoading(false)
 					}
@@ -35,9 +38,9 @@ const ChannelProvider = (props: any) => {
 				})
 		}
 	}, [])
-	
+
 	return (
-		<ChannelContext.Provider value={{isLoad: isLoading, userDet: userData}}>
+		<ChannelContext.Provider value={{ isLoad: isLoading, userDet: userData }}>
 			{props.children}
 		</ChannelContext.Provider>
 	)

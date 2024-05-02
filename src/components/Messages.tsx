@@ -27,7 +27,7 @@ function Messages({
 
 	socket.on('message', data => {
 		if (chatId == data.chatId) {
-			decryptSymmetric(data.msg).then((decMsg) => {
+			decryptSymmetric(data.msg).then(decMsg => {
 				var newMsg: msgData = {
 					id: data.chatId,
 					message: decMsg,

@@ -7,12 +7,11 @@ import { socketContext } from '@/provider/socketProvider'
 import { encryptSymmetric } from '@/encryption/Controller'
 import { useRouter } from 'next/navigation'
 
-
 function InputArea({ chatId }: { chatId: string }) {
 	const [text, setText] = useState<null | string>(null)
 	const socket = useContext(socketContext)
 	const textAreaRef = useRef<null | HTMLInputElement>(null)
-	const submitRef = useRef<null | HTMLButtonElement>(null);
+	const submitRef = useRef<null | HTMLButtonElement>(null)
 	const router = useRouter()
 
 	const sendMsg = async () => {
@@ -31,10 +30,10 @@ function InputArea({ chatId }: { chatId: string }) {
 	}
 
 	const checkEnter = (e: any) => {
-		if(e.keyCode === 13){
+		if (e.keyCode === 13) {
 			submitRef.current?.click()
 		}
-		if(e.keyCode === 27){
+		if (e.keyCode === 27) {
 			router.push('../chat')
 		}
 	}
@@ -49,7 +48,7 @@ function InputArea({ chatId }: { chatId: string }) {
 				className=""
 				onChange={e => setText(e.target.value)}
 				ref={textAreaRef}
-				onKeyDown={(e) => checkEnter(e)}
+				onKeyDown={e => checkEnter(e)}
 			/>
 			<Button variant="ghost" size="icon" className="md:ml-5 md:mr-2 ml-1">
 				<Mic />

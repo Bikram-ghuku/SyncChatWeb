@@ -6,27 +6,26 @@ import { LoadingSpinner } from '@/components/Spinner'
 import { socketContext } from '@/provider/socketProvider'
 
 function AvailChats({ active }: { active?: string }) {
-	const { userDet, isLoad} = useContext(ChannelContext)
-	
+	const { userDet, isLoad } = useContext(ChannelContext)
 
 	const socket = useContext(socketContext)
-	
-	if(isLoad){
-		return(
-			<div className=' w-full items-center flex justify-center h-full'>
-				<LoadingSpinner size={100}/>
+
+	if (isLoad) {
+		return (
+			<div className=" w-full items-center flex justify-center h-full">
+				<LoadingSpinner size={100} />
 			</div>
 		)
 	}
-	const [channels, setChannels] = useState<user[]>(userDet);
-	socket.on('message', (data) => {
-		if(channels.find((user) => user.chanId === data.chatId) != undefined){
-			var res: user[] = [];
-			for(var i = 0; i < channels.length; i++){
-				if(channels[i].chanId === data.chatId){
+	const [channels, setChannels] = useState<user[]>(userDet)
+	socket.on('message', data => {
+		if (channels.find(user => user.chanId === data.chatId) != undefined) {
+			var res: user[] = []
+			for (var i = 0; i < channels.length; i++) {
+				if (channels[i].chanId === data.chatId) {
 					channels[i].lastMsg = data.msg
 					res.push(channels[i])
-				}else{
+				} else {
 					res.push(channels[i])
 				}
 			}

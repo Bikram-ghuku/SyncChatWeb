@@ -10,11 +10,13 @@ import Messages from '@/components/Messages'
 import { ChannelContext, user } from '@/provider/channelProvider'
 
 function ChatLayout({ chatId }: { chatId: string }) {
-	const {isLoad, userDet} = useContext(ChannelContext)
+	const { isLoad, userDet } = useContext(ChannelContext)
 	const channels: user[] = userDet
 	const userData = channels.find(user => user.chanId == chatId)
-	const date = Date.parse(userData?.lastOnline || "2019-01-01T00:00:00.000+00:00")
-	const currData = new Date(date);
+	const date = Date.parse(
+		userData?.lastOnline || '2019-01-01T00:00:00.000+00:00'
+	)
+	const currData = new Date(date)
 	return (
 		<div className="flex flex-1">
 			<div className="lg:flex flex-col lg:w-1/4 dark:bg-gray-900 bg-[#ffffff] border-r-2 border-[#5E5E5E33] dark:border-[#303030] w-full rounded-md h-[98%] hidden mt-2">
@@ -34,11 +36,11 @@ function ChatLayout({ chatId }: { chatId: string }) {
 					<div className="flex justify-start lg:pl-10 pl-4 items-center h-full">
 						<UserAvatar url={userData?.url || ''} />
 					</div>
-					<div className='flex flex-col pl-4 w-full h-full gap-1 mt-2 mb-2'>
+					<div className="flex flex-col pl-4 w-full h-full gap-1 mt-2 mb-2">
 						<div className="flex items-center lg:font-extrabold font-semibold">
 							{userData?.name}
 						</div>
-						<div className=' lg:text-[0.75rem] flex items-center text-[0.5rem]'>
+						<div className=" lg:text-[0.75rem] flex items-center text-[0.5rem]">
 							Last Seen on {currData.toLocaleString()}
 						</div>
 					</div>
