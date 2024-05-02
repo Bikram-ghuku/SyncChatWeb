@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import SearchArea from '@/components/SearchArea'
 import InputArea from '@/components/InputArea'
 import UserAvatar from '@/components/UserAvatar'

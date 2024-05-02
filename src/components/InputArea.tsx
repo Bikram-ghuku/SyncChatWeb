@@ -6,9 +6,11 @@ import { Smile, Mic, Paperclip, SendHorizonal } from 'lucide-react'
 import { socketContext } from '@/provider/socketProvider'
 import { encryptSymmetric } from '@/encryption/Controller'
 import { useRouter } from 'next/navigation'
+import EmojiPicker from 'emoji-picker-react'
 
 function InputArea({ chatId }: { chatId: string }) {
 	const [text, setText] = useState<null | string>(null)
+	const [openEmoji, setOpenEmoji] = useState<boolean>(true);
 	const socket = useContext(socketContext)
 	const textAreaRef = useRef<null | HTMLInputElement>(null)
 	const submitRef = useRef<null | HTMLButtonElement>(null)
@@ -39,9 +41,12 @@ function InputArea({ chatId }: { chatId: string }) {
 	}
 	return (
 		<div className="flex h-full items-center md:pl-10 w-full">
-			<Button variant="ghost" size="icon" className="mr-2">
+			<Button variant="ghost" size="icon" className="mr-2" onClick={() => setOpenEmoji(!openEmoji)}>
 				<Smile />
 			</Button>
+			<div className=' absolute bottom-16'>
+				<EmojiPicker open={!openEmoji} lazyLoadEmojis={true} width='20vw' height='40vh'/>
+			</div>
 			<Input
 				type="text"
 				placeholder="Type Message..."
