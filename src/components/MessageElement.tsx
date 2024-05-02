@@ -20,7 +20,7 @@ function MessageElement({ messageInfo }: { messageInfo: message }) {
 						<div>{selfData.name}</div>
 						<div>{messageInfo.timeStamp}</div>
 					</div>
-					<div className="bg-[#00a3ff] rounded-bl-lg rounded-tl-lg rounded-br-lg w-fit text-end p-2 text-white">
+					<div className="bg-[#00a3ff] rounded-bl-lg rounded-tl-lg rounded-br-lg w-fit text-end p-2 text-white max-w-[25vw] self-end break-words h-auto">
 						{messageInfo.message}
 					</div>
 				</div>
@@ -39,7 +39,7 @@ function MessageElement({ messageInfo }: { messageInfo: message }) {
 						<div className="text-[0.75rem]">{messageInfo.user}</div>
 						<div className="text-[0.75rem]">{messageInfo.timeStamp}</div>
 					</div>
-					<div className="dark:bg-[#292929] rounded-bl-lg rounded-tr-lg rounded-br-lg w-fit text-end flex-1 p-2 bg-white">
+					<div className="dark:bg-[#292929] rounded-bl-lg rounded-tr-lg rounded-br-lg w-fit text-end flex-1 p-2 bg-white max-w-[25vw] self-end break-words">
 						{messageInfo.message}
 					</div>
 				</div>
