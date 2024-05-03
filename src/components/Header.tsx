@@ -15,7 +15,7 @@ function Header() {
 			<nav className="flex flex-col sm:flex-row items-center p-5 pl-2 bg-white dark:bg-gray-900 max-w-7xl mx-auto">
 				<div className="flex-1 flex items-center justify-start space-x-4">
 					<Link href={'./'}>
-					<Image src="/icon.png" alt="ChatSync" width="40" height="40" />
+						<Image src="/icon.png" alt="ChatSync" width="40" height="40" />
 					</Link>
 				</div>
 				<div className="flex-1 flex items-center justify-end space-x-4">
