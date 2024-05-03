@@ -9,6 +9,7 @@ function AvailChats({ active }: { active?: string }) {
 	const { userDet, isLoad } = useContext(ChannelContext)
 
 	const socket = useContext(socketContext)
+	const [channels, setChannels] = useState<user[]>([])
 
 	if (isLoad) {
 		return (
@@ -17,7 +18,7 @@ function AvailChats({ active }: { active?: string }) {
 			</div>
 		)
 	}
-	const [channels, setChannels] = useState<user[]>(userDet)
+	setChannels(userDet)
 	socket.on('message', data => {
 		if (channels.find(user => user.chanId === data.chatId) != undefined) {
 			var res: user[] = []
@@ -50,6 +51,7 @@ function AvailChats({ active }: { active?: string }) {
 					lastTime={Udata.lastOnline}
 					id={Udata.chanId}
 					active={Udata.chanId == active}
+					key={index}
 				/>
 			))}
 		</div>
