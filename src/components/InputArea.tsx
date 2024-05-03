@@ -10,7 +10,7 @@ import EmojiPicker, { Theme } from 'emoji-picker-react'
 
 function InputArea({ chatId }: { chatId: string }) {
 	const [text, setText] = useState<string>('')
-	const [openEmoji, setOpenEmoji] = useState<boolean>(true);
+	const [openEmoji, setOpenEmoji] = useState<boolean>(true)
 	const socket = useContext(socketContext)
 	const textAreaRef = useRef<null | HTMLInputElement>(null)
 	const submitRef = useRef<null | HTMLButtonElement>(null)
@@ -29,11 +29,10 @@ function InputArea({ chatId }: { chatId: string }) {
 		setText('')
 		socket.emit('message', data)
 		textAreaRef.current ? (textAreaRef.current.value = '') : null
-		
 	}
 
 	const emojiPicked = (e: any) => {
-		if(textAreaRef.current){
+		if (textAreaRef.current) {
 			setText(textAreaRef.current!.value + e.emoji)
 		}
 	}
@@ -50,11 +49,23 @@ function InputArea({ chatId }: { chatId: string }) {
 	}
 	return (
 		<div className="flex h-full items-center md:pl-10 w-full">
-			<Button variant="ghost" size="icon" className="mr-2" onClick={() => setOpenEmoji(!openEmoji)}>
+			<Button
+				variant="ghost"
+				size="icon"
+				className="mr-2"
+				onClick={() => setOpenEmoji(!openEmoji)}
+			>
 				<Smile />
 			</Button>
-			<div className=' absolute bottom-16'>
-				<EmojiPicker theme={Theme.AUTO} open={!openEmoji} lazyLoadEmojis={true} width='20vw' height='40vh' onEmojiClick={emojiPicked}/>
+			<div className=" absolute bottom-16">
+				<EmojiPicker
+					theme={Theme.AUTO}
+					open={!openEmoji}
+					lazyLoadEmojis={true}
+					width="20vw"
+					height="40vh"
+					onEmojiClick={emojiPicked}
+				/>
 			</div>
 			<Input
 				type="text"
