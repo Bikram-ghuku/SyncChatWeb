@@ -1,4 +1,5 @@
 'use client'
+import axios from 'axios'
 import { createContext, useState, useEffect } from 'react'
 export type user = {
 	name: string
@@ -22,20 +23,16 @@ const ChannelProvider = (props: any) => {
 	const [isLoading, setIsLoading] = useState<boolean>(true)
 	useEffect(() => {
 		if (localStorage.getItem('jwt')) {
-			fetch(process.env.NEXT_PUBLIC_API_URL + '/channels/channels', {
-				method: 'GET',
+			axios.get(process.env.NEXT_PUBLIC_API_URL + '/channels/channels', {
 				headers: {
-					Authorization: `Bearer ${localStorage.getItem('jwt')}`,
-				},
+					Authorization: `Bearer ${localStorage.getItem('jwt')}`
+				}
+			}).then((data) => {
+				if(data.status == 200){
+					setUserData(data.data)
+					setIsLoading(false)
+				}
 			})
-				.then(data => data.json())
-				.then(data => {
-					if (data.length !== 0) {
-						setUserData(data)
-						setIsLoading(false)
-					}
-					console.log(data)
-				})
 		}
 	}, [])
 
