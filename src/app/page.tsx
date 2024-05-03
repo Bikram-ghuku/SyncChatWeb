@@ -5,6 +5,7 @@ import { ArrowRight } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import React from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 
 function page() {
 	const router = useRouter()
@@ -24,11 +25,14 @@ function page() {
 					<div className=" flex items-center justify-center pt-5">
 						<Button
 							variant={'default'}
-							className=" font-medium bg-indigo-600 text-white hover:bg-indigo-500 absolute"
+							className=" font-medium bg-indigo-600 text-white hover:bg-indigo-500 absolute flex-1 mr-[10rem]"
 							onClick={e => router.push('./register')}
 						>
 							Get started <ArrowRight />
 						</Button>
+						<Link href={'https://github.com/Bikram-ghuku/chatSyncWeb'} className='absolute flex-1 ml-[10rem] underline'>
+							View on Github
+						</Link>
 					</div>
 				</div>
 				<div className=" w-full flex items-center justify-center">
