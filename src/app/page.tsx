@@ -68,7 +68,7 @@ function page() {
 							className="absolute left-[10rem]"
 						/>
 					</div>
-					<div className="flex flex-1 flex-col mb-20 mr-20 mt-20">
+					<div className="lg:flex flex-1 flex-col mb-20 mr-20 mt-20 hidden">
 						<div>
 							<div className=" text-7xl font-extrabold mb-20 mr-20 mt-20">
 								You focus on chatting, let us handle the rest
