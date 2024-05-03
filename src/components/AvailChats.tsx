@@ -1,15 +1,35 @@
 'use client'
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import AvailChatElement from '@/components/AvailChatElement'
 import { ChannelContext, user } from '@/provider/channelProvider'
 import { LoadingSpinner } from '@/components/Spinner'
 import { socketContext } from '@/provider/socketProvider'
+import axios from 'axios'
+
 
 function AvailChats({ active }: { active?: string }) {
-	const { userDet, isLoad } = useContext(ChannelContext)
+	const [userData, setUserData] = useContext(ChannelContext)!;
 
 	const socket = useContext(socketContext)
 	const [channels, setChannels] = useState<user[]>([])
+	const [isLoad, setIsLoad] = useState<Boolean>(true);
+
+	useEffect(() => {
+		if (localStorage.getItem('jwt')) {
+			axios.get(process.env.NEXT_PUBLIC_API_URL + '/channels/channels', {
+				headers: {
+					Authorization: `Bearer ${localStorage.getItem('jwt')}`
+				}
+			}).then((data) => {
+				if(data.status == 200){
+					const userDetData: user[] = data.data
+					setUserData(userDetData)
+					setIsLoad(false)
+					setChannels(userDetData)
+				}
+			})
+		}
+	}, [])
 
 	if (isLoad) {
 		return (
@@ -18,7 +38,6 @@ function AvailChats({ active }: { active?: string }) {
 			</div>
 		)
 	}
-	setChannels(userDet)
 	socket.on('message', data => {
 		if (channels.find(user => user.chanId === data.chatId) != undefined) {
 			var res: user[] = []
