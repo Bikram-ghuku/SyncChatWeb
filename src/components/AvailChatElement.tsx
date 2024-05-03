@@ -32,7 +32,7 @@ function AvailChatElement(userName: user) {
 				</Avatar>
 				<div className="mt-6 ml-4 w-1/2">
 					<div className="font-semibold text-lg">{userName.name}</div>
-					<div className="pt-2 font-light text-sm overflow-hidden">
+					<div className="pt-2 font-light text-sm overflow-hidden h-8">
 						{lastMsgDecp}
 					</div>
 				</div>

@@ -44,7 +44,7 @@ function InputArea({ chatId }: { chatId: string }) {
 		}
 		if (e.keyCode === 27) {
 			setText('')
-			setOpenEmoji(false)
+			setOpenEmoji(true)
 			router.push('../chat')
 		}
 	}
