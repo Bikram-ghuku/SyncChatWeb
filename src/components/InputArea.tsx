@@ -62,9 +62,8 @@ function InputArea({ chatId }: { chatId: string }) {
 					theme={Theme.AUTO}
 					open={!openEmoji}
 					lazyLoadEmojis={true}
-					width="20vw"
-					height="40vh"
 					onEmojiClick={emojiPicked}
+					className='sm:w-[100%] sm:h-[10%]  lg:w-[20vw] lg:h-[40vh]'
 				/>
 			</div>
 			<Input
