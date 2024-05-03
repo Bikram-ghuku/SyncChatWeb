@@ -1,5 +1,6 @@
 'use client'
-import { createContext, useState, useEffect } from 'react'
+import axios from 'axios'
+import React, { createContext, useState, useEffect } from 'react'
 export type user = {
 	name: string
 	url: string
@@ -8,42 +9,18 @@ export type user = {
 	userId: string
 	chanId: string
 }
-
-export const ChannelContext = createContext<{
-	isLoad: boolean
-	userDet: user[]
-}>({
-	isLoad: true,
-	userDet: [],
-})
+export const ChannelContext = createContext<[user[], React.Dispatch<React.SetStateAction<user[]>>] | undefined>(undefined)
 
 const ChannelProvider = (props: any) => {
 	const [userData, setUserData] = useState<user[]>([])
-	const [isLoading, setIsLoading] = useState<boolean>(true)
-	useEffect(() => {
-		if (localStorage.getItem('jwt')) {
-			fetch(process.env.NEXT_PUBLIC_API_URL + '/channels/channels', {
-				method: 'GET',
-				headers: {
-					Authorization: `Bearer ${localStorage.getItem('jwt')}`,
-				},
-			})
-				.then(data => data.json())
-				.then(data => {
-					if (data.length !== 0) {
-						setUserData(data)
-						setIsLoading(false)
-					}
-					console.log(data)
-				})
-		}
-	}, [])
+	
 
 	return (
-		<ChannelContext.Provider value={{ isLoad: isLoading, userDet: userData }}>
+		<ChannelContext.Provider value={[userData, setUserData]}>
 			{props.children}
 		</ChannelContext.Provider>
 	)
 }
+
 
 export default ChannelProvider
