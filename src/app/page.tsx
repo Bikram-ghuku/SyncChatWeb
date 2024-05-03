@@ -19,7 +19,7 @@ function page() {
 				<div className="flex flex-col gap-10 w-full text-center items-center h-[20rem] justify-center z-10 text-black dark:text-white">
 					<div className="text-5xl font-extrabold">Chat Sync</div>
 					<div className=" text-xl">
-						Encrypted, realtime, disposable one to one chat application
+						Open-Source, Encrypted, realtime, disposable one to one chat application
 					</div>
 					<div className=" flex items-center justify-center pt-5">
 						<Button
