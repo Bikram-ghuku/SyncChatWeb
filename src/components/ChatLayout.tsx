@@ -11,7 +11,7 @@ import { ChannelContext, user } from '@/provider/channelProvider'
 
 function ChatLayout({ chatId }: { chatId: string }) {
 	const [userDat, setUserDat] = useContext(ChannelContext)!
-	const channels: user[] = userDat
+	const channels: user[] = userDat == undefined ? [] : userDat
 	const userData = channels.find(user => user.chanId == chatId)
 	const date = Date.parse(
 		userData?.lastOnline || '2019-01-01T00:00:00.000+00:00'
