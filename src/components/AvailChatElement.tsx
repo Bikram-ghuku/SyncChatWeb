@@ -19,7 +19,7 @@ function AvailChatElement(userName: user) {
 		setLastMsgDecp(data)
 	})
 	return (
-		<Link href={'/chat/[chatId]'} id={userName.id} as={`chat/${userName.id}`}>
+		<Link href={'/chat/[chatId]'} id={userName.id} as={`/chat/${userName.id}`}>
 			<div
 				className={
 					'h-[6rem] flex mt-2 pl-3 rounded-sm ' +
