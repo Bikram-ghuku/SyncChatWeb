@@ -14,21 +14,26 @@ function AvailChats({ active }: { active?: string }) {
 	const [isLoad, setIsLoad] = useState<Boolean>(true)
 
 	useEffect(() => {
-		if (localStorage.getItem('jwt')) {
-			axios
-				.get(process.env.NEXT_PUBLIC_API_URL + '/channels/channels', {
-					headers: {
-						Authorization: `Bearer ${localStorage.getItem('jwt')}`,
-					},
-				})
-				.then(data => {
-					if (data.status == 200) {
-						const userDetData: user[] = data.data
-						setUserData(userDetData)
-						setIsLoad(false)
-						setChannels(userDetData)
-					}
-				})
+		if (userData == undefined) {
+			if (localStorage.getItem('jwt')) {
+				axios
+					.get(process.env.NEXT_PUBLIC_API_URL + '/channels/channels', {
+						headers: {
+							Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+						},
+					})
+					.then(data => {
+						if (data.status == 200) {
+							const userDetData: user[] = data.data
+							setUserData(userDetData)
+							setIsLoad(false)
+							setChannels(userDetData)
+						}
+					})
+			}
+		} else {
+			setChannels(userData)
+			setIsLoad(false)
 		}
 	}, [])
 
