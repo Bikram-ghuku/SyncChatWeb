@@ -10,7 +10,7 @@ import Messages from '@/components/Messages'
 import { ChannelContext, user } from '@/provider/channelProvider'
 
 function ChatLayout({ chatId }: { chatId: string }) {
-	const [userDat, setUserDat] = useContext(ChannelContext)!;
+	const [userDat, setUserDat] = useContext(ChannelContext)!
 	const channels: user[] = userDat
 	const userData = channels.find(user => user.chanId == chatId)
 	const date = Date.parse(

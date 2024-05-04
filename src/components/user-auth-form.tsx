@@ -1,9 +1,9 @@
 'use client'
 import { Toaster } from '@/components/ui/toaster'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { cn } from '@/lib/utils'
-import { buttonVariants } from '@/components/ui/button'
+import { Button, buttonVariants } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { useToast } from '@/components/ui/use-toast'
@@ -21,6 +21,23 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
 	const [name, setName] = useState<string>('')
 	const { toast } = useToast()
 	const router = useRouter()
+	const searchParams = useSearchParams();
+	const data = searchParams.get('code');
+	useEffect(() => {
+		if(!(data == null || data == '')){
+			axios.post(process.env.NEXT_PUBLIC_API_URL + '/users/ghreg', {
+				code: data
+			}).then((data) => {
+				console.log(data.data)
+				if(typeof window !== null && window !== undefined){
+					window.localStorage.setItem('jwt', data.data.token)
+					window.localStorage.setItem('name', JSON.stringify(data.data))
+					router.push('./chat')
+				}
+			})
+		}
+	}, [])
+
 
 	const Handle = () => {
 		axios
@@ -116,6 +133,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
 							? 'Register with Email'
 							: 'Login with email'}
 					</button>
+					<Button onClick={(e) => router.push(`https://github.com/login/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_GH_CLIENT_ID}`)}>Continue with Github</Button>
 					<Toaster />
 				</div>
 			</form>

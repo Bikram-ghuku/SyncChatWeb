@@ -9,11 +9,12 @@ export type user = {
 	userId: string
 	chanId: string
 }
-export const ChannelContext = createContext<[user[], React.Dispatch<React.SetStateAction<user[]>>] | undefined>(undefined)
+export const ChannelContext = createContext<
+	[user[], React.Dispatch<React.SetStateAction<user[]>>] | undefined
+>(undefined)
 
 const ChannelProvider = (props: any) => {
 	const [userData, setUserData] = useState<user[]>([])
-	
 
 	return (
 		<ChannelContext.Provider value={[userData, setUserData]}>
@@ -21,6 +22,5 @@ const ChannelProvider = (props: any) => {
 		</ChannelContext.Provider>
 	)
 }
-
 
 export default ChannelProvider

@@ -6,28 +6,29 @@ import { LoadingSpinner } from '@/components/Spinner'
 import { socketContext } from '@/provider/socketProvider'
 import axios from 'axios'
 
-
 function AvailChats({ active }: { active?: string }) {
-	const [userData, setUserData] = useContext(ChannelContext)!;
+	const [userData, setUserData] = useContext(ChannelContext)!
 
 	const socket = useContext(socketContext)
 	const [channels, setChannels] = useState<user[]>([])
-	const [isLoad, setIsLoad] = useState<Boolean>(true);
+	const [isLoad, setIsLoad] = useState<Boolean>(true)
 
 	useEffect(() => {
 		if (localStorage.getItem('jwt')) {
-			axios.get(process.env.NEXT_PUBLIC_API_URL + '/channels/channels', {
-				headers: {
-					Authorization: `Bearer ${localStorage.getItem('jwt')}`
-				}
-			}).then((data) => {
-				if(data.status == 200){
-					const userDetData: user[] = data.data
-					setUserData(userDetData)
-					setIsLoad(false)
-					setChannels(userDetData)
-				}
-			})
+			axios
+				.get(process.env.NEXT_PUBLIC_API_URL + '/channels/channels', {
+					headers: {
+						Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+					},
+				})
+				.then(data => {
+					if (data.status == 200) {
+						const userDetData: user[] = data.data
+						setUserData(userDetData)
+						setIsLoad(false)
+						setChannels(userDetData)
+					}
+				})
 		}
 	}, [])
 

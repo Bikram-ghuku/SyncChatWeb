@@ -1,5 +1,5 @@
 'use client'
-import React from 'react'
+import React, { useState } from 'react'
 import DarkToggler from './DarkToggler'
 import UserButton from './UserButton'
 import ChatsButton from './ChatsButton'
@@ -10,6 +10,17 @@ import { redirect } from 'next/navigation'
 import Link from 'next/link'
 
 function Header() {
+	var userProf = "https://github.com/shadcn.png"
+	if(typeof window != 'undefined'){
+		const userDataStr = window.localStorage.getItem('name')
+		if(userDataStr != null){
+			const userData = JSON.parse(userDataStr!)
+			console.log(userData.url)
+			if(userData.url != null){
+				userProf = userData.url
+			}
+		}
+	}
 	return (
 		<header className="sticky top-0 z-50 bg-white dark:bg-gray-900 border-b-2 border-[#5e5e5e33] dark:border-[#303030]">
 			<nav className="flex flex-col sm:flex-row items-center p-5 pl-2 bg-white dark:bg-gray-900 max-w-7xl mx-auto">
@@ -24,7 +35,7 @@ function Header() {
 					<DarkToggler />
 					{typeof window !== 'undefined' ? (
 						localStorage.getItem('jwt') || '' ? (
-							<UserButton url="https://github.com/shadcn.png" />
+							<UserButton url={userProf} />
 						) : (
 							<Link href="/login">
 								<Button variant="ghost">Login</Button>

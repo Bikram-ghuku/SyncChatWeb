@@ -7,10 +7,10 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 function LandingPage() {
-    const router = useRouter()
-  return (
-    <div>
-        <div className="h-screen w-full">
+	const router = useRouter()
+	return (
+		<div>
+			<div className="h-screen w-full">
 				<div className="relative isolate pt-14 ">
 					<div className="absolute top-[8rem] flex h-[20rem] w-full items-center justify-center">
 						<div className=" w-[16rem] h-[16rem] rounded-full bg-blue-500 blur-3xl bg-blend-overlay opacity-50"></div>
@@ -81,8 +81,8 @@ function LandingPage() {
 					</div>
 				</div>
 			</div>
-    </div>
-  )
+		</div>
+	)
 }
 
 export default LandingPage
