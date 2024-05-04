@@ -10,6 +10,17 @@ type message = {
 	url: string
 }
 function MessageElement({ messageInfo }: { messageInfo: message }) {
+	var userProf = "https://github.com/shadcn.png"
+	if(typeof window != 'undefined'){
+		const userDataStr = window.localStorage.getItem('name')
+		if(userDataStr != null){
+			const userData = JSON.parse(userDataStr!)
+			console.log(userData.url)
+			if(userData.url != null){
+				userProf = userData.url
+			}
+		}
+	}
 	if (messageInfo.self) {
 		// self messages
 		const selfData = JSON.parse(localStorage.getItem('name')!)
@@ -24,7 +35,7 @@ function MessageElement({ messageInfo }: { messageInfo: message }) {
 						{messageInfo.message}
 					</div>
 				</div>
-				<UserAvatar url="" />
+				<UserAvatar url={userProf} />
 			</div>
 		)
 	} else {
