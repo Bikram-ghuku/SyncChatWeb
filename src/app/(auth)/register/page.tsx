@@ -5,6 +5,7 @@ import { cn } from '@/lib/utils'
 import { buttonVariants } from '@/components/ui/button'
 import { Command, ChevronLeft } from 'lucide-react'
 import { UserAuthForm } from '@/components/user-auth-form'
+import { Suspense } from 'react'
 
 export const metadata: Metadata = {
 	title: 'Register',
@@ -13,6 +14,7 @@ export const metadata: Metadata = {
 
 export default function RegisterPage() {
 	return (
+		<Suspense>
 		<div className="container flex h-screen w-screen flex-col items-center justify-center">
 			<Link
 				href="/"
@@ -47,5 +49,6 @@ export default function RegisterPage() {
 				</p>
 			</div>
 		</div>
+		</Suspense>
 	)
 }
