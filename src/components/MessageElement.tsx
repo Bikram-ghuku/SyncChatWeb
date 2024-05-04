@@ -10,13 +10,13 @@ type message = {
 	url: string
 }
 function MessageElement({ messageInfo }: { messageInfo: message }) {
-	var userProf = "https://github.com/shadcn.png"
-	if(typeof window != 'undefined'){
+	var userProf = 'https://github.com/shadcn.png'
+	if (typeof window != 'undefined') {
 		const userDataStr = window.localStorage.getItem('name')
-		if(userDataStr != null){
+		if (userDataStr != null) {
 			const userData = JSON.parse(userDataStr!)
 			console.log(userData.url)
-			if(userData.url != null){
+			if (userData.url != null) {
 				userProf = userData.url
 			}
 		}

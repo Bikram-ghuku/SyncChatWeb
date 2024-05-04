@@ -22,24 +22,25 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
 	const [name, setName] = useState<string>('')
 	const { toast } = useToast()
 	const router = useRouter()
-	const searchParams = useSearchParams();
-	const data = searchParams.get('code');
+	const searchParams = useSearchParams()
+	const data = searchParams.get('code')
 	useEffect(() => {
-		if(!(data == null || data == '')){
+		if (!(data == null || data == '')) {
 			setIsGitLoad(true)
-			axios.post(process.env.NEXT_PUBLIC_API_URL + '/users/ghreg', {
-				code: data
-			}).then((data) => {
-				console.log(data.data)
-				if(typeof window !== null && window !== undefined){
-					window.localStorage.setItem('jwt', data.data.token)
-					window.localStorage.setItem('name', JSON.stringify(data.data))
-					router.push('./chat')
-				}
-			})
+			axios
+				.post(process.env.NEXT_PUBLIC_API_URL + '/users/ghreg', {
+					code: data,
+				})
+				.then(data => {
+					console.log(data.data)
+					if (typeof window !== null && window !== undefined) {
+						window.localStorage.setItem('jwt', data.data.token)
+						window.localStorage.setItem('name', JSON.stringify(data.data))
+						router.push('./chat')
+					}
+				})
 		}
 	}, [])
-
 
 	const Handle = () => {
 		axios
@@ -135,7 +136,17 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
 							? 'Register with Email'
 							: 'Login with email'}
 					</button>
-					<Button onClick={(e) => router.push(`https://github.com/login/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_GH_CLIENT_ID}`)} disabled={isGitLoad}>{isGitLoad && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}Continue with Github</Button>
+					<Button
+						onClick={e =>
+							router.push(
+								`https://github.com/login/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_GH_CLIENT_ID}`
+							)
+						}
+						disabled={isGitLoad}
+					>
+						{isGitLoad && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+						Continue with Github
+					</Button>
 					<Toaster />
 				</div>
 			</form>
