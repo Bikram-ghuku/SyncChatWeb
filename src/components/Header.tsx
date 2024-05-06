@@ -33,7 +33,7 @@ function Header() {
 					<GetChats />
 					<DarkToggler />
 					{typeof window !== 'undefined' ? (
-						localStorage.getItem('jwt') || '' ? (
+						window.localStorage.getItem('jwt') || '' ? (
 							<UserButton url={userProf} />
 						) : (
 							<Link href="/login">
