@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useRef, useState } from 'react'
 import MessageElement from '@/components/MessageElement'
 import { socketContext } from '@/provider/socketProvider'
 import { decryptSymmetric } from '@/encryption/Controller'
+import axios from 'axios'
 
 type userData = { name: string; url: string }
 type msgData = {
@@ -20,11 +21,42 @@ function Messages({
 	chatId: string
 	userDetails: userData
 }) {
+
 	const socket = useContext(socketContext)
 	const messaChaRef = useRef<null | HTMLDivElement>(null)
-	var initMsg: msgData[] = []
-	const [message, setMessage] = useState<msgData[]>(initMsg)
+	const [message, setMessage] = useState<msgData[]>([])
+	useEffect(() => {
+		if (localStorage.getItem('jwt')) {
+			axios.post(process.env.NEXT_PUBLIC_API_URL + '/message/getMsgs', {
+				chatId: chatId
+			},{
+				headers: {
+					Authorization:`Bearer ${localStorage.getItem('jwt')}`
+				}
+			}).then((data) => {
+				const resData = data.data
+				var initMsg: msgData[] = []
+				for(var i = 0; i < resData.length; i++){
+					const {id, msgs, self, TimeStamp} = data.data[i]
+					decryptSymmetric( msgs).then((resMsg)=>{
+						const dbmsg: msgData = {
+							id: id,
+							message: resMsg,
+							self: self,
+							timeStamp: TimeStamp,
+							user: '',
+							url:''
+						}
+						initMsg.push(dbmsg)
+					})
+				}
+				setMessage(initMsg)
+			})
 
+		}
+	}, [])
+
+	console.log(message)
 	socket.on('message', data => {
 		if (chatId == data.chatId) {
 			decryptSymmetric(data.msg).then(decMsg => {
