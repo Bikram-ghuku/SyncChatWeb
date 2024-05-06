@@ -34,9 +34,8 @@ function MessageElement({ messageInfo }: { messageInfo: message }) {
 					</div>
 					<div className="bg-[#00a3ff] rounded-bl-lg rounded-tl-lg rounded-br-lg w-fit text-end p-2 text-white max-w-[25vw] self-end break-words h-auto min-w-[5vw]">
 						{messageInfo.message}
-						<div className=' text-[0.5rem]'>{time.toLocaleTimeString()}</div>
+						<div className=" text-[0.5rem]">{time.toLocaleTimeString()}</div>
 					</div>
-					
 				</div>
 				<UserAvatar url={userProf} />
 			</div>
@@ -55,7 +54,7 @@ function MessageElement({ messageInfo }: { messageInfo: message }) {
 					</div>
 					<div className="dark:bg-[#292929] rounded-bl-lg rounded-tr-lg rounded-br-lg w-fit text-end flex-1 p-2 bg-white max-w-[25vw] self-end break-words min-w-[5vw]">
 						{messageInfo.message}
-						<div className=' text-[0.5rem]'>{time.toLocaleTimeString()}</div>
+						<div className=" text-[0.5rem]">{time.toLocaleTimeString()}</div>
 					</div>
 				</div>
 			</div>

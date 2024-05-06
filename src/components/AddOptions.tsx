@@ -54,13 +54,12 @@ function TranslateDialog({ child }: { child: React.ReactNode }) {
 }
 
 function EncryptDialog({ child }: { child: React.ReactNode }) {
-	const [ keyEnc, setKeyEnc, keyDeEnc, setKeyDeEnc ] = useContext(locEncrContext)!;
-	const [ compKey, setCompKey ] = useState<string>('');
+	const [keyEnc, setKeyEnc, keyDeEnc, setKeyDeEnc] = useContext(locEncrContext)!
+	const [compKey, setCompKey] = useState<string>('')
 	const [open, setIsOpen] = useState<boolean>(false)
 	const storeData = () => {
 		setIsOpen(false)
 		setKeyEnc(compKey)
-		
 	}
 	return (
 		<div>
@@ -73,9 +72,15 @@ function EncryptDialog({ child }: { child: React.ReactNode }) {
 						</DialogTitle>
 						<br />
 						<DialogDescription>
-							<Input type="text" placeholder="Enter your encryption Key" onChange={(e) => setCompKey(e.target.value)}/>
+							<Input
+								type="text"
+								placeholder="Enter your encryption Key"
+								onChange={e => setCompKey(e.target.value)}
+							/>
 							<br />
-							<Button variant="default" onClick={storeData}>Encrypt</Button>
+							<Button variant="default" onClick={storeData}>
+								Encrypt
+							</Button>
 						</DialogDescription>
 					</DialogHeader>
 				</DialogContent>
@@ -85,8 +90,8 @@ function EncryptDialog({ child }: { child: React.ReactNode }) {
 }
 
 function DecryptDialog({ child }: { child: React.ReactNode }) {
-	const [ keyEnc, setKeyEnc, keyDeEnc, setKeyDeEnc ] = useContext(locEncrContext)!;
-	const [ compKey, setCompKey ] = useState<string>('');
+	const [keyEnc, setKeyEnc, keyDeEnc, setKeyDeEnc] = useContext(locEncrContext)!
+	const [compKey, setCompKey] = useState<string>('')
 	const [open, setIsOpen] = useState<boolean>(false)
 	const storeData = () => {
 		setKeyDeEnc(compKey)
@@ -103,9 +108,15 @@ function DecryptDialog({ child }: { child: React.ReactNode }) {
 						</DialogTitle>
 						<br />
 						<DialogDescription>
-							<Input type="text" placeholder="Enter your Decryption Key" onChange={(e) => setCompKey(e.target.value)}/>
+							<Input
+								type="text"
+								placeholder="Enter your Decryption Key"
+								onChange={e => setCompKey(e.target.value)}
+							/>
 							<br />
-							<Button variant="default" onClick={storeData}>Decrypt</Button>
+							<Button variant="default" onClick={storeData}>
+								Decrypt
+							</Button>
 						</DialogDescription>
 					</DialogHeader>
 				</DialogContent>

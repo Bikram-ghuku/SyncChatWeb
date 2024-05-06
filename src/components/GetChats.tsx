@@ -39,7 +39,9 @@ function GetChats() {
 					setIsOpen(false)
 					toast({
 						title: 'Successfully created channel',
-						description: 'A new channel between the two people has been made with id: '+data.data.chatId,
+						description:
+							'A new channel between the two people has been made with id: ' +
+							data.data.chatId,
 					})
 				}
 			})

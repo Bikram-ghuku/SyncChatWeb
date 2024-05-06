@@ -23,16 +23,16 @@ export default function RootLayout({
 			<body className={inter.className}>
 				<ChannelProvider>
 					<LocalKeyProvider>
-					<SocketProvider>
-						<ThemeProvider
-							attribute="class"
-							defaultTheme="system"
-							enableSystem
-							disableTransitionOnChange
-						>
-							{children}
-						</ThemeProvider>
-					</SocketProvider>
+						<SocketProvider>
+							<ThemeProvider
+								attribute="class"
+								defaultTheme="system"
+								enableSystem
+								disableTransitionOnChange
+							>
+								{children}
+							</ThemeProvider>
+						</SocketProvider>
 					</LocalKeyProvider>
 				</ChannelProvider>
 			</body>

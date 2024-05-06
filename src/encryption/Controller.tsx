@@ -18,7 +18,7 @@ export const decryptSymmetric = async (data: string) => {
 	return CryptoJS.enc.Utf8.stringify(dencData)
 }
 export const encryptSymmetricKey = async (data: string, key: string) => {
-	if(key){
+	if (key) {
 		const encData = CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(data), key, {
 			mode: CryptoJS.mode.CBC,
 			padding: CryptoJS.pad.Pkcs7,
@@ -29,7 +29,7 @@ export const encryptSymmetricKey = async (data: string, key: string) => {
 }
 
 export const decryptSymmetricKey = async (data: string, key: string) => {
-	if(key){
+	if (key) {
 		const dencData = CryptoJS.AES.decrypt(data, key, {
 			mode: CryptoJS.mode.CBC,
 			padding: CryptoJS.pad.Pkcs7,

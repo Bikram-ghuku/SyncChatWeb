@@ -25,7 +25,7 @@ function Messages({
 	const socket = useContext(socketContext)
 	const messaChaRef = useRef<null | HTMLDivElement>(null)
 	const [message, setMessage] = useState<msgData[]>([])
-	const [isLoaading, setIsLoading] = useState<boolean>(true);
+	const [isLoaading, setIsLoading] = useState<boolean>(true)
 	useEffect(() => {
 		if (localStorage.getItem('jwt')) {
 			axios
@@ -57,7 +57,7 @@ function Messages({
 							initMsg.push(dbmsg)
 						})
 					}
-					
+
 					setIsLoading(false)
 					setMessage(initMsg)
 				})
@@ -83,10 +83,10 @@ function Messages({
 	useEffect(() => {
 		messaChaRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' })
 	}, [message])
-	if(isLoaading){
-		return(
+	if (isLoaading) {
+		return (
 			<div className="flex flex-col w-full overflow-x-hidden overflow-y-scroll lg:h-[75vh] h-[65vh] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] justify-center items-center">
-				<LoadingSpinner size={400}/>
+				<LoadingSpinner size={400} />
 			</div>
 		)
 	}

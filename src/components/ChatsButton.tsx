@@ -8,7 +8,13 @@ function ChatsButton() {
 	return (
 		<div>
 			<Button variant={'ghost'}>
-				<Link href={typeof window != 'undefined' && window.localStorage.getItem('jwt') ? "../chat" : "../register"}>
+				<Link
+					href={
+						typeof window != 'undefined' && window.localStorage.getItem('jwt')
+							? '../chat'
+							: '../register'
+					}
+				>
 					<MessagesSquare />
 				</Link>
 			</Button>
