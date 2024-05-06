@@ -15,7 +15,6 @@ function MessageElement({ messageInfo }: { messageInfo: message }) {
 		const userDataStr = window.localStorage.getItem('name')
 		if (userDataStr != null) {
 			const userData = JSON.parse(userDataStr!)
-			console.log(userData.url)
 			if (userData.url != null) {
 				userProf = userData.url
 			}
