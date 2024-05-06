@@ -10,7 +10,7 @@ import Messages from '@/components/Messages'
 import { ChannelContext, user } from '@/provider/channelProvider'
 
 function ChatLayout({ chatId }: { chatId: string }) {
-	const [userDat ] = useContext(ChannelContext)!
+	const [userDat] = useContext(ChannelContext)!
 	const channels: user[] = userDat == undefined ? [] : userDat
 	const userData = channels.find(user => user.chanId == chatId)
 	const date = Date.parse(
@@ -48,7 +48,18 @@ function ChatLayout({ chatId }: { chatId: string }) {
 						<CallOptions />
 					</div>
 				</div>
-				<div className="flex h-fit w-full pl-5 pr-5">
+
+				<div className="flex w-full pl-5 pr-5 messageEle">
+					<style jsx>{`
+						.messageEle {
+							height: calc(100vh - 232px);
+						}
+						@media screen and (max-width: 640px) {
+							.messageEle {
+								height: calc(100vh - 278px);
+							}
+						}
+					`}</style>
 					<Messages chatId={chatId} userDetails={userData!} />
 				</div>
 				<div className="flex dark:bg-gray-900 w-full bg-[#ffffff] h-16 border-t-2 border-[#5E5E5E33] dark:border-[#303030]">

@@ -19,7 +19,8 @@ function LandingPage() {
 					<div className="flex flex-col gap-10 w-full text-center items-center h-[20rem] justify-center z-10 text-black dark:text-white absolute">
 						<div className="text-5xl font-extrabold">Sync Chat</div>
 						<div className=" text-xl">
-							Open-Source, Encrypted, realtime, one to one chat application with chat history.
+							Open-Source, Encrypted, realtime, one to one chat application with
+							chat history.
 						</div>
 						<div className=" flex items-center justify-center pt-5">
 							<Button
