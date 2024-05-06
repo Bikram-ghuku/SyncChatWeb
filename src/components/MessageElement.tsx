@@ -49,7 +49,7 @@ function MessageElement({ messageInfo }: { messageInfo: message }) {
 				</div>
 				<div className="flex flex-col ml-5">
 					<div className="flex flex-row gap-3 mb-1">
-						<div className="text-[0.75rem]">{messageInfo.user},</div>
+						<div className="text-[0.75rem] w-[7ch] text-ellipsis overflow-hidden">{messageInfo.user},</div>
 						<div className="text-[0.75rem]">{time.toLocaleDateString()}</div>
 					</div>
 					<div className="dark:bg-[#292929] rounded-bl-lg rounded-tr-lg rounded-br-lg w-fit text-end flex-1 p-2 bg-white max-w-[25vw] self-end break-words min-w-[5vw]">
