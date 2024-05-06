@@ -38,7 +38,7 @@ export default function RegisterPage() {
 							Enter your email to create your account
 						</p>
 					</div>
-					<UserAuthForm className="h-[27vh]" variant="register" />
+					<UserAuthForm className="" variant="register" />
 					<p className="px-8 text-center text-sm text-muted-foreground">
 						<Link
 							href="/login"

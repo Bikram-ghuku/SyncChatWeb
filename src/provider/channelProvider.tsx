@@ -10,7 +10,7 @@ export type user = {
 	chanId: string
 }
 export const ChannelContext = createContext<
-	[
+	| [
 			user[] | undefined,
 			React.Dispatch<React.SetStateAction<user[] | undefined>>,
 	  ]
