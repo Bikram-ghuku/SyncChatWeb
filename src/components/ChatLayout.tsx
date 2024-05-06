@@ -48,7 +48,7 @@ function ChatLayout({ chatId }: { chatId: string }) {
 						<CallOptions />
 					</div>
 				</div>
-				<div className="flex h-full w-full pl-5 pr-5">
+				<div className="flex h-fit w-full pl-5 pr-5">
 					<Messages chatId={chatId} userDetails={userData!} />
 				</div>
 				<div className="flex dark:bg-gray-900 w-full bg-[#ffffff] h-16 border-t-2 border-[#5E5E5E33] dark:border-[#303030]">
