@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import {
 	Dialog,
 	DialogContent,
@@ -20,6 +20,7 @@ import {
 
 import { Input } from '@/components/ui/input'
 import { Button } from './ui/button'
+import { locEncrContext } from '@/provider/locEncrProvider'
 
 function TranslateDialog({ child }: { child: React.ReactNode }) {
 	return (
@@ -53,9 +54,17 @@ function TranslateDialog({ child }: { child: React.ReactNode }) {
 }
 
 function EncryptDialog({ child }: { child: React.ReactNode }) {
+	const [ keyEnc, setKeyEnc, keyDeEnc, setKeyDeEnc ] = useContext(locEncrContext)!;
+	const [ compKey, setCompKey ] = useState<string>('');
+	const [open, setIsOpen] = useState<boolean>(false)
+	const storeData = () => {
+		setIsOpen(false)
+		setKeyEnc(compKey)
+		
+	}
 	return (
 		<div>
-			<Dialog>
+			<Dialog open={open} onOpenChange={setIsOpen}>
 				<DialogTrigger>{child}</DialogTrigger>
 				<DialogContent>
 					<DialogHeader>
@@ -64,9 +73,9 @@ function EncryptDialog({ child }: { child: React.ReactNode }) {
 						</DialogTitle>
 						<br />
 						<DialogDescription>
-							<Input type="text" placeholder="Enter your encryption Key" />
+							<Input type="text" placeholder="Enter your encryption Key" onChange={(e) => setCompKey(e.target.value)}/>
 							<br />
-							<Button variant="default">Encrypt</Button>
+							<Button variant="default" onClick={storeData}>Encrypt</Button>
 						</DialogDescription>
 					</DialogHeader>
 				</DialogContent>
@@ -76,9 +85,16 @@ function EncryptDialog({ child }: { child: React.ReactNode }) {
 }
 
 function DecryptDialog({ child }: { child: React.ReactNode }) {
+	const [ keyEnc, setKeyEnc, keyDeEnc, setKeyDeEnc ] = useContext(locEncrContext)!;
+	const [ compKey, setCompKey ] = useState<string>('');
+	const [open, setIsOpen] = useState<boolean>(false)
+	const storeData = () => {
+		setKeyDeEnc(compKey)
+		setIsOpen(false)
+	}
 	return (
 		<div>
-			<Dialog>
+			<Dialog open={open} onOpenChange={setIsOpen}>
 				<DialogTrigger>{child}</DialogTrigger>
 				<DialogContent>
 					<DialogHeader>
@@ -87,9 +103,9 @@ function DecryptDialog({ child }: { child: React.ReactNode }) {
 						</DialogTitle>
 						<br />
 						<DialogDescription>
-							<Input type="text" placeholder="Enter your Decryption Key" />
+							<Input type="text" placeholder="Enter your Decryption Key" onChange={(e) => setCompKey(e.target.value)}/>
 							<br />
-							<Button variant="default">Decrypt</Button>
+							<Button variant="default" onClick={storeData}>Decrypt</Button>
 						</DialogDescription>
 					</DialogHeader>
 				</DialogContent>

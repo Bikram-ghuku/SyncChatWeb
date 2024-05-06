@@ -4,6 +4,7 @@ import MessageElement from '@/components/MessageElement'
 import { socketContext } from '@/provider/socketProvider'
 import { decryptSymmetric } from '@/encryption/Controller'
 import axios from 'axios'
+import { LoadingSpinner } from './Spinner'
 
 type userData = { name: string; url: string }
 type msgData = {
@@ -24,6 +25,7 @@ function Messages({
 	const socket = useContext(socketContext)
 	const messaChaRef = useRef<null | HTMLDivElement>(null)
 	const [message, setMessage] = useState<msgData[]>([])
+	const [isLoaading, setIsLoading] = useState<boolean>(true);
 	useEffect(() => {
 		if (localStorage.getItem('jwt')) {
 			axios
@@ -49,12 +51,14 @@ function Messages({
 								message: resMsg,
 								self: self,
 								timeStamp: TimeStamp,
-								user: userDetails.name,
-								url: userDetails.url,
+								user: userDetails?.name || '',
+								url: userDetails?.url || '',
 							}
 							initMsg.push(dbmsg)
 						})
 					}
+					
+					setIsLoading(false)
 					setMessage(initMsg)
 				})
 		}
@@ -79,7 +83,13 @@ function Messages({
 	useEffect(() => {
 		messaChaRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' })
 	}, [message])
-
+	if(isLoaading){
+		return(
+			<div className="flex flex-col w-full overflow-x-hidden overflow-y-scroll lg:h-[75vh] h-[65vh] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] justify-center items-center">
+				<LoadingSpinner size={400}/>
+			</div>
+		)
+	}
 	return (
 		<div className="flex flex-col w-full overflow-x-hidden overflow-y-scroll lg:h-[75vh] h-[65vh] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
 			{message?.map((value, index) => (

@@ -15,7 +15,6 @@ function Header() {
 		const userDataStr = window.localStorage.getItem('name')
 		if (userDataStr != null) {
 			const userData = JSON.parse(userDataStr!)
-			console.log(userData.url)
 			if (userData.url != null) {
 				userProf = userData.url
 			}
@@ -34,7 +33,7 @@ function Header() {
 					<GetChats />
 					<DarkToggler />
 					{typeof window !== 'undefined' ? (
-						localStorage.getItem('jwt') || '' ? (
+						window.localStorage.getItem('jwt') || '' ? (
 							<UserButton url={userProf} />
 						) : (
 							<Link href="/login">

@@ -21,6 +21,7 @@ function GetChats() {
 	const { toast } = useToast()
 	const [open, setIsOpen] = useState<boolean>(false)
 	const handleCreateChat = () => {
+		setIsLoading(true)
 		axios
 			.post(
 				process.env.NEXT_PUBLIC_API_URL + '/channels/addChannels',
@@ -32,31 +33,33 @@ function GetChats() {
 				}
 			)
 			.then(data => {
-				if (data.status == 200) {
+				console.log(data.data)
+				if (data.status == 200 || data.status == 201) {
+					setIsLoading(false)
 					setIsOpen(false)
 					toast({
 						title: 'Successfully created channel',
-						description: 'A new channel between the two people has been made',
+						description: 'A new channel between the two people has been made with id: '+data.data.chatId,
 					})
 				}
 			})
 			.catch(error => {
+				console.log(error.response)
+				setIsLoading(false)
+				setIsOpen(false)
 				if (error.response.status == 409) {
-					setIsOpen(false)
 					toast({
 						title: 'Error creating channel',
 						description: 'A channel bewteen the users exists',
 					})
 				}
 				if (error.response.status == 404) {
-					setIsOpen(false)
 					toast({
 						title: 'Error creating channel',
 						description: 'User with the given email is not found',
 					})
 				}
 				if (error.response.status == 500) {
-					setIsOpen(false)
 					toast({
 						title: 'Server',
 						description: 'Server error',
@@ -75,7 +78,7 @@ function GetChats() {
 				<DialogContent>
 					<DialogHeader>
 						<DialogTitle>
-							Enter the email address to message the person
+							Enter the email address / user-id to message the person
 						</DialogTitle>
 
 						<DialogDescription>
@@ -86,7 +89,7 @@ function GetChats() {
 								autoCapitalize="none"
 								autoComplete="email"
 								autoCorrect="off"
-								placeholder="name@example.com"
+								placeholder="user-id"
 							/>
 							<br />
 							<Button

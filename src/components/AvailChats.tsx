@@ -5,6 +5,7 @@ import { ChannelContext, user } from '@/provider/channelProvider'
 import { LoadingSpinner } from '@/components/Spinner'
 import { socketContext } from '@/provider/socketProvider'
 import axios from 'axios'
+import { MessageSquarePlus } from 'lucide-react'
 
 function AvailChats({ active }: { active?: string }) {
 	const [userData, setUserData] = useContext(ChannelContext)!
@@ -64,7 +65,7 @@ function AvailChats({ active }: { active?: string }) {
 				<div className="pl-3 text-center pr-4">
 					<div>
 						Start by adding a new person to chat with by clicking the add chat
-						option in the header
+						option in the header, &quot;Bikram-ghuku&quot; to messsage developer
 					</div>
 				</div>
 			)}
