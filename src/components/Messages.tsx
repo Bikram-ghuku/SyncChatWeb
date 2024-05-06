@@ -21,38 +21,42 @@ function Messages({
 	chatId: string
 	userDetails: userData
 }) {
-
 	const socket = useContext(socketContext)
 	const messaChaRef = useRef<null | HTMLDivElement>(null)
 	const [message, setMessage] = useState<msgData[]>([])
 	useEffect(() => {
 		if (localStorage.getItem('jwt')) {
-			axios.post(process.env.NEXT_PUBLIC_API_URL + '/message/getMsgs', {
-				chatId: chatId
-			},{
-				headers: {
-					Authorization:`Bearer ${localStorage.getItem('jwt')}`
-				}
-			}).then((data) => {
-				const resData = data.data
-				var initMsg: msgData[] = []
-				for(var i = 0; i < resData.length; i++){
-					const {id, msgs, self, TimeStamp} = data.data[i]
-					decryptSymmetric( msgs).then((resMsg)=>{
-						const dbmsg: msgData = {
-							id: id,
-							message: resMsg,
-							self: self,
-							timeStamp: TimeStamp,
-							user: userDetails.name,
-							url: userDetails.url
-						}
-						initMsg.push(dbmsg)
-					})
-				}
-				setMessage(initMsg)
-			})
-
+			axios
+				.post(
+					process.env.NEXT_PUBLIC_API_URL + '/message/getMsgs',
+					{
+						chatId: chatId,
+					},
+					{
+						headers: {
+							Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+						},
+					}
+				)
+				.then(data => {
+					const resData = data.data
+					var initMsg: msgData[] = []
+					for (var i = 0; i < resData.length; i++) {
+						const { id, msgs, self, TimeStamp } = data.data[i]
+						decryptSymmetric(msgs).then(resMsg => {
+							const dbmsg: msgData = {
+								id: id,
+								message: resMsg,
+								self: self,
+								timeStamp: TimeStamp,
+								user: userDetails.name,
+								url: userDetails.url,
+							}
+							initMsg.push(dbmsg)
+						})
+					}
+					setMessage(initMsg)
+				})
 		}
 	}, [])
 
