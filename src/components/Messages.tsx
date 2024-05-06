@@ -44,8 +44,8 @@ function Messages({
 							message: resMsg,
 							self: self,
 							timeStamp: TimeStamp,
-							user: '',
-							url:''
+							user: userDetails.name,
+							url: userDetails.url
 						}
 						initMsg.push(dbmsg)
 					})
