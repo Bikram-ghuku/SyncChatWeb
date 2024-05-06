@@ -38,7 +38,7 @@ export default function LoginPage() {
 							Enter your email to sign in to your account
 						</p>
 					</div>
-					<UserAuthForm className="h-[22vh]" variant="login" />
+					<UserAuthForm className="" variant="login" />
 					<p className="px-8 text-center text-sm text-muted-foreground">
 						<Link
 							href="/register"
