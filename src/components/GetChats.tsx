@@ -21,6 +21,7 @@ function GetChats() {
 	const { toast } = useToast()
 	const [open, setIsOpen] = useState<boolean>(false)
 	const handleCreateChat = () => {
+		setIsLoading(true)
 		axios
 			.post(
 				process.env.NEXT_PUBLIC_API_URL + '/channels/addChannels',
@@ -33,6 +34,7 @@ function GetChats() {
 			)
 			.then(data => {
 				if (data.status == 200) {
+					setIsLoading(false)
 					setIsOpen(false)
 					toast({
 						title: 'Successfully created channel',
@@ -41,22 +43,21 @@ function GetChats() {
 				}
 			})
 			.catch(error => {
+				setIsLoading(false)
+				setIsOpen(false)
 				if (error.response.status == 409) {
-					setIsOpen(false)
 					toast({
 						title: 'Error creating channel',
 						description: 'A channel bewteen the users exists',
 					})
 				}
 				if (error.response.status == 404) {
-					setIsOpen(false)
 					toast({
 						title: 'Error creating channel',
 						description: 'User with the given email is not found',
 					})
 				}
 				if (error.response.status == 500) {
-					setIsOpen(false)
 					toast({
 						title: 'Server',
 						description: 'Server error',
