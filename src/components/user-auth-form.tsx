@@ -43,6 +43,25 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
 	}, [])
 
 	const Handle = () => {
+		if(!email || !pswd){
+			if(props.variant == 'register' && !name){
+				toast({
+					title: 'Invalid username or password',
+					description:
+						'username, name, pswd all are required for signup',
+				})
+				setIsLoading(false)
+				return
+			}else if(props.variant == 'login'){
+				toast({
+					title: 'Invalid username or password',
+					description:
+						'Username and/or password is empty',
+				})
+				setIsLoading(false)
+				return
+			}
+		}
 		axios
 			.post(process.env.NEXT_PUBLIC_API_URL + '/users/' + props.variant, {
 				email: email,
