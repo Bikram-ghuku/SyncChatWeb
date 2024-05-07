@@ -8,6 +8,7 @@ export type user = {
 	lastOnline?: string
 	userId: string
 	chanId: string
+	noUnread: number
 }
 export const ChannelContext = createContext<
 	| [
