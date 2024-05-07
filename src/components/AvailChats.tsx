@@ -52,6 +52,7 @@ function AvailChats({ active }: { active?: string }) {
 			const newChan = [...channels];
 			newChan[x] = updateChan
 			setChannels(newChan)
+			setUserData(newChan)
 		}
 	})
 	return (
