@@ -13,7 +13,7 @@ function ChatHomePage() {
 				<style jsx>{`
 						.messageEle {
 							height: calc(100vh - 108px);
-							width: 30%
+							width: 25%
 						}
 						@media screen and (max-width: 800px) {
 							.messageEle {
