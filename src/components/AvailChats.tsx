@@ -79,6 +79,7 @@ function AvailChats({ active }: { active?: string }) {
 					active={Udata.chanId == active}
 					key={index}
 					noUnread={Udata.noUnread}
+					onClick={() => {channels[index].noUnread = 0}}
 				/>
 			))}
 		</div>

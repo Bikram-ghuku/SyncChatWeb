@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react'
+import React, { MouseEventHandler, useState } from 'react'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import Link from 'next/link'
 import { decryptSymmetric } from '@/encryption/Controller'
@@ -12,6 +12,7 @@ type user = {
 	id: string
 	active: boolean
 	noUnread: number
+	onClick: MouseEventHandler
 }
 
 function AvailChatElement(userName: user) {
@@ -20,7 +21,7 @@ function AvailChatElement(userName: user) {
 		setLastMsgDecp(data)
 	})
 	return (
-		<Link href={'/chat/[chatId]'} id={userName.id} as={`/chat/${userName.id}`}>
+		<Link href={'/chat/[chatId]'} id={userName.id} as={`/chat/${userName.id}`} onClick={userName.onClick}>
 			<div
 				className={
 					'h-[6rem] flex mt-2 pl-3 rounded-sm ' +
