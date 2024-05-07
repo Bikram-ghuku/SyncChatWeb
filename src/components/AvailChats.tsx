@@ -48,7 +48,12 @@ function AvailChats({ active }: { active?: string }) {
 	socket.on('message', data => {
 		var x = channels.findIndex(user => user.chanId === data.chatId)
 		if(x != -1){
-			const updateChan:user = {...channels[x], lastMsg: data.msg, noUnread: channels[x].noUnread + 1}
+			var updateChan: user;
+			if(data.jwt != window.localStorage.getItem('jwt')){
+				updateChan = {...channels[x], lastMsg: data.msg, noUnread: channels[x].noUnread + 1}
+			}else{
+				updateChan= {...channels[x], lastMsg: data.msg}
+			}
 			const newChan = [...channels];
 			newChan[x] = updateChan
 			setChannels(newChan)
