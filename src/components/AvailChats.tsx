@@ -46,17 +46,13 @@ function AvailChats({ active }: { active?: string }) {
 		)
 	}
 	socket.on('message', data => {
-		if (channels.find(user => user.chanId === data.chatId) != undefined) {
-			var res: user[] = []
-			for (var i = 0; i < channels.length; i++) {
-				if (channels[i].chanId === data.chatId) {
-					channels[i].lastMsg = data.msg
-					res.push(channels[i])
-				} else {
-					res.push(channels[i])
-				}
-			}
-			setChannels(res)
+		var x = channels.findIndex(user => user.chanId === data.chatId)
+		if(x != -1){
+			const updateChan:user = {...channels[x], lastMsg: data.msg, noUnread: channels[x].noUnread + 1}
+			const newChan = [...channels];
+			newChan[x] = updateChan
+			setChannels(newChan)
+			setUserData(newChan)
 		}
 	})
 	return (
@@ -79,6 +75,7 @@ function AvailChats({ active }: { active?: string }) {
 					active={Udata.chanId == active}
 					key={index}
 					noUnread={Udata.noUnread}
+					onClick={() => {channels[index].noUnread = 0}}
 				/>
 			))}
 		</div>
