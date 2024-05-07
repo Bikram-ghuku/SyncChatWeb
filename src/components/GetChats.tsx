@@ -22,6 +22,15 @@ function GetChats() {
 	const [open, setIsOpen] = useState<boolean>(false)
 	const handleCreateChat = () => {
 		setIsLoading(true)
+		if(email === ''){
+			setIsLoading(false)
+			setIsOpen(false)
+			toast({
+				title: 'Error creating channel',
+				description: 'Email/userid should not be empty',
+			})
+			return;
+		}
 		axios
 			.post(
 				process.env.NEXT_PUBLIC_API_URL + '/channels/addChannels',
@@ -92,6 +101,7 @@ function GetChats() {
 								autoComplete="email"
 								autoCorrect="off"
 								placeholder="user-id"
+								required
 							/>
 							<br />
 							<Button

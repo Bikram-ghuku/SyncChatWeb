@@ -11,6 +11,7 @@ type user = {
 	lastTime?: string
 	id: string
 	active: boolean
+	noUnread: number
 }
 
 function AvailChatElement(userName: user) {
@@ -30,12 +31,18 @@ function AvailChatElement(userName: user) {
 					<AvatarFallback>C</AvatarFallback>
 					<AvatarImage src={userName.url} />
 				</Avatar>
-				<div className="mt-6 ml-4 w-1/2">
+				<div className="mt-6 ml-4 w-3/4">
 					<div className="font-semibold text-lg">{userName.name}</div>
 					<div className="pt-2 font-light text-sm overflow-hidden h-8">
 						{lastMsgDecp}
 					</div>
 				</div>
+				{userName.noUnread > 0 &&
+				(<div className='flex mr-10 items-center'>
+					<div className=' bg-blue-500 w-8 h-8 rounded-full flex justify-center items-center'>
+						{userName.noUnread}
+					</div>
+				</div>)}
 			</div>
 		</Link>
 	)

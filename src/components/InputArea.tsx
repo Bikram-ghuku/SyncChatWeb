@@ -7,12 +7,13 @@ import { socketContext } from '@/provider/socketProvider'
 import { encryptSymmetric } from '@/encryption/Controller'
 import { useRouter } from 'next/navigation'
 import EmojiPicker, { Theme } from 'emoji-picker-react'
+import { Textarea } from '@/components/ui/textarea'
 
 function InputArea({ chatId }: { chatId: string }) {
 	const [text, setText] = useState<string>('')
 	const [openEmoji, setOpenEmoji] = useState<boolean>(true)
 	const socket = useContext(socketContext)
-	const textAreaRef = useRef<null | HTMLInputElement>(null)
+	const textAreaRef = useRef<null | HTMLTextAreaElement>(null)
 	const submitRef = useRef<null | HTMLButtonElement>(null)
 	const router = useRouter()
 
@@ -38,8 +39,9 @@ function InputArea({ chatId }: { chatId: string }) {
 	}
 
 	const checkEnter = (e: any) => {
-		if (e.keyCode === 13) {
-			submitRef.current?.click()
+		if (e.keyCode === 13 && !e.shiftKey) {
+				e.preventDefault()
+				submitRef.current?.click()
 		}
 		if (e.keyCode === 27) {
 			setText('')
@@ -66,15 +68,16 @@ function InputArea({ chatId }: { chatId: string }) {
 					className="sm:w-[100%] sm:h-[10%]  lg:w-[20vw] lg:h-[40vh]"
 				/>
 			</div>
-			<Input
-				type="text"
+			<Textarea 
 				placeholder="Type Message..."
-				className=""
+				className=' whitespace-nowrap overflow-hidden resize-none min-h-0'
 				onChange={e => setText(e.target.value)}
 				ref={textAreaRef}
 				onKeyDown={e => checkEnter(e)}
 				value={text!}
-			/>
+				rows={1}
+				cols={50}
+				/>
 			<Button variant="ghost" size="icon" className="md:ml-5 md:mr-2 ml-1">
 				<Mic />
 			</Button>
