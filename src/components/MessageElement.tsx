@@ -8,6 +8,7 @@ type message = {
 	timeStamp: string
 	user: string
 	url: string
+	isRead: boolean
 }
 function MessageElement({ messageInfo }: { messageInfo: message }) {
 	var userProf = 'https://github.com/shadcn.png'
@@ -31,7 +32,7 @@ function MessageElement({ messageInfo }: { messageInfo: message }) {
 						<div>{selfData.name}</div>
 						<div>{time.toLocaleDateString()},</div>
 					</div>
-					<div className="bg-[#00a3ff] rounded-bl-lg rounded-tl-lg rounded-br-lg w-fit text-end p-2 text-white max-w-[25vw] self-end break-words h-auto min-w-[5vw]">
+					<div className="bg-[#00a3ff] rounded-bl-lg rounded-tl-lg rounded-br-lg w-fit text-end p-2 text-white max-w-[25vw] self-end break-words h-auto min-w-[5vw] whitespace-pre-wrap">
 						{messageInfo.message}
 						<div className=" text-[0.5rem]">{time.toLocaleTimeString()}</div>
 					</div>
@@ -51,7 +52,7 @@ function MessageElement({ messageInfo }: { messageInfo: message }) {
 						<div className="text-[0.75rem] w-[7ch] text-ellipsis overflow-hidden">{messageInfo.user},</div>
 						<div className="text-[0.75rem]">{time.toLocaleDateString()}</div>
 					</div>
-					<div className="dark:bg-[#292929] rounded-bl-lg rounded-tr-lg rounded-br-lg w-fit text-end flex-1 p-2 bg-white max-w-[25vw] self-end break-words min-w-[5vw]">
+					<div className="dark:bg-[#292929] rounded-bl-lg rounded-tr-lg rounded-br-lg w-fit text-end flex-1 p-2 bg-white max-w-[25vw] self-end break-words min-w-[5vw] whitespace-pre-wrap">
 						{messageInfo.message}
 						<div className=" text-[0.5rem]">{time.toLocaleTimeString()}</div>
 					</div>

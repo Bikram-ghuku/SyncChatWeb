@@ -5,6 +5,7 @@ import { socketContext } from '@/provider/socketProvider'
 import { decryptSymmetric } from '@/encryption/Controller'
 import axios from 'axios'
 import { LoadingSpinner } from './Spinner'
+import { ChannelContext } from '@/provider/channelProvider'
 
 type userData = { name: string; url: string }
 type msgData = {
@@ -14,6 +15,7 @@ type msgData = {
 	timeStamp: string
 	user: string
 	url: string
+	isRead: boolean
 }
 function Messages({
 	chatId,
@@ -25,6 +27,7 @@ function Messages({
 	const socket = useContext(socketContext)
 	const messaChaRef = useRef<null | HTMLDivElement>(null)
 	const [message, setMessage] = useState<msgData[]>([])
+	const [userData, setUserData] = useContext(ChannelContext)!
 	const [isLoaading, setIsLoading] = useState<boolean>(true)
 	useEffect(() => {
 		if (localStorage.getItem('jwt')) {
@@ -44,7 +47,7 @@ function Messages({
 					const resData = data.data
 					var initMsg: msgData[] = []
 					for (var i = 0; i < resData.length; i++) {
-						const { id, msgs, self, TimeStamp } = data.data[i]
+						const { id, msgs, self, TimeStamp, isRead } = data.data[i]
 						decryptSymmetric(msgs).then(resMsg => {
 							const dbmsg: msgData = {
 								id: id,
@@ -53,6 +56,7 @@ function Messages({
 								timeStamp: TimeStamp,
 								user: userDetails?.name || '',
 								url: userDetails?.url || '',
+								isRead: isRead
 							}
 							initMsg.push(dbmsg)
 						})
@@ -75,6 +79,7 @@ function Messages({
 					url: userDetails?.url || '',
 					user: data.name,
 					timeStamp: data.timeStamp,
+					isRead: false
 				}
 				setMessage([...message, newMsg])
 			})
@@ -83,7 +88,7 @@ function Messages({
 	useEffect(() => {
 		messaChaRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' })
 	}, [message])
-	if (isLoaading) {
+	if (isLoaading || userData == undefined) {
 		return (
 			<div className="flex flex-col w-full overflow-x-hidden overflow-y-scroll lg:h-[75vh] h-[65vh] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] justify-center items-center">
 				<LoadingSpinner size={400} />
