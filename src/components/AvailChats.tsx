@@ -49,7 +49,7 @@ function AvailChats({ active }: { active?: string }) {
 		var x = channels.findIndex(user => user.chanId === data.chatId)
 		if(x != -1){
 			var updateChan: user;
-			if(data.jwt != window.localStorage.getItem('jwt')){
+			if(data.jwt != window.localStorage.getItem('jwt') && active != data.chatId){
 				updateChan = {...channels[x], lastMsg: data.msg, noUnread: channels[x].noUnread + 1}
 			}else{
 				updateChan= {...channels[x], lastMsg: data.msg}
