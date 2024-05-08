@@ -31,7 +31,7 @@ function LandingPage() {
 								Get started <ArrowRight />
 							</Button>
 							<Link
-								href={'https://github.com/Bikram-ghuku/chatSyncWeb'}
+								href={'https://github.com/Bikram-ghuku/SyncChatWeb'}
 								className="absolute flex-1 ml-[10rem] underline"
 							>
 								View on Github
