@@ -1,58 +1,94 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<h3 align="center">
+	<img src="https://raw.githubusercontent.com/Bikram-ghuku/SyncChatWeb/main/public/icon.png" width="100" alt="Logo"/><br/>
+	<img src="" alt="" height="30" width="0px"/>
+	Sync Chat
+	<img src="" alt="" height="30" width="0px"/>
+</h3>
 
-## Getting Started
+<h6 align="center">
+  <a href="#-features">Features</a>
+  ·
+  <a href="#-downloads">Downloads</a>
+  ·
+  <a href="#-building-from-source">Building from Source</a>
+  ·
+  <a href="#-setting-up">Setting Up</a>
+  ·
+  <a href="#-faqs">FAQs</a>
+</h6>
 
-First, run the development server:
+<p align="center">
+	<a href="https://github.com/Bikram-ghuku/SyncChatWeb/stargazers">
+		<img alt="Stargazers" src="https://img.shields.io/github/stars/Bikram-ghuku/SyncChatWeb?style=for-the-badge&logo=starship&color=C9CBFF&logoColor=D9E0EE&labelColor=302D41"></a>
+	<a href="https://github.com/Bikram-ghuku/SyncChatWeb/latest">
+		<img alt="Releases" src="https://img.shields.io/github/release/Bikram-ghuku/SyncChatWeb.svg?style=for-the-badge&logo=github&color=F2CDCD&logoColor=D9E0EE&labelColor=302D41"/></a>
+	<a href="#-downloads">
+		<img alt="Downloads" src="https://img.shields.io/github/downloads/Bikram-ghuku/SyncChatWeb/total?style=for-the-badge&color=B5E8E0&logoColor=D9E0EE&labelColor=302D41"></a>
+</p>
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+<p align="center">
+  Sync Chat is an open-source realtime chat application for one-to-one communications. It is built using nextjs 14. It has responsive design to support mostly all platforms. It uses AES encryption. It stores messages in a Database to provide chat histroy.
+</p>
+
+&nbsp;
+
+### ✨ Features
+
+- AES Encryption
+- Chat history
+- one-to-one
+- Realtime
+
+### 🔧 Building from Source
+
+The client can also be built from source for individual platforms.
+
+#### Prerequisites
+
+- [Git CLI](https://git-scm.com/downloads)
+- [NodeJS](https://nodejs.org/en/download/)
+
+#### Building
+
+1. Clone the repository and cd into it.
+
+```shell
+    git clone https://github.com/Bikram-ghuku/SyncChatWeb.git
+    cd ChatSyncWeb
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install required modules
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```shell
+    npm i
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+3. Run the development server
 
-## Learn More
+```shell
+    npm run dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+4. Setup the envrionment
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+    - Rename the .env.example to .env.local
+    - Fill the required tokens
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Visit the application at: http://localhost:3000/
 
-## Deploy on Vercel
+&nbsp;
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 📜 License
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+<a href="https://github.com/Bikram-ghuku/SyncChatWeb/blob/main/LICENSE"><img src="https://img.shields.io/github/license/Bikram-ghuku/SyncChatWeb?style=for-the-badge&labelColor=302D41&color=C9CBFF"/></a>
 
-## UI Images on desktop
+BotClient is released under the MIT license, which grants the following permissions:
 
-#### Dark theme desktop:
+- Commercial use
+- Distribution
+- Modification
+- Private use
 
-![image](https://github.com/Bikram-ghuku/chatSyncWeb/assets/37508038/84f3d79c-d9af-4295-a72d-ddaebadce85c)
+For more convoluted language, see the [LICENSE](https://github.com/Bikram-ghuku/SyncChatWeb/blob/main/LICENSE).
 
-#### Light theme desktop:
-
-![image](https://github.com/Bikram-ghuku/chatSyncWeb/assets/37508038/e3d3bbfa-98a8-48f8-9703-efb72bdda51f)
-
-## UI Images on mobile
-
-#### Dark theme mobile:
-
-![image](https://github.com/Bikram-ghuku/chatSyncWeb/assets/37508038/04650a96-b5d2-4994-bef8-ffbbfd95dec1) &emsp;
-![image](https://github.com/Bikram-ghuku/chatSyncWeb/assets/37508038/da1eed02-86a4-4cd3-8617-a82719d3b508)
-
-#### Light theme desktop:
-
-![image](https://github.com/Bikram-ghuku/chatSyncWeb/assets/37508038/2932a8ca-9359-48cd-9851-55d02b7242f1) &emsp;
-![image](https://github.com/Bikram-ghuku/chatSyncWeb/assets/37508038/14fbd0a8-e63f-4c7d-8b68-256b1245c850)
+&nbsp;

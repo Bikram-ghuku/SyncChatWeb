@@ -31,7 +31,7 @@ function LandingPage() {
 								Get started <ArrowRight />
 							</Button>
 							<Link
-								href={'https://github.com/Bikram-ghuku/chatSyncWeb'}
+								href={'https://github.com/Bikram-ghuku/SyncChatWeb'}
 								className="absolute flex-1 ml-[10rem] underline"
 							>
 								View on Github
@@ -56,22 +56,22 @@ function LandingPage() {
 						<div className=" w-[20rem] h-[20rem] rounded-full bg-violet-600 blur-3xl bg-blend-overlay opacity-50"></div>
 					</div>
 				</div>
-				<div className="flex flex-row pt-[10rem] absolute">
-					<div className="flex-1">
+				<div className="lg:flex lg:flex-row pt-[10rem] h-full w-full block">
+					<div className="lg:flex-1 overflow-hidden relative">
 						<Image
 							src="/demo_mob.png"
 							alt="mobileDemo"
-							width={375}
-							height={666}
 							className="absolute left-[10rem]"
+							height={666}
+							width={375}
 						/>
 					</div>
-					<div className="lg:flex flex-1 flex-col mb-20 mr-20 mt-20 hidden">
+					<div className="flex-1 flex-col mb-20 mr-20 mt-20">
 						<div>
-							<div className=" text-7xl font-extrabold mb-20 mr-20 mt-20">
+							<div className="lg:flex text-7xl font-extrabold mb-20 mr-20 mt-20 hidden">
 								You focus on chatting, let us handle the rest
 							</div>
-							<div className="text-lg mr-20">
+							<div className="lg:flex text-lg mr-20 hidden">
 								With the implementation of Advanced Encryption Standards (AES)
 								and the availability of open-source code for the chat
 								application, bugs are detected, reported, and promptly addressed
