@@ -21,6 +21,7 @@ function InputArea({ chatId }: { chatId: string }) {
 		if (text == '') return
 		console.log('Sending data...')
 		const currTime = new Date().toLocaleString()
+		const delay = (ms:number) => new Promise(res => setTimeout(res, ms));
 		const data = {
 			jwt: localStorage.getItem('jwt'),
 			msg: await encryptSymmetric(text),
@@ -30,6 +31,11 @@ function InputArea({ chatId }: { chatId: string }) {
 		setText('')
 		socket.emit('message', data)
 		textAreaRef.current ? (textAreaRef.current.value = '') : null
+		textAreaRef.current ? (textAreaRef.current.disabled = true) : null
+		delay(500).then(() => {
+			textAreaRef.current ? (textAreaRef.current.disabled = false) : null
+			textAreaRef.current ? (textAreaRef.current.focus()) : null
+		})
 	}
 
 	const emojiPicked = (e: any) => {
