@@ -36,6 +36,7 @@ function Messages({
 
 	useEffect(() => {
 		if (localStorage.getItem('jwt')) {
+			setIsFetching(true)
 			axios
 				.post(
 					process.env.NEXT_PUBLIC_API_URL + '/message/getMsgs',
@@ -52,7 +53,6 @@ function Messages({
 				.then(data => {
 					const resData = data.data
 					if(resData.length === 0){
-						setIsFetching(false)
 						return
 					}
 					const decryptedMessages: msgData[] = [];
@@ -71,7 +71,9 @@ function Messages({
 							decryptedMessages.push(dbmsg)
 						})
 					}
-					setMessage((prevMessages) => [...decryptedMessages, ...prevMessages]);
+					setMessage((prevMessages) => [...decryptedMessages, ...prevMessages].sort((a, b) => {
+						return new Date(a.timeStamp).getTime() - new Date(b.timeStamp).getTime();
+					  }));
 					setIsFetching(false)
 					setIsLoading(false)
 				})
@@ -96,7 +98,6 @@ function Messages({
 	})
 
 	const handleScroll = () => {
-		setIsFetching(true)
 		if(msgAreaRef.current!.scrollTop === 0 || multi == 0){
 			delay(1000).then(() => {
 				setMulti(multi + 1)
