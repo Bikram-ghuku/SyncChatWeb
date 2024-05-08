@@ -1,7 +1,7 @@
 <h3 align="center">
 	<img src="https://raw.githubusercontent.com/Bikram-ghuku/ChatSyncWeb/main/public/icon.png" width="100" alt="Logo"/><br/>
 	<img src="" alt="" height="30" width="0px"/>
-	BOTCLIENT
+	Sync Chat
 	<img src="" alt="" height="30" width="0px"/>
 </h3>
 
