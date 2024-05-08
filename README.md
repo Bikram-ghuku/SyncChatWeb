@@ -54,7 +54,7 @@ The client can also be built from source for individual platforms.
 
 ```shell
     git clone https://github.com/Bikram-ghuku/ChatSyncWeb.git
-    cd BotClient
+    cd ChatSyncWeb
 ```
 
 2. Install required modules
