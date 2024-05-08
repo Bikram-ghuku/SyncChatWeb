@@ -74,4 +74,21 @@ The client can also be built from source for individual platforms.
     - Rename the .env.example to .env.local
     - Fill the required tokens
 
-Visit the application ar: http://localhost:3000/
+Visit the application at: http://localhost:3000/
+
+&nbsp;
+
+### 📜 License
+
+<a href="https://github.com/Bikram-ghuku/ChatSyncWeb/blob/main/LICENSE"><img src="https://img.shields.io/github/license/Bikram-ghuku/ChatSyncWeb?style=for-the-badge&labelColor=302D41&color=C9CBFF"/></a>
+
+BotClient is released under the MIT license, which grants the following permissions:
+
+- Commercial use
+- Distribution
+- Modification
+- Private use
+
+For more convoluted language, see the [LICENSE](https://github.com/Bikram-ghuku/ChatSyncWeb/blob/main/LICENSE).
+
+&nbsp;
