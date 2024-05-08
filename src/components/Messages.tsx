@@ -29,6 +29,11 @@ function Messages({
 	const [message, setMessage] = useState<msgData[]>([])
 	const [userData, setUserData] = useContext(ChannelContext)!
 	const [isLoaading, setIsLoading] = useState<boolean>(true)
+	const [multi, setMulti] = useState<number>(0);
+	const msgAreaRef = useRef<HTMLDivElement>(null)
+	const [isFetching, setIsFetching] = useState<boolean>(false)
+	const delay = (ms:number) => new Promise(res => setTimeout(res, ms));
+
 	useEffect(() => {
 		if (localStorage.getItem('jwt')) {
 			axios
@@ -36,6 +41,7 @@ function Messages({
 					process.env.NEXT_PUBLIC_API_URL + '/message/getMsgs',
 					{
 						chatId: chatId,
+						multi: multi
 					},
 					{
 						headers: {
@@ -45,9 +51,13 @@ function Messages({
 				)
 				.then(data => {
 					const resData = data.data
-					var initMsg: msgData[] = []
-					for (var i = 0; i < resData.length; i++) {
-						const { id, msgs, self, TimeStamp, isRead } = data.data[i]
+					if(resData.length === 0){
+						setIsFetching(false)
+						return
+					}
+					const decryptedMessages: msgData[] = [];
+					for (const x of resData) {
+						const { id, msgs, self, TimeStamp, isRead } = x
 						decryptSymmetric(msgs).then(resMsg => {
 							const dbmsg: msgData = {
 								id: id,
@@ -58,17 +68,16 @@ function Messages({
 								url: userDetails?.url || '',
 								isRead: isRead
 							}
-							initMsg.push(dbmsg)
+							decryptedMessages.push(dbmsg)
 						})
 					}
-
+					setMessage((prevMessages) => [...decryptedMessages, ...prevMessages]);
+					setIsFetching(false)
 					setIsLoading(false)
-					setMessage(initMsg)
 				})
 		}
-	}, [])
+	}, [multi])
 
-	console.log(message)
 	socket.on('message', data => {
 		if (chatId == data.chatId) {
 			decryptSymmetric(data.msg).then(decMsg => {
@@ -85,6 +94,16 @@ function Messages({
 			})
 		}
 	})
+
+	const handleScroll = () => {
+		setIsFetching(true)
+		if(msgAreaRef.current!.scrollTop === 0 || multi == 0){
+			delay(1000).then(() => {
+				setMulti(multi + 1)
+			})
+		}
+	}
+
 	useEffect(() => {
 		messaChaRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' })
 	}, [message])
@@ -96,7 +115,11 @@ function Messages({
 		)
 	}
 	return (
-		<div className="flex flex-col w-full overflow-x-hidden overflow-y-scroll h-[100%] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+		<div className="flex flex-col w-full overflow-x-hidden overflow-y-scroll h-[100%] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]" ref={msgAreaRef} onScroll={handleScroll}>
+			{isFetching && (<div className=' flex items-center justify-center'>
+				<LoadingSpinner size={100} />
+			</div>
+			)}
 			{message?.map((value, index) => (
 				<div className="mb-5 mt-5" key={index}>
 					<MessageElement messageInfo={value} />
