@@ -1,5 +1,5 @@
 <h3 align="center">
-	<img src="https://raw.githubusercontent.com/Bikram-ghuku/ChatSyncWeb/main/public/icon.png" width="100" alt="Logo"/><br/>
+	<img src="https://raw.githubusercontent.com/Bikram-ghuku/SyncChatWeb/main/public/icon.png" width="100" alt="Logo"/><br/>
 	<img src="" alt="" height="30" width="0px"/>
 	Sync Chat
 	<img src="" alt="" height="30" width="0px"/>
@@ -18,12 +18,12 @@
 </h6>
 
 <p align="center">
-	<a href="https://github.com/Bikram-ghuku/ChatSyncWeb/stargazers">
-		<img alt="Stargazers" src="https://img.shields.io/github/stars/Bikram-ghuku/ChatSyncWeb?style=for-the-badge&logo=starship&color=C9CBFF&logoColor=D9E0EE&labelColor=302D41"></a>
-	<a href="https://github.com/Bikram-ghuku/ChatSyncWeb/releases/latest">
-		<img alt="Releases" src="https://img.shields.io/github/release/Bikram-ghuku/ChatSyncWeb.svg?style=for-the-badge&logo=github&color=F2CDCD&logoColor=D9E0EE&labelColor=302D41"/></a>
+	<a href="https://github.com/Bikram-ghuku/SyncChatWeb/stargazers">
+		<img alt="Stargazers" src="https://img.shields.io/github/stars/Bikram-ghuku/SyncChatWeb?style=for-the-badge&logo=starship&color=C9CBFF&logoColor=D9E0EE&labelColor=302D41"></a>
+	<a href="https://github.com/Bikram-ghuku/SyncChatWeb/latest">
+		<img alt="Releases" src="https://img.shields.io/github/release/Bikram-ghuku/SyncChatWeb.svg?style=for-the-badge&logo=github&color=F2CDCD&logoColor=D9E0EE&labelColor=302D41"/></a>
 	<a href="#-downloads">
-		<img alt="Downloads" src="https://img.shields.io/github/downloads/Bikram-ghuku/ChatSyncWeb/total?style=for-the-badge&color=B5E8E0&logoColor=D9E0EE&labelColor=302D41"></a>
+		<img alt="Downloads" src="https://img.shields.io/github/downloads/Bikram-ghuku/SyncChatWeb/total?style=for-the-badge&color=B5E8E0&logoColor=D9E0EE&labelColor=302D41"></a>
 </p>
 
 <p align="center">
@@ -53,7 +53,7 @@ The client can also be built from source for individual platforms.
 1. Clone the repository and cd into it.
 
 ```shell
-    git clone https://github.com/Bikram-ghuku/ChatSyncWeb.git
+    git clone https://github.com/Bikram-ghuku/SyncChatWeb.git
     cd ChatSyncWeb
 ```
 
@@ -80,7 +80,7 @@ Visit the application at: http://localhost:3000/
 
 ### 📜 License
 
-<a href="https://github.com/Bikram-ghuku/ChatSyncWeb/blob/main/LICENSE"><img src="https://img.shields.io/github/license/Bikram-ghuku/ChatSyncWeb?style=for-the-badge&labelColor=302D41&color=C9CBFF"/></a>
+<a href="https://github.com/Bikram-ghuku/SyncChatWeb/blob/main/LICENSE"><img src="https://img.shields.io/github/license/Bikram-ghuku/SyncChatWebstyle=for-the-badge&labelColor=302D41&color=C9CBFF"/></a>
 
 BotClient is released under the MIT license, which grants the following permissions:
 
@@ -89,6 +89,6 @@ BotClient is released under the MIT license, which grants the following permissi
 - Modification
 - Private use
 
-For more convoluted language, see the [LICENSE](https://github.com/Bikram-ghuku/ChatSyncWeb/blob/main/LICENSE).
+For more convoluted language, see the [LICENSE](https://github.com/Bikram-ghuku/SyncChatWeb/blob/main/LICENSE).
 
 &nbsp;
