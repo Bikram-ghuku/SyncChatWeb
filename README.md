@@ -82,7 +82,7 @@ Visit the application at: http://localhost:3000/
 
 <a href="https://github.com/Bikram-ghuku/SyncChatWeb/blob/main/LICENSE"><img src="https://img.shields.io/github/license/Bikram-ghuku/SyncChatWeb?style=for-the-badge&labelColor=302D41&color=C9CBFF"/></a>
 
-BotClient is released under the MIT license, which grants the following permissions:
+SyncChat is released under the MIT license, which grants the following permissions:
 
 - Commercial use
 - Distribution
