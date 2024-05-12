@@ -99,7 +99,7 @@ function Messages({
 	})
 
 	const handleScroll = () => {
-		if(msgAreaRef.current!.scrollTop === 0 || multi == 0){
+		if(msgAreaRef.current!.scrollTop === 0){
 			delay(1000).then(() => {
 				setMulti(multi + 1)
 			})
@@ -109,6 +109,7 @@ function Messages({
 	useEffect(() => {
 		messaChaRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' })
 	}, [message])
+
 	if (isLoaading || userData == undefined) {
 		return (
 			<div className="flex flex-col w-full overflow-x-hidden overflow-y-scroll lg:h-[75vh] h-[65vh] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] justify-center items-center">
