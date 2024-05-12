@@ -53,7 +53,8 @@ function Messages({
 				.then(data => {
 					const resData = data.data
 					if(resData.length === 0){
-						return
+						setIsFetching(false)
+						setIsLoading(false)
 					}
 					const decryptedMessages: msgData[] = [];
 					for (const x of resData) {
