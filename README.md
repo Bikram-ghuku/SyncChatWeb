@@ -25,7 +25,7 @@
 	<a href="#-downloads">
 		<img alt="Downloads" src="https://img.shields.io/github/downloads/Bikram-ghuku/SyncChatWeb/total?style=for-the-badge&color=B5E8E0&logoColor=D9E0EE&labelColor=302D41"></a>
 </p>
-
+<img src="./public/demo.png">
 <p align="center">
   Sync Chat is an open-source realtime chat application for one-to-one communications. It is built using nextjs 14. It has responsive design to support mostly all platforms. It uses AES encryption. It stores messages in a Database to provide chat histroy.
 </p>
