@@ -81,7 +81,19 @@ function AvailChats({ active }: { active?: string }) {
 		}
 	})
 	return (
-		<div className="overflow-y-scroll h-[98%] w-full [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pl-5 pr-5">
+		<div className="overflow-y-scroll h-[98%] w-full [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pl-5 pr-5 availChats">
+			<style jsx>{`
+				.availChats{
+					height: calc(100vh - 242px);
+				}
+
+				@media screen and (max-width: 640px) {
+					.messageEle {
+						height: calc(100vh - 300px);
+					}
+				}
+			`}
+			</style>
 			{isExpired && (
 				<div className="pl-3 text-center pr-4">
 				<div>
