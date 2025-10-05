@@ -1,7 +1,7 @@
 'use client'
 import React, { useContext, useRef, useState } from 'react'
 import { Button } from '@/components/ui/button'
-import { Smile, Mic, Paperclip, SendHorizonal } from 'lucide-react'
+import { Smile, Mic, Paperclip, SendHorizonal, Lock } from 'lucide-react'
 import { socketContext } from '@/provider/socketProvider'
 import { encryptSymmetric, encryptSymmetricKey } from '@/encryption/Controller'
 import { useRouter } from 'next/navigation'
@@ -18,15 +18,14 @@ function InputArea({ chatId }: { chatId: string }) {
 	const router = useRouter()
 	const [locEncryptionData, setlocEncryptionData, actChannel, setActChannel] =
 		useContext(LocEncryptionContext)!
+	const currData = locEncryptionData.find(data => data.channelId == actChannel)
 
 	const sendMsg = async () => {
 		if (text == '') return
 		console.log('Sending data...')
 		const currTime = new Date().toLocaleString()
 		const delay = (ms: number) => new Promise(res => setTimeout(res, ms))
-		const currData = locEncryptionData.find(
-			data => data.channelId == actChannel
-		)
+
 		var data
 		if (currData && currData.encryptionKey) {
 			var encText = await encryptSymmetricKey(text, currData.encryptionKey)
@@ -83,6 +82,7 @@ function InputArea({ chatId }: { chatId: string }) {
 			>
 				<Smile />
 			</Button>
+			{currData && currData.encryptionKey && <Lock className="h-6 w-12 pr-2" />}
 			<div className=" absolute bottom-16">
 				<EmojiPicker
 					theme={Theme.AUTO}

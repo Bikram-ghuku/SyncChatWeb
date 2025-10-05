@@ -104,7 +104,7 @@ function EncryptDialog({ child }: { child: React.ReactNode }) {
 				<DialogContent className="max-w-md rounded-2xl border  shadow-xl">
 					<DialogHeader className="space-y-2">
 						<DialogTitle className="text-xl font-semibold ">
-							Decrypt Messages
+							Encrypt Messages
 						</DialogTitle>
 						<DialogDescription className="text-sm ">
 							Enter your private decryption key to unlock messages.
