@@ -79,28 +79,54 @@ function EncryptDialog({ child }: { child: React.ReactNode }) {
 		})
 		setIsOpen(false)
 	}
+	const removeEncrypt = () => {
+		setlocEncryptionData(() => {
+			const existing = locEncryptionData?.find(
+				ele => ele.channelId === actChannel
+			)
+			const filtered: locEncryptionType[] =
+				locEncryptionData?.filter(ele => ele.channelId !== actChannel) || []
+			return [
+				...filtered,
+				{
+					channelId: actChannel,
+					encryptionKey: undefined,
+					decryptionKey: existing?.decryptionKey || undefined,
+				},
+			]
+		})
+		setIsOpen(false)
+	}
 	return (
 		<div>
 			<Dialog open={open} onOpenChange={setIsOpen}>
-				<DialogTrigger>{child}</DialogTrigger>
-				<DialogContent>
-					<DialogHeader>
-						<DialogTitle>
-							Enter the encryption key to encrypt your message
+				<DialogTrigger asChild>{child}</DialogTrigger>
+				<DialogContent className="max-w-md rounded-2xl border  shadow-xl">
+					<DialogHeader className="space-y-2">
+						<DialogTitle className="text-xl font-semibold ">
+							Decrypt Messages
 						</DialogTitle>
-						<br />
-						<DialogDescription>
-							<Input
-								type="text"
-								placeholder="Enter your encryption Key"
-								onChange={e => setCompKey(e.target.value)}
-							/>
-							<br />
+						<DialogDescription className="text-sm ">
+							Enter your private decryption key to unlock messages.
+						</DialogDescription>
+					</DialogHeader>
+
+					<div className="mt-4 space-y-3">
+						<Input
+							type="text"
+							placeholder="Enter your decryption key"
+							onChange={e => setCompKey(e.target.value)}
+						/>
+
+						<div className="flex justify-end gap-2 pt-2">
+							<Button variant="secondary" onClick={removeEncrypt}>
+								Remove
+							</Button>
 							<Button variant="default" onClick={storeData}>
 								Encrypt
 							</Button>
-						</DialogDescription>
-					</DialogHeader>
+						</div>
+					</div>
 				</DialogContent>
 			</Dialog>
 		</div>
@@ -130,28 +156,54 @@ function DecryptDialog({ child }: { child: React.ReactNode }) {
 		})
 		setIsOpen(false)
 	}
+	const removeEncrypt = () => {
+		setlocEncryptionData(() => {
+			const existing = locEncryptionData?.find(
+				ele => ele.channelId === actChannel
+			)
+			const filtered: locEncryptionType[] =
+				locEncryptionData?.filter(ele => ele.channelId !== actChannel) || []
+			return [
+				...filtered,
+				{
+					channelId: actChannel,
+					encryptionKey: existing?.encryptionKey || undefined,
+					decryptionKey: undefined,
+				},
+			]
+		})
+		setIsOpen(false)
+	}
 	return (
 		<div>
 			<Dialog open={open} onOpenChange={setIsOpen}>
-				<DialogTrigger>{child}</DialogTrigger>
-				<DialogContent>
-					<DialogHeader>
-						<DialogTitle>
-							Enter the decryption key to decrypt the messages
+				<DialogTrigger asChild>{child}</DialogTrigger>
+				<DialogContent className="max-w-md rounded-2xl border  shadow-xl">
+					<DialogHeader className="space-y-2">
+						<DialogTitle className="text-xl font-semibold ">
+							Decrypt Messages
 						</DialogTitle>
-						<br />
-						<DialogDescription>
-							<Input
-								type="text"
-								placeholder="Enter your Decryption Key"
-								onChange={e => setCompKey(e.target.value)}
-							/>
-							<br />
+						<DialogDescription className="text-sm ">
+							Enter your private decryption key to unlock messages.
+						</DialogDescription>
+					</DialogHeader>
+
+					<div className="mt-4 space-y-3">
+						<Input
+							type="text"
+							placeholder="Enter your decryption key"
+							onChange={e => setCompKey(e.target.value)}
+						/>
+
+						<div className="flex justify-end gap-2 pt-2">
+							<Button variant="secondary" onClick={removeEncrypt}>
+								Remove
+							</Button>
 							<Button variant="default" onClick={storeData}>
 								Decrypt
 							</Button>
-						</DialogDescription>
-					</DialogHeader>
+						</div>
+					</div>
 				</DialogContent>
 			</Dialog>
 		</div>
