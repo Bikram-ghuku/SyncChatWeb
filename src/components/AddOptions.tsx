@@ -20,7 +20,10 @@ import {
 
 import { Input } from '@/components/ui/input'
 import { Button } from './ui/button'
-import { locEncrContext } from '@/provider/locEncrProvider'
+import {
+	LocEncryptionContext,
+	locEncryptionType,
+} from '@/provider/localEncryptionProvider'
 
 function TranslateDialog({ child }: { child: React.ReactNode }) {
 	return (
@@ -54,12 +57,27 @@ function TranslateDialog({ child }: { child: React.ReactNode }) {
 }
 
 function EncryptDialog({ child }: { child: React.ReactNode }) {
-	const [keyEnc, setKeyEnc, keyDeEnc, setKeyDeEnc] = useContext(locEncrContext)!
+	const [locEncryptionData, setlocEncryptionData, actChannel] =
+		useContext(LocEncryptionContext)!
 	const [compKey, setCompKey] = useState<string>('')
 	const [open, setIsOpen] = useState<boolean>(false)
 	const storeData = () => {
+		setlocEncryptionData(() => {
+			const existing = locEncryptionData?.find(
+				ele => ele.channelId === actChannel
+			)
+			const filtered: locEncryptionType[] =
+				locEncryptionData?.filter(ele => ele.channelId !== actChannel) || []
+			return [
+				...filtered,
+				{
+					channelId: actChannel,
+					encryptionKey: compKey,
+					decryptionKey: existing?.decryptionKey || undefined,
+				},
+			]
+		})
 		setIsOpen(false)
-		setKeyEnc(compKey)
 	}
 	return (
 		<div>
@@ -90,11 +108,26 @@ function EncryptDialog({ child }: { child: React.ReactNode }) {
 }
 
 function DecryptDialog({ child }: { child: React.ReactNode }) {
-	const [keyEnc, setKeyEnc, keyDeEnc, setKeyDeEnc] = useContext(locEncrContext)!
+	const [locEncryptionData, setlocEncryptionData, actChannel] =
+		useContext(LocEncryptionContext)!
 	const [compKey, setCompKey] = useState<string>('')
 	const [open, setIsOpen] = useState<boolean>(false)
 	const storeData = () => {
-		setKeyDeEnc(compKey)
+		setlocEncryptionData(() => {
+			const existing = locEncryptionData?.find(
+				ele => ele.channelId === actChannel
+			)
+			const filtered: locEncryptionType[] =
+				locEncryptionData?.filter(ele => ele.channelId !== actChannel) || []
+			return [
+				...filtered,
+				{
+					channelId: actChannel,
+					encryptionKey: existing?.encryptionKey || undefined,
+					decryptionKey: compKey,
+				},
+			]
+		})
 		setIsOpen(false)
 	}
 	return (

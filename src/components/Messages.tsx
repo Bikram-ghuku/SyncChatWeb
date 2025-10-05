@@ -77,6 +77,9 @@ function Messages({
 					  }));
 					setIsFetching(false)
 					setIsLoading(false)
+				}).catch((err) => {
+					console.log(err)
+					setIsLoading(false)
 				})
 		}
 	}, [multi])

@@ -8,6 +8,7 @@ import axios from 'axios'
 import { Toaster } from '@/components/ui/toaster'
 import { useToast } from '@/components/ui/use-toast'
 import { ToastAction } from '@/components/ui/toast'
+import { LocEncryptionContext } from '@/provider/localEncryptionProvider'
 
 function AvailChats({ active }: { active?: string }) {
 	const [userData, setUserData] = useContext(ChannelContext)!
@@ -16,7 +17,9 @@ function AvailChats({ active }: { active?: string }) {
 	const [channels, setChannels] = useState<user[]>([])
 	const [isLoad, setIsLoad] = useState<Boolean>(true)
 	const [isExpired, setIsExpired] = useState<Boolean>(false);
+	const [locEncryptionData, setlocEncryptionData, actChannel, setActChannel] = useContext(LocEncryptionContext)!;
 	useEffect(() => {
+		setActChannel(active || "");
 		if (userData == undefined) {
 			if (localStorage.getItem('jwt')) {
 				axios

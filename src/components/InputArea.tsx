@@ -1,6 +1,5 @@
 'use client'
 import React, { useContext, useRef, useState } from 'react'
-import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Smile, Mic, Paperclip, SendHorizonal } from 'lucide-react'
 import { socketContext } from '@/provider/socketProvider'

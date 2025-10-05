@@ -4,7 +4,7 @@ import './globals.css'
 import { ThemeProvider } from '@/components/theme-provider'
 import SocketProvider from '@/provider/socketProvider'
 import ChannelProvider from '@/provider/channelProvider'
-import LocalKeyProvider from '@/provider/locEncrProvider'
+import { LocEncryptionProvider } from '@/provider/localEncryptionProvider'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -22,18 +22,18 @@ export default function RootLayout({
 		<html lang="en">
 			<body className={inter.className}>
 				<ChannelProvider>
-					<LocalKeyProvider>
 						<SocketProvider>
-							<ThemeProvider
-								attribute="class"
-								defaultTheme="system"
-								enableSystem
-								disableTransitionOnChange
-							>
-								{children}
-							</ThemeProvider>
+							<LocEncryptionProvider>
+								<ThemeProvider
+									attribute="class"
+									defaultTheme="system"
+									enableSystem
+									disableTransitionOnChange
+								>
+									{children}
+								</ThemeProvider>
+							</LocEncryptionProvider>
 						</SocketProvider>
-					</LocalKeyProvider>
 				</ChannelProvider>
 			</body>
 		</html>
