@@ -3,10 +3,11 @@ import React, { useContext, useRef, useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Smile, Mic, Paperclip, SendHorizonal } from 'lucide-react'
 import { socketContext } from '@/provider/socketProvider'
-import { encryptSymmetric } from '@/encryption/Controller'
+import { encryptSymmetric, encryptSymmetricKey } from '@/encryption/Controller'
 import { useRouter } from 'next/navigation'
 import EmojiPicker, { Theme } from 'emoji-picker-react'
 import { Textarea } from '@/components/ui/textarea'
+import { LocEncryptionContext } from '@/provider/localEncryptionProvider'
 
 function InputArea({ chatId }: { chatId: string }) {
 	const [text, setText] = useState<string>('')
@@ -15,17 +16,35 @@ function InputArea({ chatId }: { chatId: string }) {
 	const textAreaRef = useRef<null | HTMLTextAreaElement>(null)
 	const submitRef = useRef<null | HTMLButtonElement>(null)
 	const router = useRouter()
+	const [locEncryptionData, setlocEncryptionData, actChannel, setActChannel] =
+		useContext(LocEncryptionContext)!
 
 	const sendMsg = async () => {
 		if (text == '') return
 		console.log('Sending data...')
 		const currTime = new Date().toLocaleString()
-		const delay = (ms:number) => new Promise(res => setTimeout(res, ms));
-		const data = {
-			jwt: localStorage.getItem('jwt'),
-			msg: await encryptSymmetric(text),
-			chatId: chatId,
-			timeStamp: currTime,
+		const delay = (ms: number) => new Promise(res => setTimeout(res, ms))
+		const currData = locEncryptionData.find(
+			data => data.channelId == actChannel
+		)
+		var data
+		if (currData && currData.encryptionKey) {
+			var encText = await encryptSymmetricKey(text, currData.encryptionKey)
+			data = {
+				jwt: localStorage.getItem('jwt'),
+				msg: await encryptSymmetric(encText),
+				chatId: chatId,
+				timeStamp: currTime,
+				name: JSON.parse(localStorage.getItem('name')!).name,
+			}
+		} else {
+			data = {
+				jwt: localStorage.getItem('jwt'),
+				msg: await encryptSymmetric(text),
+				chatId: chatId,
+				timeStamp: currTime,
+				name: JSON.parse(localStorage.getItem('name')!).name,
+			}
 		}
 		setText('')
 		socket.emit('message', data)
@@ -33,7 +52,7 @@ function InputArea({ chatId }: { chatId: string }) {
 		textAreaRef.current ? (textAreaRef.current.disabled = true) : null
 		delay(500).then(() => {
 			textAreaRef.current ? (textAreaRef.current.disabled = false) : null
-			textAreaRef.current ? (textAreaRef.current.focus()) : null
+			textAreaRef.current ? textAreaRef.current.focus() : null
 		})
 	}
 
@@ -45,8 +64,8 @@ function InputArea({ chatId }: { chatId: string }) {
 
 	const checkEnter = (e: any) => {
 		if (e.keyCode === 13 && !e.shiftKey) {
-				e.preventDefault()
-				submitRef.current?.click()
+			e.preventDefault()
+			submitRef.current?.click()
 		}
 		if (e.keyCode === 27) {
 			setText('')
@@ -73,16 +92,16 @@ function InputArea({ chatId }: { chatId: string }) {
 					className="sm:w-[100%] sm:h-[10%]  lg:w-[20vw] lg:h-[40vh]"
 				/>
 			</div>
-			<Textarea 
+			<Textarea
 				placeholder="Type Message..."
-				className=' whitespace-nowrap overflow-hidden resize-none min-h-0'
+				className=" whitespace-nowrap overflow-hidden resize-none min-h-0"
 				onChange={e => setText(e.target.value)}
 				ref={textAreaRef}
 				onKeyDown={e => checkEnter(e)}
 				value={text!}
 				rows={1}
 				cols={50}
-				/>
+			/>
 			<Button variant="ghost" size="icon" className="md:ml-5 md:mr-2 ml-1">
 				<Mic />
 			</Button>
