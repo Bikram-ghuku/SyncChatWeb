@@ -5,6 +5,7 @@ import {
 	Dialog,
 	DialogContent,
 	DialogDescription,
+	DialogFooter,
 	DialogHeader,
 	DialogTitle,
 	DialogTrigger,
@@ -107,7 +108,7 @@ function EncryptDialog({ child }: { child: React.ReactNode }) {
 							Encrypt Messages
 						</DialogTitle>
 						<DialogDescription className="text-sm ">
-							Enter your private decryption key to unlock messages.
+							Enter your private encryption key to Lock messages.
 						</DialogDescription>
 					</DialogHeader>
 
@@ -127,6 +128,10 @@ function EncryptDialog({ child }: { child: React.ReactNode }) {
 							</Button>
 						</div>
 					</div>
+					<DialogFooter>
+						Encrypted messages are visible only once after that they are never
+						decrypted.
+					</DialogFooter>
 				</DialogContent>
 			</Dialog>
 		</div>
@@ -204,6 +209,10 @@ function DecryptDialog({ child }: { child: React.ReactNode }) {
 							</Button>
 						</div>
 					</div>
+					<DialogFooter>
+						Encrypted messages are visible only once after that they are never
+						decrypted.
+					</DialogFooter>
 				</DialogContent>
 			</Dialog>
 		</div>
