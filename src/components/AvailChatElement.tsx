@@ -21,7 +21,7 @@ function AvailChatElement(userName: user) {
 		setLastMsgDecp(data)
 	})
 	return (
-		<Link href={'/chat/[chatId]'} id={userName.id} as={`/chat/${userName.id}`} onClick={userName.onClick}>
+		<Link href={`/chat?id=${userName.id}`} onClick={userName.onClick}>
 			<div
 				className={
 					'h-[6rem] flex mt-2 pl-3 rounded-sm ' +
@@ -38,12 +38,13 @@ function AvailChatElement(userName: user) {
 						{lastMsgDecp}
 					</div>
 				</div>
-				{userName.noUnread > 0 &&
-				(<div className='flex mr-10 items-center'>
-					<div className=' bg-blue-500 w-8 h-8 rounded-full flex justify-center items-center'>
-						{userName.noUnread}
+				{userName.noUnread > 0 && (
+					<div className="flex mr-10 items-center">
+						<div className=" bg-blue-500 w-8 h-8 rounded-full flex justify-center items-center">
+							{userName.noUnread}
+						</div>
 					</div>
-				</div>)}
+				)}
 			</div>
 		</Link>
 	)
