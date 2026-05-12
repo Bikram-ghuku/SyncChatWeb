@@ -2,7 +2,6 @@
 
 import ChatLayout from '@/components/ChatLayout'
 import Header from '@/components/Header'
-import { useState, useEffect } from 'react'
 
 type Props = {
 	params: {

@@ -26,7 +26,7 @@ function LandingPage() {
 							<Button
 								variant={'default'}
 								className=" font-medium bg-indigo-600 text-white hover:bg-indigo-500 absolute flex-1 mr-[10rem]"
-								onClick={e => router.push('./register')}
+								onClick={() => router.push('./register')}
 							>
 								Get started <ArrowRight />
 							</Button>
