@@ -1,14 +1,13 @@
 'use client'
 import React, { useContext, useEffect, useRef, useState } from 'react'
-import MessageElement from '@/components/MessageElement'
+import MessageElement, { type message } from '@/components/MessageElement'
 import { socketContext } from '@/provider/socketProvider'
 import { decryptSymmetric, decryptSymmetricKey } from '@/encryption/Controller'
 import axios from 'axios'
 import { LoadingSpinner } from './Spinner'
-import { ChannelContext } from '@/provider/channelProvider'
+import { ChannelContext, user } from '@/provider/channelProvider'
 import { LocEncryptionContext } from '@/provider/localEncryptionProvider'
 
-type userData = { name: string; url: string }
 export type socketMsg = {
 	jwt: string
 	chatId: string
@@ -16,34 +15,29 @@ export type socketMsg = {
 	timeStamp: string
 	name: string
 }
-type msgData = {
-	id: string
-	message: string
-	self: boolean
-	timeStamp: string
-	user: string
-	url: string
-	isRead: boolean
-}
 function Messages({
 	chatId,
-	userDetails,
+	userDetail,
 }: {
 	chatId: string
-	userDetails: userData
+	userDetail: user
 }) {
 	const socket = useContext(socketContext)
 	const messaChaRef = useRef<null | HTMLDivElement>(null)
-	const [message, setMessage] = useState<msgData[]>([])
+	const [message, setMessage] = useState<message[]>([])
 	const [userData, setUserData] = useContext(ChannelContext)!
 	const [isLoaading, setIsLoading] = useState<boolean>(true)
 	const [multi, setMulti] = useState<number>(0)
 	const msgAreaRef = useRef<HTMLDivElement>(null)
 	const [isFetching, setIsFetching] = useState<boolean>(false)
+	const [userDetails, setUserDetails] = useState<user>(userDetail)
 	const delay = (ms: number) => new Promise(res => setTimeout(res, ms))
 	const [locEncryptionData, setlocEncryptionData, actChannel, setActChannel] =
 		useContext(LocEncryptionContext)!
 	const currData = locEncryptionData.find(data => data.channelId == actChannel)
+	useEffect(() => {
+		setUserDetails(userDetail)
+	}, [userDetail])
 	useEffect(() => {
 		if (localStorage.getItem('jwt')) {
 			setIsFetching(true)
@@ -61,16 +55,17 @@ function Messages({
 					}
 				)
 				.then(data => {
+					console.log(userDetails)
 					const resData = data.data
 					if (resData.length === 0) {
 						setIsFetching(false)
 						setIsLoading(false)
 					}
-					const decryptedMessages: msgData[] = []
+					const decryptedMessages: message[] = []
 					for (const x of resData) {
 						const { id, msgs, self, TimeStamp, isRead } = x
 						decryptSymmetric(msgs).then(resMsg => {
-							const dbmsg: msgData = {
+							const dbmsg: message = {
 								id: id,
 								message: resMsg,
 								self: self,
@@ -122,7 +117,7 @@ function Messages({
 						return eleFinal
 					})
 					.then(eleFinal => {
-						const newMsg: msgData = {
+						const newMsg: message = {
 							id: data.chatId,
 							message: eleFinal,
 							self: data.jwt == localStorage.getItem('jwt'),

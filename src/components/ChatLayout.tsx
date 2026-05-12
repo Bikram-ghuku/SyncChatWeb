@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import SearchArea from '@/components/SearchArea'
 import InputArea from '@/components/InputArea'
 import UserAvatar from '@/components/UserAvatar'
@@ -11,12 +11,17 @@ import { ChannelContext, user } from '@/provider/channelProvider'
 
 function ChatLayout({ chatId }: { chatId: string }) {
 	const [userDat] = useContext(ChannelContext)!
-	const channels: user[] = userDat == undefined ? [] : userDat
-	const userData = channels.find(user => user.chanId == chatId)
+	const [userData, setUserData] = useState<user>()
 	const date = Date.parse(
 		userData?.lastOnline || '2019-01-01T00:00:00.000+00:00'
 	)
 	const currData = new Date(date)
+	useEffect(() => {
+		const channels: user[] = userDat == undefined ? [] : userDat
+		const userData = channels.find(user => user.chanId == chatId)
+		setUserData(userData)
+	}, [chatId, userDat])
+
 	return (
 		<div className="flex flex-1">
 			<div className="lg:flex flex-col lg:w-1/4 dark:bg-gray-900 bg-[#ffffff] border-r-2 border-[#5E5E5E33] dark:border-[#303030] w-full rounded-md h-[98%] hidden mt-2">
@@ -27,7 +32,7 @@ function ChatLayout({ chatId }: { chatId: string }) {
 				<div className="flex h-full w-full h-max-[96%] mt-10 flex-col">
 					<AvailChats active={chatId} />
 					<div className="w-full flex justify-center mt-6 mb-2">
-						&#169; 2024 under Bikram Ghuku
+						&#169; 2026 under Bikram Ghuku
 					</div>
 				</div>
 			</div>
@@ -60,10 +65,10 @@ function ChatLayout({ chatId }: { chatId: string }) {
 							}
 						}
 					`}</style>
-					<Messages chatId={chatId} userDetails={userData!} />
+					<Messages chatId={chatId} userDetail={userData!} />
 				</div>
 				<div className="flex dark:bg-gray-900 w-full bg-[#ffffff] h-16 border-t-2 border-[#5E5E5E33] dark:border-[#303030]">
-					<InputArea chatId={userData?.chanId || ''} />
+					<InputArea chatId={chatId} />
 				</div>
 			</div>
 		</div>

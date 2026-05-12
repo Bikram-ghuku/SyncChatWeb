@@ -1,5 +1,4 @@
 'use client'
-import axios from 'axios'
 import React, { createContext, useState, useEffect } from 'react'
 export type user = {
 	name: string
