@@ -11,7 +11,7 @@ import {
 } from '@/components/ui/dropdown-menu'
 import UserAvatar from './UserAvatar'
 
-function UserButton({ url }: { url: string }) {
+function UserButton({ url, logout }: { url: string; logout: () => void }) {
 	return (
 		<div>
 			<DropdownMenu>
@@ -21,10 +21,11 @@ function UserButton({ url }: { url: string }) {
 				<DropdownMenuContent>
 					<DropdownMenuLabel>My Account</DropdownMenuLabel>
 					<DropdownMenuSeparator />
-					<DropdownMenuItem>Profile</DropdownMenuItem>
+					{/* <DropdownMenuItem>Profile</DropdownMenuItem>
 					<DropdownMenuItem>Billing</DropdownMenuItem>
 					<DropdownMenuItem>Team</DropdownMenuItem>
-					<DropdownMenuItem>Subscription</DropdownMenuItem>
+					<DropdownMenuSeparator /> */}
+					<DropdownMenuItem onClick={() => logout()}>Logout</DropdownMenuItem>
 				</DropdownMenuContent>
 			</DropdownMenu>
 		</div>

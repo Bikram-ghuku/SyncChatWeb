@@ -1,24 +1,38 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import DarkToggler from './DarkToggler'
 import UserButton from './UserButton'
 import ChatsButton from './ChatsButton'
 import GetChats from '@/components/GetChats'
 import Image from 'next/image'
 import { Button } from './ui/button'
-import { redirect } from 'next/navigation'
 import Link from 'next/link'
 
 function Header() {
-	var userProf = 'https://github.com/shadcn.png'
-	if (typeof window != 'undefined') {
+	const [profUrl, setProfUrl] = useState<string>(
+		'https://github.com/shadcn.png'
+	)
+	const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false)
+
+	useEffect(() => {
+		if (typeof window === 'undefined') {
+			return
+		}
+		const jwtToken = window.localStorage.getItem('jwt')
+		setIsLoggedIn(Boolean(jwtToken))
 		const userDataStr = window.localStorage.getItem('name')
-		if (userDataStr != null) {
-			const userData = JSON.parse(userDataStr!)
-			if (userData.url != null) {
-				userProf = userData.url
+		if (userDataStr) {
+			const userData = JSON.parse(userDataStr)
+			if (userData?.url) {
+				setProfUrl(userData.url)
 			}
 		}
+	}, [])
+
+	const logOut = () => {
+		window.localStorage.clear()
+		setIsLoggedIn(false)
+		setProfUrl('https://github.com/shadcn.png')
 	}
 	return (
 		<header className="sticky top-0 z-50 bg-white dark:bg-gray-900 border-b-2 border-[#5e5e5e33] dark:border-[#303030]">
@@ -32,16 +46,12 @@ function Header() {
 					<ChatsButton />
 					<GetChats />
 					<DarkToggler />
-					{typeof window !== 'undefined' ? (
-						window.localStorage.getItem('jwt') || '' ? (
-							<UserButton url={userProf} />
-						) : (
-							<Link href="/login">
-								<Button variant="ghost">Login</Button>
-							</Link>
-						)
+					{isLoggedIn ? (
+						<UserButton url={profUrl} logout={logOut} />
 					) : (
-						''
+						<Link href="/login">
+							<Button variant="ghost">Login</Button>
+						</Link>
 					)}
 				</div>
 			</nav>
