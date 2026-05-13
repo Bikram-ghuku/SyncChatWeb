@@ -16,10 +16,11 @@ function AvailChats({ active }: { active?: string }) {
 	const socket = useContext(socketContext)
 	const [channels, setChannels] = useState<user[]>([])
 	const [isLoad, setIsLoad] = useState<Boolean>(true)
-	const [isExpired, setIsExpired] = useState<Boolean>(false);
-	const [locEncryptionData, setlocEncryptionData, actChannel, setActChannel] = useContext(LocEncryptionContext)!;
+	const [isExpired, setIsExpired] = useState<Boolean>(false)
+	const [locEncryptionData, setlocEncryptionData, actChannel, setActChannel] =
+		useContext(LocEncryptionContext)!
 	useEffect(() => {
-		setActChannel(active || "");
+		setActChannel(active || '')
 		if (userData == undefined) {
 			if (localStorage.getItem('jwt')) {
 				axios
@@ -35,22 +36,24 @@ function AvailChats({ active }: { active?: string }) {
 							setIsLoad(false)
 							setChannels(userDetData)
 						}
-					}).catch((error) => {
-						if(error.response.status == 401){
+					})
+					.catch(error => {
+						if (error.response.status == 401) {
 							toast({
-								title: "Session expired",
-								description: "Session has expired, please login again to continue",
-								action: <ToastAction altText='Login'>Login</ToastAction>
+								title: 'Session expired',
+								description:
+									'Session has expired, please login again to continue',
+								action: <ToastAction altText="Login">Login</ToastAction>,
 							})
 							setIsExpired(true)
 							setIsLoad(false)
 						}
 					})
-			}else{
+			} else {
 				toast({
-					title: "Session expired",
-					description: "Session has expired, please login again to continue",
-					action: <ToastAction altText='Login'>Login</ToastAction>
+					title: 'Session expired',
+					description: 'Session has expired, please login again to continue',
+					action: <ToastAction altText="Login">Login</ToastAction>,
 				})
 				setIsExpired(true)
 				setIsLoad(false)
@@ -70,14 +73,21 @@ function AvailChats({ active }: { active?: string }) {
 	}
 	socket.on('message', data => {
 		var x = channels.findIndex(user => user.chanId === data.chatId)
-		if(x != -1){
-			var updateChan: user;
-			if(data.jwt != window.localStorage.getItem('jwt') && active != data.chatId){
-				updateChan = {...channels[x], lastMsg: data.msg, noUnread: channels[x].noUnread + 1}
-			}else{
-				updateChan= {...channels[x], lastMsg: data.msg}
+		if (x != -1) {
+			var updateChan: user
+			if (
+				data.jwt != window.localStorage.getItem('jwt') &&
+				active != data.chatId
+			) {
+				updateChan = {
+					...channels[x],
+					lastMsg: data.msg,
+					noUnread: parseInt(channels[x].noUnread.toString()) + 1,
+				}
+			} else {
+				updateChan = { ...channels[x], lastMsg: data.msg }
 			}
-			const newChan = [...channels];
+			const newChan = [...channels]
 			newChan[x] = updateChan
 			setChannels(newChan)
 			setUserData(newChan)
@@ -85,24 +95,23 @@ function AvailChats({ active }: { active?: string }) {
 	})
 	return (
 		<div className="overflow-y-scroll h-[98%] w-full [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pl-5 pr-5 availChats">
-			<style jsx>{`
-				.availChats{
-					height: calc(100vh - 242px);
-				}
-
-				@media screen and (max-width: 640px) {
-					.messageEle {
-						height: calc(100vh - 300px);
+			<style jsx>
+				{`
+					.availChats {
+						height: calc(100vh - 242px);
 					}
-				}
-			`}
+
+					@media screen and (max-width: 640px) {
+						.messageEle {
+							height: calc(100vh - 300px);
+						}
+					}
+				`}
 			</style>
 			{isExpired && (
 				<div className="pl-3 text-center pr-4">
-				<div>
-					Session expired, please login to continue
+					<div>Session expired, please login to continue</div>
 				</div>
-			</div>
 			)}
 			{!isExpired && channels.length === 0 && (
 				<div className="pl-3 text-center pr-4">
@@ -122,7 +131,9 @@ function AvailChats({ active }: { active?: string }) {
 					active={Udata.chanId == active}
 					key={index}
 					noUnread={Udata.noUnread}
-					onClick={() => {channels[index].noUnread = 0}}
+					onClick={() => {
+						channels[index].noUnread = 0
+					}}
 				/>
 			))}
 			<Toaster />

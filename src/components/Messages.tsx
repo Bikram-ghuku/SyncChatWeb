@@ -37,7 +37,8 @@ function Messages({
 	const currData = locEncryptionData.find(data => data.channelId == actChannel)
 	useEffect(() => {
 		setUserDetails(userDetail)
-	}, [userDetail])
+	}, [])
+
 	useEffect(() => {
 		if (localStorage.getItem('jwt')) {
 			setIsFetching(true)
@@ -93,7 +94,7 @@ function Messages({
 					setIsLoading(false)
 				})
 		}
-	}, [multi])
+	}, [])
 
 	useEffect(() => {
 		const handleMessage = (data: socketMsg) => {
@@ -136,7 +137,7 @@ function Messages({
 		return () => {
 			socket.off('message', handleMessage)
 		}
-	}, [chatId, currData, userDetails])
+	}, [])
 
 	const handleScroll = () => {
 		if (msgAreaRef.current!.scrollTop === 0) {
