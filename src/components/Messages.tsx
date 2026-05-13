@@ -24,23 +24,46 @@ function Messages({
 }) {
 	const socket = useContext(socketContext)
 	const messaChaRef = useRef<null | HTMLDivElement>(null)
+	const shouldAutoScrollRef = useRef<boolean>(true)
+	const seenMessageKeysRef = useRef<Set<string>>(new Set())
 	const [message, setMessage] = useState<message[]>([])
-	const [userData, setUserData] = useContext(ChannelContext)!
+	const [userData] = useContext(ChannelContext)!
 	const [isLoaading, setIsLoading] = useState<boolean>(true)
 	const [multi, setMulti] = useState<number>(0)
 	const msgAreaRef = useRef<HTMLDivElement>(null)
 	const [isFetching, setIsFetching] = useState<boolean>(false)
 	const [userDetails, setUserDetails] = useState<user>(userDetail)
-	const delay = (ms: number) => new Promise(res => setTimeout(res, ms))
+	const userDetailsRef = useRef<user>(userDetail)
 	const [locEncryptionData, setlocEncryptionData, actChannel, setActChannel] =
 		useContext(LocEncryptionContext)!
 	const currData = locEncryptionData.find(data => data.channelId == actChannel)
+	const normalizeTimestamp = (timeStamp?: string) => {
+		if (!timeStamp) return ''
+		const parsed = Date.parse(timeStamp)
+		return Number.isNaN(parsed) ? timeStamp : String(parsed)
+	}
+	const buildMessageKey = (data: {
+		chatId?: string
+		timeStamp?: string
+		message?: string
+		sender?: string
+	}) => {
+		return [
+			data.chatId || '',
+			normalizeTimestamp(data.timeStamp),
+			data.message || '',
+			data.sender || '',
+		].join('|')
+	}
 	useEffect(() => {
 		setUserDetails(userDetail)
-	}, [])
+		userDetailsRef.current = userDetail
+	}, [userDetail])
 
 	useEffect(() => {
-		if (localStorage.getItem('jwt')) {
+		let isActive = true
+		const jwt = localStorage.getItem('jwt')
+		if (jwt && userDetailsRef.current && chatId) {
 			setIsFetching(true)
 			axios
 				.post(
@@ -51,31 +74,39 @@ function Messages({
 					},
 					{
 						headers: {
-							Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+							Authorization: `Bearer ${jwt}`,
 						},
 					}
 				)
-				.then(data => {
-					console.log(userDetails)
-					const resData = data.data
+				.then(async data => {
+					if (!isActive) return
+					const resData = data.data || []
 					if (resData.length === 0) {
 						setIsFetching(false)
 						setIsLoading(false)
+						return
 					}
 					const decryptedMessages: message[] = []
 					for (const x of resData) {
-						const { id, msgs, self, TimeStamp, isRead } = x
-						decryptSymmetric(msgs).then(resMsg => {
-							const dbmsg: message = {
-								id: id,
-								message: resMsg,
-								self: self,
-								timeStamp: TimeStamp,
-								user: userDetails?.name || '',
-								url: userDetails?.url || '',
-								isRead: isRead,
-							}
-							decryptedMessages.push(dbmsg)
+						const { id, msgs, self, TimeStamp, isRead, name, url } = x
+						const resMsg = await decryptSymmetric(msgs)
+						const key = buildMessageKey({
+							chatId: chatId,
+							timeStamp: TimeStamp,
+							message: resMsg,
+							sender: name || (self ? 'self' : ''),
+						})
+						if (seenMessageKeysRef.current.has(key)) continue
+						seenMessageKeysRef.current.add(key)
+						const fallbackUser = userDetailsRef.current
+						decryptedMessages.push({
+							id: id,
+							message: resMsg,
+							self: self,
+							timeStamp: TimeStamp,
+							user: name || fallbackUser?.name || '',
+							url: url || fallbackUser?.url || '',
+							isRead: isRead,
 						})
 					}
 					setMessage(prevMessages =>
@@ -90,46 +121,71 @@ function Messages({
 					setIsLoading(false)
 				})
 				.catch(err => {
+					if (!isActive) return
 					console.log(err)
 					setIsLoading(false)
 				})
 		}
-	}, [])
+
+		return () => {
+			isActive = false
+		}
+	}, [chatId, multi])
 
 	useEffect(() => {
-		const handleMessage = (data: socketMsg) => {
-			if (chatId == data.chatId) {
-				decryptSymmetric(data.msg)
-					.then(decMsg => {
-						let eleFinal = decMsg
-						if (currData) {
-							if (
-								data.jwt == localStorage.getItem('jwt') &&
-								currData.encryptionKey
-							) {
-								return decryptSymmetricKey(decMsg, currData.encryptionKey)
-							} else if (
-								data.jwt != localStorage.getItem('jwt') &&
-								currData.decryptionKey
-							) {
-								return decryptSymmetricKey(decMsg, currData.decryptionKey)
-							}
+		setMessage([])
+		setMulti(0)
+		setIsLoading(true)
+		seenMessageKeysRef.current.clear()
+		shouldAutoScrollRef.current = true
+	}, [chatId])
+
+	useEffect(() => {
+		const handleMessage = (rawData: socketMsg | Record<string, socketMsg>) => {
+			const payload = (rawData as socketMsg).jwt
+				? (rawData as socketMsg)
+				: (Object.values(rawData)[0] as socketMsg | undefined)
+			if (!payload || chatId != payload.chatId) return
+			decryptSymmetric(payload.msg)
+				.then(decMsg => {
+					let eleFinal = decMsg
+					if (currData) {
+						if (
+							payload.jwt == localStorage.getItem('jwt') &&
+							currData.encryptionKey
+						) {
+							return decryptSymmetricKey(decMsg, currData.encryptionKey)
+						} else if (
+							payload.jwt != localStorage.getItem('jwt') &&
+							currData.decryptionKey
+						) {
+							return decryptSymmetricKey(decMsg, currData.decryptionKey)
 						}
-						return eleFinal
+					}
+					return eleFinal
+				})
+				.then(eleFinal => {
+					const key = buildMessageKey({
+						chatId: payload.chatId,
+						timeStamp: payload.timeStamp,
+						message: eleFinal,
+						sender: payload.name || payload.jwt,
 					})
-					.then(eleFinal => {
-						const newMsg: message = {
-							id: data.chatId,
-							message: eleFinal,
-							self: data.jwt == localStorage.getItem('jwt'),
-							url: userDetails?.url || '',
-							user: data.name,
-							timeStamp: data.timeStamp,
-							isRead: false,
-						}
-						setMessage(prev => [...prev, newMsg])
-					})
-			}
+					if (seenMessageKeysRef.current.has(key)) return
+					seenMessageKeysRef.current.add(key)
+					shouldAutoScrollRef.current = true
+					const fallbackUser = userDetailsRef.current
+					const newMsg: message = {
+						id: payload.chatId,
+						message: eleFinal,
+						self: payload.jwt == localStorage.getItem('jwt'),
+						url: fallbackUser?.url || '',
+						user: payload.name,
+						timeStamp: payload.timeStamp,
+						isRead: false,
+					}
+					setMessage(prev => [...prev, newMsg])
+				})
 		}
 
 		socket.on('message', handleMessage)
@@ -137,18 +193,29 @@ function Messages({
 		return () => {
 			socket.off('message', handleMessage)
 		}
-	}, [])
+	}, [socket, chatId, currData, userDetails])
 
 	const handleScroll = () => {
-		if (msgAreaRef.current!.scrollTop === 0) {
-			delay(1000).then(() => {
-				setMulti(multi + 1)
-			})
+		const container = msgAreaRef.current
+		if (!container || isFetching) return
+		const distanceFromBottom =
+			container.scrollHeight - container.scrollTop - container.clientHeight
+		shouldAutoScrollRef.current = distanceFromBottom < 40
+		if (container.scrollTop === 0) {
+			shouldAutoScrollRef.current = false
+			setMulti(prev => prev + 1)
 		}
 	}
 
 	useEffect(() => {
-		messaChaRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' })
+		const container = msgAreaRef.current
+		if (shouldAutoScrollRef.current && container) {
+			container.scrollTo({
+				top: container.scrollHeight,
+				behavior: 'smooth',
+			})
+		}
+		shouldAutoScrollRef.current = true
 	}, [message])
 
 	if (isLoaading || userData == undefined) {
@@ -169,12 +236,12 @@ function Messages({
 					<LoadingSpinner size={100} />
 				</div>
 			)}
-			{message?.map((value, index) => (
-				<div className="mb-5 mt-5" key={index}>
+			{message?.map(value => (
+				<div className="mb-5 mt-5" key={`${value.id}-${value.timeStamp}`}>
 					<MessageElement messageInfo={value} />
-					<div ref={messaChaRef} />
 				</div>
 			))}
+			<div ref={messaChaRef} />
 		</div>
 	)
 }
