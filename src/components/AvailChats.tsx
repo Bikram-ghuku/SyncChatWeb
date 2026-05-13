@@ -71,28 +71,36 @@ function AvailChats({ active }: { active?: string }) {
 			</div>
 		)
 	}
-	socket.on('message', data => {
-		var x = channels.findIndex(user => user.chanId === data.chatId)
-		if (x != -1) {
-			var updateChan: user
-			if (
-				data.jwt != window.localStorage.getItem('jwt') &&
-				active != data.chatId
-			) {
-				updateChan = {
-					...channels[x],
+
+	useEffect(() => {
+		const handleMessage = (data: any) => {
+			setChannels(prevChannels => {
+				const index = prevChannels.findIndex(
+					user => user.chanId === data.chatId
+				)
+				if (index === -1) return prevChannels
+				const isUnread =
+					data.jwt != window.localStorage.getItem('jwt') &&
+					active != data.chatId
+				const updated = {
+					...prevChannels[index],
 					lastMsg: data.msg,
-					noUnread: parseInt(channels[x].noUnread.toString()) + 1,
+					noUnread: isUnread
+						? parseInt(prevChannels[index].noUnread.toString()) + 1
+						: prevChannels[index].noUnread,
 				}
-			} else {
-				updateChan = { ...channels[x], lastMsg: data.msg }
-			}
-			const newChan = [...channels]
-			newChan[x] = updateChan
-			setChannels(newChan)
-			setUserData(newChan)
+				const nextChannels = [...prevChannels]
+				nextChannels[index] = updated
+				setUserData(nextChannels)
+				return nextChannels
+			})
 		}
-	})
+
+		socket.on('message', handleMessage)
+		return () => {
+			socket.off('message', handleMessage)
+		}
+	}, [socket, active])
 	return (
 		<div className="overflow-y-scroll h-[98%] w-full [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pl-5 pr-5 availChats">
 			<style jsx>

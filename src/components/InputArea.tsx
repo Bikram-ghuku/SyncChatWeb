@@ -46,7 +46,7 @@ function InputArea({ chatId }: { chatId: string }) {
 			}
 		}
 		setText('')
-		socket.emit('message', data)
+		socket.send('message', data)
 		textAreaRef.current ? (textAreaRef.current.value = '') : null
 		textAreaRef.current ? (textAreaRef.current.disabled = true) : null
 		delay(500).then(() => {
