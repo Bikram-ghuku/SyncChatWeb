@@ -63,7 +63,14 @@ function Messages({
 	useEffect(() => {
 		let isActive = true
 		const jwt = localStorage.getItem('jwt')
-		if (jwt && userDetailsRef.current && chatId) {
+		if (!jwt || !chatId) {
+			setIsFetching(false)
+			setIsLoading(false)
+			return () => {
+				isActive = false
+			}
+		}
+		if (jwt && chatId) {
 			setIsFetching(true)
 			axios
 				.post(
@@ -218,7 +225,7 @@ function Messages({
 		shouldAutoScrollRef.current = true
 	}, [message])
 
-	if (isLoaading || userData == undefined) {
+	if (isLoaading) {
 		return (
 			<div className="flex flex-col w-full overflow-x-hidden overflow-y-scroll lg:h-[75vh] h-[65vh] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] justify-center items-center">
 				<LoadingSpinner size={400} />

@@ -64,14 +64,6 @@ function AvailChats({ active }: { active?: string }) {
 		}
 	}, [])
 
-	if (isLoad) {
-		return (
-			<div className=" w-full items-center flex justify-center h-full">
-				<LoadingSpinner size={100} />
-			</div>
-		)
-	}
-
 	useEffect(() => {
 		const handleMessage = (data: any) => {
 			setChannels(prevChannels => {
@@ -100,7 +92,15 @@ function AvailChats({ active }: { active?: string }) {
 		return () => {
 			socket.off('message', handleMessage)
 		}
-	}, [socket, active])
+	}, [socket, active, setUserData])
+
+	if (isLoad) {
+		return (
+			<div className=" w-full items-center flex justify-center h-full">
+				<LoadingSpinner size={100} />
+			</div>
+		)
+	}
 	return (
 		<div className="overflow-y-scroll h-[98%] w-full [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pl-5 pr-5 availChats">
 			<style jsx>
