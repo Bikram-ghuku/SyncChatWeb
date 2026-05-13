@@ -70,9 +70,8 @@ The client can also be built from source for individual platforms.
 ```
 
 4. Setup the envrionment
-
-    - Rename the .env.example to .env.local
-    - Fill the required tokens
+   - Rename the .env.example to .env.local
+   - Fill the required tokens
 
 Visit the application at: http://localhost:3000/
 

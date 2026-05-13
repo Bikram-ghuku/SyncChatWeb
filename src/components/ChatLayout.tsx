@@ -65,7 +65,7 @@ function ChatLayout({ chatId }: { chatId: string }) {
 							}
 						}
 					`}</style>
-					<Messages chatId={chatId} userDetail={userData!} />
+					<Messages chatId={chatId} userDetail={userData} />
 				</div>
 				<div className="flex dark:bg-gray-900 w-full bg-[#ffffff] h-16 border-t-2 border-[#5E5E5E33] dark:border-[#303030]">
 					<InputArea chatId={chatId} />

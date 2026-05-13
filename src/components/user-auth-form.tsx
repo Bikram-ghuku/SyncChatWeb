@@ -43,20 +43,18 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
 	}, [])
 
 	const Handle = () => {
-		if(!email || !pswd){
-			if(props.variant == 'register' && !name){
+		if (!email || !pswd) {
+			if (props.variant == 'register' && !name) {
 				toast({
 					title: 'Invalid username or password',
-					description:
-						'username, name, pswd all are required for signup',
+					description: 'username, name, pswd all are required for signup',
 				})
 				setIsLoading(false)
 				return
-			}else if(props.variant == 'login'){
+			} else if (props.variant == 'login') {
 				toast({
 					title: 'Invalid username or password',
-					description:
-						'Username and/or password is empty',
+					description: 'Username and/or password is empty',
 				})
 				setIsLoading(false)
 				return

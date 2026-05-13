@@ -22,18 +22,18 @@ export default function RootLayout({
 		<html lang="en">
 			<body className={inter.className}>
 				<ChannelProvider>
-						<SocketProvider>
-							<LocEncryptionProvider>
-								<ThemeProvider
-									attribute="class"
-									defaultTheme="system"
-									enableSystem
-									disableTransitionOnChange
-								>
-									{children}
-								</ThemeProvider>
-							</LocEncryptionProvider>
-						</SocketProvider>
+					<SocketProvider>
+						<LocEncryptionProvider>
+							<ThemeProvider
+								attribute="class"
+								defaultTheme="system"
+								enableSystem
+								disableTransitionOnChange
+							>
+								{children}
+							</ThemeProvider>
+						</LocEncryptionProvider>
+					</SocketProvider>
 				</ChannelProvider>
 			</body>
 		</html>

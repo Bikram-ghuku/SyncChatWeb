@@ -22,14 +22,14 @@ function GetChats() {
 	const [open, setIsOpen] = useState<boolean>(false)
 	const handleCreateChat = () => {
 		setIsLoading(true)
-		if(email === ''){
+		if (email === '') {
 			setIsLoading(false)
 			setIsOpen(false)
 			toast({
 				title: 'Error creating channel',
 				description: 'Email/userid should not be empty',
 			})
-			return;
+			return
 		}
 		axios
 			.post(

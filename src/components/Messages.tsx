@@ -20,7 +20,7 @@ function Messages({
 	userDetail,
 }: {
 	chatId: string
-	userDetail: user
+	userDetail?: user
 }) {
 	const socket = useContext(socketContext)
 	const messaChaRef = useRef<null | HTMLDivElement>(null)
@@ -32,8 +32,8 @@ function Messages({
 	const [multi, setMulti] = useState<number>(0)
 	const msgAreaRef = useRef<HTMLDivElement>(null)
 	const [isFetching, setIsFetching] = useState<boolean>(false)
-	const [userDetails, setUserDetails] = useState<user>(userDetail)
-	const userDetailsRef = useRef<user>(userDetail)
+	const [userDetails, setUserDetails] = useState<user | undefined>(userDetail)
+	const userDetailsRef = useRef<user | undefined>(userDetail)
 	const [locEncryptionData, setlocEncryptionData, actChannel, setActChannel] =
 		useContext(LocEncryptionContext)!
 	const currData = locEncryptionData.find(data => data.channelId == actChannel)
@@ -58,6 +58,20 @@ function Messages({
 	useEffect(() => {
 		setUserDetails(userDetail)
 		userDetailsRef.current = userDetail
+	}, [userDetail])
+
+	useEffect(() => {
+		if (!userDetail) return
+		setMessage(prev =>
+			prev.map(item => {
+				if (item.self) return item
+				return {
+					...item,
+					user: item.user || userDetail.name,
+					url: item.url || userDetail.url,
+				}
+			})
+		)
 	}, [userDetail])
 
 	useEffect(() => {
@@ -187,7 +201,7 @@ function Messages({
 						message: eleFinal,
 						self: payload.jwt == localStorage.getItem('jwt'),
 						url: fallbackUser?.url || '',
-						user: payload.name,
+						user: payload.name || fallbackUser?.name || '',
 						timeStamp: payload.timeStamp,
 						isRead: false,
 					}
