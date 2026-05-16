@@ -48,13 +48,15 @@ const SocketProvider = (props: { children: React.ReactNode }) => {
 	const listenersRef = useRef<Map<string, Set<SocketHandler>>>(new Map())
 	const [isConnected, setIsConnected] = useState(false)
 	const reconnectTimerRef = useRef<number | null>(null)
+	const shouldReconnectRef = useRef(true)
 
 	useEffect(() => {
 		const url = process.env.NEXT_PUBLIC_SOCKET_URL
 		if (!url) return
 
 		const connect = () => {
-			if (wsRef.current) wsRef.current.close()
+			if (wsRef.current?.readyState === WebSocket.OPEN) return
+			if (wsRef.current?.readyState === WebSocket.CONNECTING) return
 			const socket = new WebSocket(url)
 			wsRef.current = socket
 
@@ -62,8 +64,10 @@ const SocketProvider = (props: { children: React.ReactNode }) => {
 				setIsConnected(true)
 			})
 
-			socket.addEventListener('close', () => {
+			socket.addEventListener('close', event => {
 				setIsConnected(false)
+				if (!shouldReconnectRef.current) return
+				if (event.wasClean) return
 				if (reconnectTimerRef.current) return
 				reconnectTimerRef.current = window.setTimeout(() => {
 					reconnectTimerRef.current = null
@@ -87,13 +91,15 @@ const SocketProvider = (props: { children: React.ReactNode }) => {
 			})
 		}
 
+		shouldReconnectRef.current = true
 		connect()
 		return () => {
+			shouldReconnectRef.current = false
 			if (reconnectTimerRef.current) {
 				window.clearTimeout(reconnectTimerRef.current)
 				reconnectTimerRef.current = null
 			}
-			wsRef.current?.close()
+			wsRef.current?.close(1000, 'Client cleanup')
 			wsRef.current = null
 		}
 	}, [])
